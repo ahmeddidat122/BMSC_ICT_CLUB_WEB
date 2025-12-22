@@ -38,12 +38,23 @@ cd bmsc-ict-club-website
 npm install
 ```
 
-3. Start the development server:
+### Run locally
+
+1. Start development server:
 ```bash
 npm run dev
 ```
+- The dev server uses the Vite config port 3000 and will open the app in your browser (http://localhost:3000).
 
-4. Open your browser and navigate to `http://localhost:3000`
+2. Build for production:
+```bash
+npm run build
+```
+
+3. Preview production build locally:
+```bash
+npm run preview
+```
 
 ## Available Scripts
 

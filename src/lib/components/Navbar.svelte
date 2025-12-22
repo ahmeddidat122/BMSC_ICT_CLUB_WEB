@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	
+
 	let mobileMenuOpen = false;
 	let activeLink = 'Home';
 

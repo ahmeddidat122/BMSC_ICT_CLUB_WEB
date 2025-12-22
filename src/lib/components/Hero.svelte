@@ -22,9 +22,9 @@
 				Join us to explore cutting-edge technologies, collaborate on innovative projects, and build a future driven by creativity and problem-solving.
 			</p>
 			<div class="flex flex-col lg:flex-row gap-4">
-				<a href="#" class="bg-blue-600 text-white py-3 px-6 rounded-xl font-semibold border-2 border-blue-600 hover:bg-transparent hover:text-blue-400 transition duration-300">
+				<button class="bg-blue-600 text-white py-3 px-6 rounded-xl font-semibold border-2 border-blue-600 hover:bg-transparent hover:text-blue-400 transition duration-300">
 					Learn More
-				</a>
+				</button>
 				<a href="https://www.facebook.com/bmscictclub.bogura" target="_blank" class="border-2 border-blue-600 text-blue-400 py-3 px-6 rounded-xl font-semibold hover:bg-blue-600 hover:text-white transition duration-300 flex items-center justify-center gap-3">
 					Join Us
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" class="w-5 h-5">
