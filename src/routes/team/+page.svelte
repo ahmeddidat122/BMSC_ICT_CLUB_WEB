@@ -11,7 +11,7 @@
 <div class = "min-h-screen">
     <div class = "mx-5 mt-4 bg-gradient-to-t from-blue-950 via-black to-blue-950 backdrop-blur-sm">
         <Navbar />
-        <div class = "max-w-6xl mx-auuto px-6 py16">
+        <div class = "max-w-6xl mx-auto px-6 py-16">
             <h1 class = "text-white text-4xl font-bold mb-8">Our Team</h1>
             
             <div class = "">
@@ -19,4 +19,6 @@
             </div>
         </div>
     </div>
+
+    <Footer />
 </div>

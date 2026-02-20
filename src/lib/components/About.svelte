@@ -37,12 +37,12 @@
 						</p>
 						
 						<div class="flex flex-wrap gap-4">
-							<button class="inline-flex items-center bg-blue-500 text-white py-3 px-8 rounded-xl font-semibold hover:bg-blue-400 transition duration-300 group">
+							<a href="/about" class="inline-flex items-center bg-blue-500 text-white py-3 px-8 rounded-xl font-semibold hover:bg-blue-400 transition duration-300 group">
 								Read More
 								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
 								</svg>
-							</button>
+							</a>
 							<div class="flex items-center gap-8 ml-4">
 								<div class="text-center">
 									<h4 class="text-3xl font-bold text-blue-400">50+</h4>

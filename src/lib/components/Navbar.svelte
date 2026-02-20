@@ -1,16 +1,15 @@
 <script>
 	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 
 	let mobileMenuOpen = false;
-	let activeLink = 'Home';
 
 	function toggleMobileMenu() {
 		mobileMenuOpen = !mobileMenuOpen;
 	}
 
-	function setActiveLink(link) {
-		activeLink = link;
-		mobileMenuOpen = false; // Close mobile menu when link is clicked
+	function closeMobileMenu() {
+		mobileMenuOpen = false;
 	}
 
 	// Close mobile menu on window resize
@@ -20,15 +19,21 @@
 				mobileMenuOpen = false;
 			}
 		}
-		
+
 		window.addEventListener('resize', handleResize);
-		
+
 		return () => {
 			window.removeEventListener('resize', handleResize);
 		};
 	});
 
-	const navLinks = ['Home', 'About', 'Team', 'Events', 'Contact'];
+	const navLinks = [
+		{ name: 'Home', path: '/' },
+		{ name: 'About', path: '/about' },
+		{ name: 'Team', path: '/team' },
+		{ name: 'Events', path: '/events' },
+		{ name: 'Contact', path: '/contact' }
+	];
 </script>
 
 <!-- Navbar Container -->
@@ -36,15 +41,15 @@
 	<!-- Navbar Boxes -->
 	<div class="flex justify-between">
 		<!-- Left Box: Logo and Name -->
-		<div class="bg-white/90 backdrop-blur-md shadow-lg py-2 border-2 border-gray-200 rounded-2xl flex items-center px-6 whitespace-nowrap min-w-[250px] hover:border-blue-400 transition-all duration-300">
+		<a href="/" class="bg-white/90 backdrop-blur-md shadow-lg py-2 border-2 border-gray-200 rounded-2xl flex items-center px-6 whitespace-nowrap min-w-[250px] hover:border-blue-400 transition-all duration-300">
 			<img src="/images/club_logo.png" alt="Logo" class="h-10 w-10 mr-3 hover:rotate-12 transition-transform duration-300">
 			<span class="font-bold text-blue-900 text-xl mr-2">BMSC ICT Club</span>
-		</div>
+		</a>
 		<!-- Right Box: Links -->
-		<div class="bg-white/90 backdrop-blur-md shadow-lg py-2 border-2 border-gray-200 rounded-2xl flex items-center px-6 hover:border-blue-400 transition-all duration-300">
+		<div class="bg-white/90 backdrop-blur-md shadow-lg border-2 border-gray-200 rounded-2xl flex items-center hover:border-blue-400 transition-all duration-300">
 			<!-- Hamburger Menu for Mobile and Tablet -->
-			<button 
-				class="lg:hidden text-blue-900 focus:outline-none hover:text-blue-600 transition-colors" 
+			<button
+				class="lg:hidden text-blue-900 focus:outline-none hover:text-blue-600 transition-colors p-4"
 				on:click={toggleMobileMenu}
 			>
 				<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -52,14 +57,14 @@
 				</svg>
 			</button>
 			<!-- Navigation Links - Hidden on mobile -->
-			<div class="hidden lg:flex items-center space-x-4">
+			<div class="hidden lg:flex items-stretch">
 				{#each navLinks as link}
-					<button 
-						class="py-2 px-6 font-semibold text-lg rounded-xl transition-all duration-300 {activeLink === link ? 'text-white bg-blue-600 hover:bg-blue-700 hover:scale-105 transform' : 'text-blue-900 hover:text-blue-600 hover:bg-blue-50'}"
-						on:click={() => setActiveLink(link)}
+					<a
+						href={link.path}
+						class="flex items-center py-3 px-6 font-semibold text-lg transition-all duration-300 {$page.url.pathname === link.path ? 'text-white bg-blue-600 hover:bg-blue-700 first:rounded-l-2xl last:rounded-r-2xl' : 'text-blue-900 hover:text-blue-600 hover:bg-blue-50 first:rounded-l-2xl last:rounded-r-2xl'}"
 					>
-						{link}
-					</button>
+						{link.name}
+					</a>
 				{/each}
 			</div>
 		</div>
@@ -68,12 +73,13 @@
 	<div class="lg:hidden">
 		<div class="mt-4 bg-white/90 backdrop-blur-md rounded-xl border-2 border-gray-200 shadow-lg py-4 px-6 space-y-3 {mobileMenuOpen ? 'block' : 'hidden'}">
 			{#each navLinks as link}
-				<button 
-					class="block w-full text-left py-2 px-4 font-semibold text-lg rounded-xl transition-colors {activeLink === link ? 'text-white bg-blue-600 hover:bg-blue-700' : 'text-blue-900 hover:text-blue-600 hover:bg-blue-50'}"
-					on:click={() => setActiveLink(link)}
+				<a
+					href={link.path}
+					class="block w-full text-left py-2 px-4 font-semibold text-lg rounded-xl transition-colors {$page.url.pathname === link.path ? 'text-white bg-blue-600 hover:bg-blue-700' : 'text-blue-900 hover:text-blue-600 hover:bg-blue-50'}"
+					on:click={closeMobileMenu}
 				>
-					{link}
-				</button>
+					{link.name}
+				</a>
 			{/each}
 		</div>
 	</div>

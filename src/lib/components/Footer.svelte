@@ -49,11 +49,11 @@
 				<div>
 					<h3 class="text-lg font-semibold text-blue-400 mb-4">Quick Links</h3>
 					<ul class="space-y-3">
-						<li><button class="text-gray-300 hover:text-blue-400 transition-colors">Home</button></li>
-						<li><button class="text-gray-300 hover:text-blue-400 transition-colors">About Us</button></li>
-						<li><button class="text-gray-300 hover:text-blue-400 transition-colors">Events</button></li>
-						<li><button class="text-gray-300 hover:text-blue-400 transition-colors">Team</button></li>
-						<li><button class="text-gray-300 hover:text-blue-400 transition-colors">Contact</button></li>
+						<li><a href="/" class="text-gray-300 hover:text-blue-400 transition-colors">Home</a></li>
+						<li><a href="/about" class="text-gray-300 hover:text-blue-400 transition-colors">About Us</a></li>
+						<li><a href="/events" class="text-gray-300 hover:text-blue-400 transition-colors">Events</a></li>
+						<li><a href="/team" class="text-gray-300 hover:text-blue-400 transition-colors">Team</a></li>
+						<li><a href="/contact" class="text-gray-300 hover:text-blue-400 transition-colors">Contact</a></li>
 					</ul>
 				</div>
 
