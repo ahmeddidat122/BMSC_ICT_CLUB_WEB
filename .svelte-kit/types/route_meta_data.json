@@ -1,7 +1,15 @@
 {
 	"/": [],
-	"/about": [],
+	"/admin": [],
+	"/community": [],
+	"/community/[id]": [],
 	"/contact": [],
-	"/events": [],
+	"/courses": [],
+	"/dashboard": [],
+	"/login": [],
+	"/notices": [],
+	"/profile": [],
+	"/profile/[id]": [],
+	"/projects": [],
 	"/team": []
 }

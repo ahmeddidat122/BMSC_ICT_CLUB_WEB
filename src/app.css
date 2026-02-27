@@ -1,3 +1,304 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ========================================
+   BMSC ICT Club — Design System
+   ======================================== */
+
+@layer base {
+    :root {
+        --color-dark: #0a0a1a;
+        --color-dark-50: #1a1a2e;
+        --color-primary: #ceb28d;
+        --color-primary-light: #e6d3af;
+        --color-secondary: #d4af37;
+        --color-secondary-light: #ffc140;
+        --glass-bg: rgba(255, 255, 255, 0.03);
+        --glass-border: rgba(255, 255, 255, 0.08);
+        --glass-bg-hover: rgba(255, 255, 255, 0.06);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--color-dark);
+        background-image: linear-gradient(to bottom, rgba(10, 10, 26, 0.8), rgba(10, 10, 26, 0.95)), url('/images/background.png');
+        background-size: cover;
+        background-position: center;
+        background-attachment: scroll;
+        color: #e2e8f0;
+        overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: 'Space Grotesk', sans-serif;
+    }
+
+    ::selection {
+        background-color: rgba(206, 178, 141, 0.3);
+        color: #fff;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--color-dark);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: rgba(206, 178, 141, 0.3);
+        border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgba(206, 178, 141, 0.5);
+    }
+}
+
+@layer components {
+
+    /* Glassmorphism */
+    .glass {
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid var(--glass-border);
+    }
+
+    .glass-strong {
+        background: rgba(255, 255, 255, 0.06);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .glass-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid var(--glass-border);
+        border-radius: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .glass-card:hover {
+        background: var(--glass-bg-hover);
+        border-color: rgba(206, 178, 141, 0.3);
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(206, 178, 141, 0.1);
+    }
+
+    /* Glow effects */
+    .glow-primary {
+        box-shadow: 0 0 20px rgba(206, 178, 141, 0.15), 0 0 60px rgba(206, 178, 141, 0.05);
+    }
+
+    .glow-secondary {
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.15), 0 0 60px rgba(212, 175, 55, 0.05);
+    }
+
+    .text-gradient {
+        background: linear-gradient(135deg, #ceb28d, #d4af37);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .text-gradient-blue {
+        background: linear-gradient(135deg, #e6d3af, #ceb28d);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .bg-gradient-radial {
+        background: radial-gradient(ellipse at center, rgba(206, 178, 141, 0.08) 0%, transparent 70%);
+    }
+
+    .bg-gradient-mesh {
+        background:
+            radial-gradient(at 20% 20%, rgba(206, 178, 141, 0.06) 0%, transparent 50%),
+            radial-gradient(at 80% 80%, rgba(212, 175, 55, 0.06) 0%, transparent 50%),
+            radial-gradient(at 50% 50%, rgba(230, 211, 175, 0.04) 0%, transparent 50%);
+    }
+
+    /* Button styles */
+    .btn-primary {
+        @apply px-8 py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-xl hover:from-primary-400 hover:to-primary-500 transition-all duration-300 shadow-lg shadow-primary-500/20 hover:shadow-primary-500/40 hover:-translate-y-0.5;
+    }
+
+    .btn-outline {
+        @apply px-8 py-3 border-2 border-primary-500/50 text-primary-400 font-semibold rounded-xl hover:bg-primary-500/10 hover:border-primary-400 transition-all duration-300 hover:-translate-y-0.5;
+    }
+
+    .btn-ghost {
+        @apply px-6 py-2.5 text-gray-300 font-medium rounded-lg hover:bg-white/5 hover:text-white transition-all duration-300;
+    }
+
+    /* Section spacing */
+    .section-padding {
+        @apply py-20 lg:py-32 px-6 lg:px-8;
+    }
+
+    .section-title {
+        @apply text-4xl lg:text-5xl font-bold font-heading text-white mb-4;
+    }
+
+    .section-subtitle {
+        @apply text-lg lg:text-xl text-gray-400 max-w-2xl;
+    }
+
+    /* Scroll reveal animation classes */
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .reveal-left {
+        opacity: 0;
+        transform: translateX(-30px);
+        transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-left.visible {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .reveal-right {
+        opacity: 0;
+        transform: translateX(30px);
+        transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-right.visible {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .reveal-scale {
+        opacity: 0;
+        transform: scale(0.95);
+        transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-scale.visible {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    /* Stagger children animations */
+    .stagger-children>* {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .stagger-children.visible>*:nth-child(1) {
+        transition-delay: 0.1s;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .stagger-children.visible>*:nth-child(2) {
+        transition-delay: 0.2s;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .stagger-children.visible>*:nth-child(3) {
+        transition-delay: 0.3s;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .stagger-children.visible>*:nth-child(4) {
+        transition-delay: 0.4s;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .stagger-children.visible>*:nth-child(5) {
+        transition-delay: 0.5s;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .stagger-children.visible>*:nth-child(6) {
+        transition-delay: 0.6s;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .stagger-children.visible>*:nth-child(7) {
+        transition-delay: 0.7s;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .stagger-children.visible>*:nth-child(8) {
+        transition-delay: 0.8s;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Grid pattern overlay */
+    .grid-pattern {
+        background-image:
+            linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        background-size: 60px 60px;
+    }
+}
+
+@layer utilities {
+    .delay-100 {
+        transition-delay: 0.1s;
+    }
+
+    .delay-200 {
+        transition-delay: 0.2s;
+    }
+
+    .delay-300 {
+        transition-delay: 0.3s;
+    }
+
+    .delay-400 {
+        transition-delay: 0.4s;
+    }
+
+    .delay-500 {
+        transition-delay: 0.5s;
+    }
+
+    .delay-600 {
+        transition-delay: 0.6s;
+    }
+}

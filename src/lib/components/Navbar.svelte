@@ -1,8 +1,10 @@
 <script>
-	import { onMount } from 'svelte';
-	import { page } from '$app/stores';
+	import { onMount } from "svelte";
+	import { page } from "$app/stores";
+	import { authStore } from "$lib/stores";
 
 	let mobileMenuOpen = false;
+	let scrolled = false;
 
 	function toggleMobileMenu() {
 		mobileMenuOpen = !mobileMenuOpen;
@@ -12,75 +14,198 @@
 		mobileMenuOpen = false;
 	}
 
-	// Close mobile menu on window resize
 	onMount(() => {
+		function handleScroll() {
+			scrolled = window.scrollY > 20;
+		}
+
 		function handleResize() {
 			if (window.innerWidth >= 1024) {
 				mobileMenuOpen = false;
 			}
 		}
 
-		window.addEventListener('resize', handleResize);
+		window.addEventListener("scroll", handleScroll);
+		window.addEventListener("resize", handleResize);
+		handleScroll();
 
 		return () => {
-			window.removeEventListener('resize', handleResize);
+			window.removeEventListener("scroll", handleScroll);
+			window.removeEventListener("resize", handleResize);
 		};
 	});
 
 	const navLinks = [
-		{ name: 'Home', path: '/' },
-		{ name: 'About', path: '/about' },
-		{ name: 'Team', path: '/team' },
-		{ name: 'Events', path: '/events' },
-		{ name: 'Contact', path: '/contact' }
+		{ name: "Home", path: "/" },
+		{ name: "Courses", path: "/courses" },
+		{ name: "Team", path: "/team" },
+		{ name: "Projects", path: "/projects" },
+		{ name: "Community", path: "/community" },
+		{ name: "Notices", path: "/notices" },
+		{ name: "Contact", path: "/contact" },
 	];
 </script>
 
-<!-- Navbar Container -->
-<div class="mx-6 pt-4 z-50" id="navbar">
-	<!-- Navbar Boxes -->
-	<div class="flex justify-between">
-		<!-- Left Box: Logo and Name -->
-		<a href="/" class="bg-white/90 backdrop-blur-md shadow-lg py-2 border-2 border-gray-200 rounded-2xl flex items-center px-6 whitespace-nowrap min-w-[250px] hover:border-blue-400 transition-all duration-300">
-			<img src="/images/club_logo.png" alt="Logo" class="h-10 w-10 mr-3 hover:rotate-12 transition-transform duration-300">
-			<span class="font-bold text-blue-900 text-xl mr-2">BMSC ICT Club</span>
-		</a>
-		<!-- Right Box: Links -->
-		<div class="bg-white/90 backdrop-blur-md shadow-lg border-2 border-gray-200 rounded-2xl flex items-center hover:border-blue-400 transition-all duration-300">
-			<!-- Hamburger Menu for Mobile and Tablet -->
-			<button
-				class="lg:hidden text-blue-900 focus:outline-none hover:text-blue-600 transition-colors p-4"
-				on:click={toggleMobileMenu}
+<!-- Floating Navbar -->
+<nav
+	class="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+	class:scrolled
+>
+	<div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+		<div
+			class="navbar-inner flex items-center justify-between h-16 lg:h-18 mt-3 rounded-2xl px-5 transition-all duration-500"
+			class:glass-strong={scrolled}
+			class:bg-transparent={!scrolled}
+		>
+			<!-- Logo -->
+			<a
+				href="/"
+				class="flex items-center gap-3 group"
+				on:click={closeMobileMenu}
 			>
-				<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-				</svg>
-			</button>
-			<!-- Navigation Links - Hidden on mobile -->
-			<div class="hidden lg:flex items-stretch">
+				<img
+					src="/images/club_logo.png"
+					alt="BMSC ICT Club Logo"
+					class="h-9 w-9 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110"
+				/>
+				<span class="font-heading font-bold text-lg text-white">
+					BMSC <span class="text-gradient">ICT Club</span>
+				</span>
+			</a>
+
+			<!-- Desktop Links -->
+			<div class="hidden lg:flex items-center gap-1">
 				{#each navLinks as link}
 					<a
 						href={link.path}
-						class="flex items-center py-3 px-6 font-semibold text-lg transition-all duration-300 {$page.url.pathname === link.path ? 'text-white bg-blue-600 hover:bg-blue-700 first:rounded-l-2xl last:rounded-r-2xl' : 'text-blue-900 hover:text-blue-600 hover:bg-blue-50 first:rounded-l-2xl last:rounded-r-2xl'}"
+						class="relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300
+							{$page.url.pathname === link.path
+							? 'text-primary-400 bg-primary-500/10'
+							: 'text-gray-300 hover:text-white hover:bg-white/5'}"
 					>
 						{link.name}
+						{#if $page.url.pathname === link.path}
+							<span
+								class="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-primary-400 rounded-full"
+							></span>
+						{/if}
 					</a>
 				{/each}
+
+				<!-- Login / Profile Button -->
+				{#if $authStore.isAuthenticated}
+					<a
+						href={$authStore.isAdmin
+							? "/admin"
+							: `/profile/${encodeURIComponent($authStore.user?.name || "")}`}
+						class="ml-3 px-5 py-2 text-sm font-semibold rounded-xl transition-all duration-300
+							bg-white/10 hover:bg-white/20 text-white border border-white/10
+							hover:shadow-lg hover:-translate-y-0.5"
+					>
+						{$authStore.isAdmin ? "Dashboard" : "Profile"}
+					</a>
+				{:else}
+					<a
+						href="/login"
+						class="ml-3 px-5 py-2 text-sm font-semibold rounded-xl transition-all duration-300
+							bg-gradient-to-r from-primary-500 to-secondary-500 text-white
+							hover:shadow-lg hover:shadow-primary-500/25 hover:-translate-y-0.5"
+					>
+						Login
+					</a>
+				{/if}
 			</div>
+
+			<!-- Mobile Menu Button -->
+			<button
+				class="lg:hidden p-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/10 transition-all"
+				on:click={toggleMobileMenu}
+				aria-label="Toggle menu"
+			>
+				{#if mobileMenuOpen}
+					<svg
+						class="w-6 h-6"
+						fill="none"
+						stroke="currentColor"
+						viewBox="0 0 24 24"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M6 18L18 6M6 6l12 12"
+						/>
+					</svg>
+				{:else}
+					<svg
+						class="w-6 h-6"
+						fill="none"
+						stroke="currentColor"
+						viewBox="0 0 24 24"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M4 6h16M4 12h16M4 18h16"
+						/>
+					</svg>
+				{/if}
+			</button>
 		</div>
+
+		<!-- Mobile Menu -->
+		{#if mobileMenuOpen}
+			<div
+				class="lg:hidden mt-2 glass-strong rounded-2xl p-4 animate-slide-down"
+			>
+				<div class="flex flex-col gap-1">
+					{#each navLinks as link}
+						<a
+							href={link.path}
+							class="px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300
+								{$page.url.pathname === link.path
+								? 'text-primary-400 bg-primary-500/10'
+								: 'text-gray-300 hover:text-white hover:bg-white/5'}"
+							on:click={closeMobileMenu}
+						>
+							{link.name}
+						</a>
+					{/each}
+					{#if $authStore.isAuthenticated}
+						<a
+							href={$authStore.isAdmin
+								? "/admin"
+								: `/profile/${encodeURIComponent($authStore.user?.name || "")}`}
+							class="mt-2 px-4 py-3 text-sm font-semibold rounded-xl text-center
+								bg-white/10 text-white border border-white/10
+								hover:bg-white/20 transition-all"
+							on:click={closeMobileMenu}
+						>
+							{$authStore.isAdmin ? "Dashboard" : "Profile"}
+						</a>
+					{:else}
+						<a
+							href="/login"
+							class="mt-2 px-4 py-3 text-sm font-semibold rounded-xl text-center
+								bg-gradient-to-r from-primary-500 to-secondary-500 text-white
+								hover:shadow-lg hover:shadow-primary-500/25 transition-all"
+							on:click={closeMobileMenu}
+						>
+							Login
+						</a>
+					{/if}
+				</div>
+			</div>
+		{/if}
 	</div>
-	<!-- Mobile Menu -->
-	<div class="lg:hidden">
-		<div class="mt-4 bg-white/90 backdrop-blur-md rounded-xl border-2 border-gray-200 shadow-lg py-4 px-6 space-y-3 {mobileMenuOpen ? 'block' : 'hidden'}">
-			{#each navLinks as link}
-				<a
-					href={link.path}
-					class="block w-full text-left py-2 px-4 font-semibold text-lg rounded-xl transition-colors {$page.url.pathname === link.path ? 'text-white bg-blue-600 hover:bg-blue-700' : 'text-blue-900 hover:text-blue-600 hover:bg-blue-50'}"
-					on:click={closeMobileMenu}
-				>
-					{link.name}
-				</a>
-			{/each}
-		</div>
-	</div>
-</div>
+</nav>
+
+<!-- Spacer to prevent content jumping under fixed nav -->
+<div class="h-20"></div>
+
+<style>
+	.scrolled .navbar-inner {
+		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+	}
+</style>

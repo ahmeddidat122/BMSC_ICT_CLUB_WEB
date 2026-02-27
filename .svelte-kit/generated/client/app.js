@@ -7,17 +7,33 @@ export const nodes = [
 	() => import('./nodes/3'),
 	() => import('./nodes/4'),
 	() => import('./nodes/5'),
-	() => import('./nodes/6')
+	() => import('./nodes/6'),
+	() => import('./nodes/7'),
+	() => import('./nodes/8'),
+	() => import('./nodes/9'),
+	() => import('./nodes/10'),
+	() => import('./nodes/11'),
+	() => import('./nodes/12'),
+	() => import('./nodes/13'),
+	() => import('./nodes/14')
 ];
 
 export const server_loads = [];
 
 export const dictionary = {
 		"/": [2],
-		"/about": [3],
-		"/contact": [4],
-		"/events": [5],
-		"/team": [6]
+		"/admin": [3],
+		"/community": [4],
+		"/community/[id]": [5],
+		"/contact": [6],
+		"/courses": [7],
+		"/dashboard": [8],
+		"/login": [9],
+		"/notices": [10],
+		"/profile": [11],
+		"/profile/[id]": [12],
+		"/projects": [13],
+		"/team": [14]
 	};
 
 export const hooks = {
@@ -28,6 +44,7 @@ export const hooks = {
 };
 
 export const decoders = Object.fromEntries(Object.entries(hooks.transport).map(([k, v]) => [k, v.decode]));
+export const encoders = Object.fromEntries(Object.entries(hooks.transport).map(([k, v]) => [k, v.encode]));
 
 export const hash = false;
 
