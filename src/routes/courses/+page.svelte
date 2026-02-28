@@ -320,14 +320,12 @@
 							</div>
 							<a
 								href={$authStore.isAuthenticated
-									? `/profile/${encodeURIComponent($authStore.user?.name || "")}`
+									? `/courses/${selectedCourse.id}`
 									: "/login"}
 								class="btn-primary w-full sm:w-auto text-center"
 								on:click={closeModal}
 							>
-								{$authStore.isAuthenticated
-									? "Go to Profile"
-									: "Enroll Now"}
+								Enroll
 							</a>
 						</div>
 					</div>

@@ -26,3 +26,12 @@ Thumbs.db
 *.swp
 *.swo
 
+
+/src/generated/prisma
+
+# SQLite
+*.db
+*.db-journal
+dev.db
+prisma/dev.db
+/prisma/dev.db

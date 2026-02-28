@@ -95,9 +95,7 @@
 				<!-- Login / Profile Button -->
 				{#if $authStore.isAuthenticated}
 					<a
-						href={$authStore.isAdmin
-							? "/admin"
-							: `/profile/${encodeURIComponent($authStore.user?.name || "")}`}
+						href={$authStore.isAdmin ? "/admin" : "/dashboard"}
 						class="ml-3 px-5 py-2 text-sm font-semibold rounded-xl transition-all duration-300
 							bg-white/10 hover:bg-white/20 text-white border border-white/10
 							hover:shadow-lg hover:-translate-y-0.5"
@@ -174,9 +172,7 @@
 					{/each}
 					{#if $authStore.isAuthenticated}
 						<a
-							href={$authStore.isAdmin
-								? "/admin"
-								: `/profile/${encodeURIComponent($authStore.user?.name || "")}`}
+							href={$authStore.isAdmin ? "/admin" : "/dashboard"}
 							class="mt-2 px-4 py-3 text-sm font-semibold rounded-xl text-center
 								bg-white/10 text-white border border-white/10
 								hover:bg-white/20 transition-all"

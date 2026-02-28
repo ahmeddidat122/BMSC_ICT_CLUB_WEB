@@ -111,7 +111,14 @@
 	class="relative min-h-screen flex items-center overflow-hidden -mt-20 pt-20"
 >
 	<!-- Background layers -->
-	<div class="absolute inset-0 bg-gradient-mesh"></div>
+	<!-- Background layers -->
+	<div class="absolute inset-0 z-[-1] bg-dark-900">
+		<div
+			class="absolute inset-0 bg-[url('/images/circuit-bg.jpg')] bg-cover bg-center bg-no-repeat blur-[10px] scale-105 opacity-80"
+		></div>
+		<div class="absolute inset-0 bg-dark-900/60"></div>
+	</div>
+	<div class="absolute inset-0 bg-gradient-mesh opacity-50"></div>
 	<div class="absolute inset-0 grid-pattern"></div>
 	<ParticleBackground count={25} color="mixed" />
 
