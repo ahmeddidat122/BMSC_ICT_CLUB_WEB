@@ -66,9 +66,11 @@
 				<img
 					src="/images/club_logo.png"
 					alt="BMSC ICT Club Logo"
-					class="h-9 w-9 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110"
+					class="h-11 w-11 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110"
 				/>
-				<span class="font-heading font-bold text-lg text-white">
+				<span
+					class="font-heading font-bold text-xl lg:text-2xl text-white"
+				>
 					BMSC <span class="text-gradient">ICT Club</span>
 				</span>
 			</a>
@@ -95,7 +97,7 @@
 				<!-- Login / Profile Button -->
 				{#if $authStore.isAuthenticated}
 					<a
-						href={$authStore.isAdmin ? "/admin" : "/dashboard"}
+						href="/dashboard"
 						class="ml-3 px-5 py-2 text-sm font-semibold rounded-xl transition-all duration-300
 							bg-white/10 hover:bg-white/20 text-white border border-white/10
 							hover:shadow-lg hover:-translate-y-0.5"
@@ -172,7 +174,7 @@
 					{/each}
 					{#if $authStore.isAuthenticated}
 						<a
-							href={$authStore.isAdmin ? "/admin" : "/dashboard"}
+							href="/dashboard"
 							class="mt-2 px-4 py-3 text-sm font-semibold rounded-xl text-center
 								bg-white/10 text-white border border-white/10
 								hover:bg-white/20 transition-all"
@@ -201,6 +203,9 @@
 <div class="h-20"></div>
 
 <style>
+	.navbar-inner {
+		border: 1px solid transparent;
+	}
 	.scrolled .navbar-inner {
 		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 	}

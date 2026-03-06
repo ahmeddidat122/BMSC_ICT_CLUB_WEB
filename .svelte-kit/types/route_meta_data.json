@@ -1,15 +1,85 @@
 {
-	"/": [],
-	"/admin": [],
-	"/community": [],
-	"/community/[id]": [],
-	"/contact": [],
-	"/courses": [],
-	"/dashboard": [],
-	"/login": [],
-	"/notices": [],
-	"/profile": [],
-	"/profile/[id]": [],
-	"/projects": [],
-	"/team": []
+	"/": [
+		"src/routes/+layout.js",
+		"src/routes/+layout.server.js",
+		"src/routes/+layout.js",
+		"src/routes/+layout.server.js"
+	],
+	"/api/courses": [
+		"src/routes/api/courses/+server.js"
+	],
+	"/api/courses/[id]/progress": [
+		"src/routes/api/courses/[id]/progress/+server.js"
+	],
+	"/api/notices": [
+		"src/routes/api/notices/+server.js"
+	],
+	"/api/profile": [
+		"src/routes/api/profile/+server.js"
+	],
+	"/api/projects": [
+		"src/routes/api/projects/+server.js"
+	],
+	"/api/team": [
+		"src/routes/api/team/+server.js"
+	],
+	"/api/users": [
+		"src/routes/api/users/+server.js"
+	],
+	"/auth/callback": [
+		"src/routes/auth/callback/+server.js"
+	],
+	"/community": [
+		"src/routes/+layout.js",
+		"src/routes/+layout.server.js"
+	],
+	"/community/[id]": [
+		"src/routes/+layout.js",
+		"src/routes/+layout.server.js"
+	],
+	"/contact": [
+		"src/routes/+layout.js",
+		"src/routes/+layout.server.js"
+	],
+	"/courses": [
+		"src/routes/+layout.js",
+		"src/routes/+layout.server.js"
+	],
+	"/courses/[id]": [
+		"src/routes/+layout.js",
+		"src/routes/+layout.server.js"
+	],
+	"/dashboard": [
+		"src/routes/dashboard/+page.server.js",
+		"src/routes/+layout.js",
+		"src/routes/+layout.server.js"
+	],
+	"/login": [
+		"src/routes/+layout.js",
+		"src/routes/+layout.server.js"
+	],
+	"/notices": [
+		"src/routes/+layout.js",
+		"src/routes/+layout.server.js"
+	],
+	"/notices/[id]": [
+		"src/routes/+layout.js",
+		"src/routes/+layout.server.js"
+	],
+	"/profile": [
+		"src/routes/+layout.js",
+		"src/routes/+layout.server.js"
+	],
+	"/profile/[id]": [
+		"src/routes/+layout.js",
+		"src/routes/+layout.server.js"
+	],
+	"/projects": [
+		"src/routes/+layout.js",
+		"src/routes/+layout.server.js"
+	],
+	"/team": [
+		"src/routes/+layout.js",
+		"src/routes/+layout.server.js"
+	]
 }

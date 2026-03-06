@@ -38,6 +38,8 @@
  * The above values will be the same _even if_ different values for `ENVIRONMENT` or `PUBLIC_BASE_URL` are set at runtime, as they are statically replaced in your code with their build time values.
  */
 declare module '$env/static/private' {
+	export const DATABASE_URL: string;
+	export const DIRECT_URL: string;
 	export const SHELL: string;
 	export const npm_command: string;
 	export const npm_config_userconfig: string;
@@ -48,7 +50,6 @@ declare module '$env/static/private' {
 	export const npm_config_cache: string;
 	export const XDG_SESSION_PATH: string;
 	export const XDG_MENU_PREFIX: string;
-	export const TERM_PROGRAM_VERSION: string;
 	export const WLR_RENDERER_ALLOW_SOFTWARE: string;
 	export const XDG_BACKEND: string;
 	export const NODE: string;
@@ -61,24 +62,22 @@ declare module '$env/static/private' {
 	export const npm_config_local_prefix: string;
 	export const DESKTOP_SESSION: string;
 	export const LC_MONETARY: string;
+	export const KITTY_PID: string;
 	export const HL_INITIAL_WORKSPACE_TOKEN: string;
-	export const NO_AT_BRIDGE: string;
 	export const npm_config_globalconfig: string;
 	export const XCURSOR_SIZE: string;
-	export const ANTIGRAVITY_CLI_ALIAS: string;
 	export const EDITOR: string;
 	export const XDG_SEAT: string;
 	export const PWD: string;
-	export const XDG_SESSION_DESKTOP: string;
 	export const LOGNAME: string;
+	export const XDG_SESSION_DESKTOP: string;
 	export const QT_QPA_PLATFORMTHEME: string;
 	export const XDG_SESSION_TYPE: string;
 	export const npm_config_init_module: string;
 	export const SYSTEMD_EXEC_PID: string;
-	export const VSCODE_GIT_ASKPASS_NODE: string;
+	export const KITTY_PUBLIC_KEY: string;
 	export const TERMINAL: string;
 	export const MOTD_SHOWN: string;
-	export const VSCODE_INJECTION: string;
 	export const HOME: string;
 	export const LANG: string;
 	export const LC_PAPER: string;
@@ -88,28 +87,25 @@ declare module '$env/static/private' {
 	export const MEMORY_PRESSURE_WATCH: string;
 	export const WAYLAND_DISPLAY: string;
 	export const VIRTUAL_ENV_DISABLE_PROMPT: string;
+	export const KITTY_WINDOW_ID: string;
 	export const MANROFFOPT: string;
-	export const GIT_ASKPASS: string;
 	export const XDG_SEAT_PATH: string;
 	export const INVOCATION_ID: string;
 	export const MANAGERPID: string;
 	export const INIT_CWD: string;
-	export const CHROME_DESKTOP: string;
 	export const UWSM_WAIT_VARNAMES: string;
 	export const XDG_CACHE_HOME: string;
 	export const npm_lifecycle_script: string;
-	export const VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
-	export const VSCODE_PYTHON_AUTOACTIVATE_GUARD: string;
 	export const NVD_BACKEND: string;
 	export const npm_config_npm_version: string;
 	export const XDG_SESSION_CLASS: string;
-	export const TERM: string;
 	export const LC_IDENTIFICATION: string;
+	export const TERMINFO: string;
+	export const TERM: string;
 	export const npm_package_name: string;
 	export const npm_config_prefix: string;
 	export const USER: string;
 	export const SDL_VIDEODRIVER: string;
-	export const VSCODE_GIT_IPC_HANDLE: string;
 	export const HYPRLAND_INSTANCE_SIGNATURE: string;
 	export const MANPAGER: string;
 	export const NOTIFY_SOCKET: string;
@@ -117,26 +113,21 @@ declare module '$env/static/private' {
 	export const npm_lifecycle_event: string;
 	export const SHLVL: string;
 	export const MOZ_ENABLE_WAYLAND: string;
-	export const PAGER: string;
 	export const LC_TELEPHONE: string;
 	export const LC_MEASUREMENT: string;
 	export const XDG_VTNR: string;
 	export const XDG_SESSION_ID: string;
-	export const ANTIGRAVITY_AGENT: string;
 	export const MANAGERPIDFDID: string;
 	export const npm_config_user_agent: string;
 	export const XDG_STATE_HOME: string;
 	export const npm_execpath: string;
-	export const FC_FONTATIONS: string;
 	export const XDG_RUNTIME_DIR: string;
 	export const DEBUGINFOD_URLS: string;
 	export const npm_package_json: string;
 	export const LC_TIME: string;
-	export const VSCODE_GIT_ASKPASS_MAIN: string;
 	export const QT_AUTO_SCREEN_SCALE_FACTOR: string;
 	export const JOURNAL_STREAM: string;
 	export const XDG_DATA_DIRS: string;
-	export const GDK_BACKEND: string;
 	export const npm_config_noproxy: string;
 	export const BROWSER: string;
 	export const PATH: string;
@@ -146,13 +137,12 @@ declare module '$env/static/private' {
 	export const npm_config_global_prefix: string;
 	export const MAIL: string;
 	export const UWSM_FINALIZE_VARNAMES: string;
-	export const GIO_LAUNCHED_DESKTOP_FILE_PID: string;
+	export const KITTY_INSTALLATION_DIR: string;
 	export const npm_node_execpath: string;
-	export const GIO_LAUNCHED_DESKTOP_FILE: string;
 	export const LC_NUMERIC: string;
 	export const HYPRCURSOR_SIZE: string;
-	export const TERM_PROGRAM: string;
 	export const _: string;
+	export const NODE_ENV: string;
 }
 
 /**
@@ -192,6 +182,8 @@ declare module '$env/static/public' {
 	export const PUBLIC_EMAILJS_SERVICE_ID: string;
 	export const PUBLIC_EMAILJS_TEMPLATE_ID: string;
 	export const PUBLIC_EMAILJS_PUBLIC_KEY: string;
+	export const PUBLIC_SUPABASE_URL: string;
+	export const PUBLIC_SUPABASE_ANON_KEY: string;
 }
 
 /**
@@ -241,6 +233,8 @@ declare module '$env/static/public' {
  */
 declare module '$env/dynamic/private' {
 	export const env: {
+		DATABASE_URL: string;
+		DIRECT_URL: string;
 		SHELL: string;
 		npm_command: string;
 		npm_config_userconfig: string;
@@ -251,7 +245,6 @@ declare module '$env/dynamic/private' {
 		npm_config_cache: string;
 		XDG_SESSION_PATH: string;
 		XDG_MENU_PREFIX: string;
-		TERM_PROGRAM_VERSION: string;
 		WLR_RENDERER_ALLOW_SOFTWARE: string;
 		XDG_BACKEND: string;
 		NODE: string;
@@ -264,24 +257,22 @@ declare module '$env/dynamic/private' {
 		npm_config_local_prefix: string;
 		DESKTOP_SESSION: string;
 		LC_MONETARY: string;
+		KITTY_PID: string;
 		HL_INITIAL_WORKSPACE_TOKEN: string;
-		NO_AT_BRIDGE: string;
 		npm_config_globalconfig: string;
 		XCURSOR_SIZE: string;
-		ANTIGRAVITY_CLI_ALIAS: string;
 		EDITOR: string;
 		XDG_SEAT: string;
 		PWD: string;
-		XDG_SESSION_DESKTOP: string;
 		LOGNAME: string;
+		XDG_SESSION_DESKTOP: string;
 		QT_QPA_PLATFORMTHEME: string;
 		XDG_SESSION_TYPE: string;
 		npm_config_init_module: string;
 		SYSTEMD_EXEC_PID: string;
-		VSCODE_GIT_ASKPASS_NODE: string;
+		KITTY_PUBLIC_KEY: string;
 		TERMINAL: string;
 		MOTD_SHOWN: string;
-		VSCODE_INJECTION: string;
 		HOME: string;
 		LANG: string;
 		LC_PAPER: string;
@@ -291,28 +282,25 @@ declare module '$env/dynamic/private' {
 		MEMORY_PRESSURE_WATCH: string;
 		WAYLAND_DISPLAY: string;
 		VIRTUAL_ENV_DISABLE_PROMPT: string;
+		KITTY_WINDOW_ID: string;
 		MANROFFOPT: string;
-		GIT_ASKPASS: string;
 		XDG_SEAT_PATH: string;
 		INVOCATION_ID: string;
 		MANAGERPID: string;
 		INIT_CWD: string;
-		CHROME_DESKTOP: string;
 		UWSM_WAIT_VARNAMES: string;
 		XDG_CACHE_HOME: string;
 		npm_lifecycle_script: string;
-		VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
-		VSCODE_PYTHON_AUTOACTIVATE_GUARD: string;
 		NVD_BACKEND: string;
 		npm_config_npm_version: string;
 		XDG_SESSION_CLASS: string;
-		TERM: string;
 		LC_IDENTIFICATION: string;
+		TERMINFO: string;
+		TERM: string;
 		npm_package_name: string;
 		npm_config_prefix: string;
 		USER: string;
 		SDL_VIDEODRIVER: string;
-		VSCODE_GIT_IPC_HANDLE: string;
 		HYPRLAND_INSTANCE_SIGNATURE: string;
 		MANPAGER: string;
 		NOTIFY_SOCKET: string;
@@ -320,26 +308,21 @@ declare module '$env/dynamic/private' {
 		npm_lifecycle_event: string;
 		SHLVL: string;
 		MOZ_ENABLE_WAYLAND: string;
-		PAGER: string;
 		LC_TELEPHONE: string;
 		LC_MEASUREMENT: string;
 		XDG_VTNR: string;
 		XDG_SESSION_ID: string;
-		ANTIGRAVITY_AGENT: string;
 		MANAGERPIDFDID: string;
 		npm_config_user_agent: string;
 		XDG_STATE_HOME: string;
 		npm_execpath: string;
-		FC_FONTATIONS: string;
 		XDG_RUNTIME_DIR: string;
 		DEBUGINFOD_URLS: string;
 		npm_package_json: string;
 		LC_TIME: string;
-		VSCODE_GIT_ASKPASS_MAIN: string;
 		QT_AUTO_SCREEN_SCALE_FACTOR: string;
 		JOURNAL_STREAM: string;
 		XDG_DATA_DIRS: string;
-		GDK_BACKEND: string;
 		npm_config_noproxy: string;
 		BROWSER: string;
 		PATH: string;
@@ -349,13 +332,12 @@ declare module '$env/dynamic/private' {
 		npm_config_global_prefix: string;
 		MAIL: string;
 		UWSM_FINALIZE_VARNAMES: string;
-		GIO_LAUNCHED_DESKTOP_FILE_PID: string;
+		KITTY_INSTALLATION_DIR: string;
 		npm_node_execpath: string;
-		GIO_LAUNCHED_DESKTOP_FILE: string;
 		LC_NUMERIC: string;
 		HYPRCURSOR_SIZE: string;
-		TERM_PROGRAM: string;
 		_: string;
+		NODE_ENV: string;
 		[key: `PUBLIC_${string}`]: undefined;
 		[key: `${string}`]: string | undefined;
 	}
@@ -414,6 +396,8 @@ declare module '$env/dynamic/public' {
 		PUBLIC_EMAILJS_SERVICE_ID: string;
 		PUBLIC_EMAILJS_TEMPLATE_ID: string;
 		PUBLIC_EMAILJS_PUBLIC_KEY: string;
+		PUBLIC_SUPABASE_URL: string;
+		PUBLIC_SUPABASE_ANON_KEY: string;
 		[key: `PUBLIC_${string}`]: string | undefined;
 	}
 }

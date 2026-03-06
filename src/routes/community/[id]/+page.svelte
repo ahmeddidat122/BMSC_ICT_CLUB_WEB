@@ -41,7 +41,9 @@
                 posts[index].comments.push({
                     id: Date.now(),
                     author: authorName,
-                    avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${authorName.replace(/\s+/g, "")}&backgroundColor=0891b2`,
+                    avatar:
+                        $authStore.user?.avatar ||
+                        `https://api.dicebear.com/7.x/avataaars/svg?seed=${authorName.replace(/\s+/g, "")}&backgroundColor=0891b2`,
                     content: newComment.trim(),
                     timestamp: Date.now(),
                 });
@@ -78,7 +80,8 @@
 
 <section class="relative min-h-screen py-24 lg:py-32 px-6 lg:px-8">
     <div class="absolute inset-0 bg-gradient-mesh"></div>
-    <ParticleBackground count={10} color="purple" />
+    <div class="absolute inset-0 grid-pattern"></div>
+    <ParticleBackground color="purple" />
 
     <div class="relative z-10 max-w-4xl mx-auto">
         <!-- Back Button -->
@@ -243,7 +246,8 @@
                         <p class="text-xs text-gray-500 mt-2">
                             Posting as Guest User. <a
                                 href="/login"
-                                class="text-primary-400 hover:underline">Log in</a
+                                class="text-primary-400 hover:underline"
+                                >Log in</a
                             >
                         </p>
                     {/if}

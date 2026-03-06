@@ -1,0 +1,11 @@
+
+> bmsc-ict-club-website@0.0.0 check
+> svelte-kit sync && svelte-check --tsconfig ./jsconfig.json
+
+
+====================================
+Loading svelte-check in workspace: /home/alan/Documents/code/BMSC_ICT_CLUB_WEB
+Getting Svelte diagnostics...
+
+====================================
+svelte-check found 0 errors and 0 warnings

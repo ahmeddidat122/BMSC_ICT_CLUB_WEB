@@ -1,29 +1,83 @@
 <script>
     import { page } from "$app/stores";
-    import { coursesStore } from "$lib/stores";
+    import { coursesStore, authStore } from "$lib/stores";
     import ScrollReveal from "$lib/components/ScrollReveal.svelte";
     import GlassCard from "$lib/components/GlassCard.svelte";
     import ParticleBackground from "$lib/components/ParticleBackground.svelte";
+
+    import { onMount, onDestroy } from "svelte";
 
     $: courseId = parseInt($page.params.id);
     $: course = $coursesStore.find((c) => c.id === courseId);
 
     let activeTopicIndex = 0;
+    let completedTopics = [];
+    let progressPercentage = 0;
+    let videoUrls = [
+        "https://www.youtube.com/embed/mU6anWqZJcc?si=41U7mPz8hS1tAigW",
+        "https://www.youtube.com/embed/1Rs2ND1ryYc?si=XzY7tJv8yQ0sR0I9",
+        "https://www.youtube.com/embed/W6NZfCO5SIk?si=1V4lX-3aVb9r8gE9",
+        "https://www.youtube.com/embed/zJSY8tbf_ys?si=7v5mPZ9hX2kQw8e4",
+        "https://www.youtube.com/embed/PkZNo7MFOUg?si=6mY3bV0pL1nX9kR8",
+    ];
+
+    $: if (course && completedTopics) {
+        progressPercentage =
+            Math.round((completedTopics.length / course.topics.length) * 100) ||
+            0;
+    }
+
+    onMount(async () => {
+        if ($authStore.isAuthenticated && $authStore.user?.id) {
+            try {
+                const res = await fetch(
+                    `/api/courses/${courseId}/progress?userId=${$authStore.user.id}`,
+                );
+                const data = await res.json();
+                if (data.success) {
+                    completedTopics = data.completedTopics;
+                }
+            } catch (e) {
+                console.error("Failed to fetch progress", e);
+            }
+        }
+    });
+
+    async function handleMarkComplete() {
+        if (!$authStore.isAuthenticated) {
+            alert("Please log in to track your progress.");
+            return;
+        }
+
+        if (!completedTopics.includes(activeTopicIndex)) {
+            completedTopics = [...completedTopics, activeTopicIndex];
+
+            try {
+                await fetch(`/api/courses/${courseId}/progress`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        userId: $authStore.user.id,
+                        completedTopics: completedTopics,
+                    }),
+                });
+            } catch (e) {
+                console.error("Failed to save progress", e);
+            }
+        }
+    }
 </script>
 
 <svelte:head>
     <title>{course ? course.title : "Course"} Tutorial — BMSC ICT Club</title>
 </svelte:head>
 
-<!-- Background -->
-<div class="fixed inset-0 z-[-1] overflow-hidden">
+<section class="relative min-h-screen pt-24 pb-16 px-4 sm:px-6 lg:px-8">
     <div class="absolute inset-0 bg-gradient-mesh"></div>
     <div class="absolute inset-0 grid-pattern"></div>
-    <ParticleBackground count={10} color="primary" />
-</div>
+    <ParticleBackground color="primary" />
 
-<main class="min-h-screen pt-24 pb-16 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-7xl mx-auto">
+    <div class="relative z-10 max-w-7xl mx-auto">
         {#if course}
             <!-- Header -->
             <ScrollReveal>
@@ -69,77 +123,48 @@
                 <!-- Main Video Player Section -->
                 <div class="lg:col-span-2 space-y-6">
                     <ScrollReveal delay={100}>
-                        <!-- Video Player Placeholder -->
+                        <!-- Dynamic Video Player -->
                         <div
-                            class="glass-card rounded-2xl overflow-hidden aspect-video relative group"
+                            class="glass-card rounded-2xl overflow-hidden aspect-video relative group border border-white/10 shadow-2xl"
                         >
-                            <div
-                                class="absolute inset-0 bg-dark-800 flex items-center justify-center p-4 bg-gradient-to-br from-dark-800 to-dark-900"
-                            >
-                                <!-- Play Button Overlay -->
-                                <div
-                                    class="relative z-10 flex flex-col items-center gap-4 text-center"
-                                >
-                                    <button
-                                        class="w-20 h-20 bg-primary-500/20 hover:bg-primary-500/40 border border-primary-500/50 rounded-full flex items-center justify-center text-primary-400 hover:text-white transition-all transform hover:scale-105 group-hover:shadow-[0_0_30px_rgba(var(--color-primary-500),0.3)]"
-                                    >
-                                        <svg
-                                            class="w-10 h-10 ml-2"
-                                            fill="currentColor"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path d="M8 5v14l11-7z" />
-                                        </svg>
-                                    </button>
-                                    <div>
-                                        <h3
-                                            class="text-xl font-bold text-white mb-2"
-                                        >
-                                            {course.topics[activeTopicIndex]}
-                                        </h3>
-                                        <span
-                                            class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300"
-                                            >Video Demonstration</span
-                                        >
-                                    </div>
-                                </div>
+                            <iframe
+                                class="w-full h-full absolute inset-0 rounded-2xl"
+                                src={videoUrls[
+                                    activeTopicIndex % videoUrls.length
+                                ]}
+                                title="Course Video Player"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen
+                            ></iframe>
+                        </div>
 
-                                <!-- CSGO Style Video Trim Overlay -->
-                                <div
-                                    class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)] pointer-events-none"
-                                ></div>
-                                <div
-                                    class="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-dark-900 to-transparent pointer-events-none"
-                                ></div>
-                                <div
-                                    class="absolute top-0 inset-x-0 h-16 bg-gradient-to-b from-dark-900 to-transparent pointer-events-none"
-                                ></div>
+                        <!-- Mark Complete Action Bar -->
+                        <div
+                            class="flex items-center justify-between p-4 glass-card rounded-xl mt-4"
+                        >
+                            <div>
+                                <h3 class="font-bold text-white text-lg">
+                                    {course.topics[activeTopicIndex]}
+                                </h3>
+                                <p class="text-sm text-gray-400">
+                                    Lesson {activeTopicIndex + 1} of {course
+                                        .topics.length}
+                                </p>
                             </div>
-
-                            <!-- Custom Player Controls Bar Placeholder -->
-                            <div
-                                class="absolute bottom-0 inset-x-0 p-4 bg-dark-900/80 backdrop-blur-sm border-t border-white/10 flex items-center gap-4 text-gray-400 text-sm opacity-0 group-hover:opacity-100 transition-opacity"
+                            <button
+                                on:click={handleMarkComplete}
+                                disabled={completedTopics.includes(
+                                    activeTopicIndex,
+                                )}
+                                class="btn-primary flex items-center gap-2 {completedTopics.includes(
+                                    activeTopicIndex,
+                                )
+                                    ? 'opacity-50 cursor-not-allowed bg-green-500 hover:bg-green-500 border-none text-white'
+                                    : ''}"
                             >
-                                <button
-                                    class="hover:text-white transition-colors"
-                                    ><svg
-                                        class="w-5 h-5"
-                                        fill="currentColor"
-                                        viewBox="0 0 24 24"
-                                        ><path d="M8 5v14l11-7z" /></svg
-                                    ></button
-                                >
-                                <div
-                                    class="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden"
-                                >
-                                    <div
-                                        class="h-full bg-primary-500 w-1/3"
-                                    ></div>
-                                </div>
-                                <span>02:34 / 15:00</span>
-                                <button
-                                    class="hover:text-white transition-colors"
-                                    ><svg
+                                {#if completedTopics.includes(activeTopicIndex)}
+                                    <svg
                                         class="w-5 h-5"
                                         fill="none"
                                         stroke="currentColor"
@@ -148,11 +173,26 @@
                                             stroke-linecap="round"
                                             stroke-linejoin="round"
                                             stroke-width="2"
-                                            d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
-                                        /></svg
-                                    ></button
-                                >
-                            </div>
+                                            d="M5 13l4 4L19 7"
+                                        ></path></svg
+                                    >
+                                    Completed
+                                {:else}
+                                    <svg
+                                        class="w-5 h-5"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                        ><path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                                        ></path></svg
+                                    >
+                                    Mark as Complete
+                                {/if}
+                            </button>
                         </div>
                     </ScrollReveal>
 
@@ -284,23 +324,31 @@
                                             on:click={() =>
                                                 (activeTopicIndex = idx)}
                                         >
-                                            <!-- Play/Lock Icon -->
+                                            <!-- Play/Check Icon -->
                                             <div
-                                                class="mt-0.5 shrink-0 flex items-center justify-center w-6 h-6 rounded-full {activeTopicIndex ===
+                                                class="mt-0.5 shrink-0 flex items-center justify-center w-6 h-6 rounded-full transition-colors {activeTopicIndex ===
                                                 idx
                                                     ? 'bg-primary-500 text-white'
-                                                    : 'bg-white/10 text-gray-400'}"
+                                                    : completedTopics.includes(
+                                                            idx,
+                                                        )
+                                                      ? 'bg-green-500 text-white'
+                                                      : 'bg-white/10 text-gray-400'}"
                                             >
-                                                {#if activeTopicIndex === idx}
+                                                {#if completedTopics.includes(idx)}
                                                     <svg
-                                                        class="w-3 h-3"
-                                                        fill="currentColor"
+                                                        class="w-4 h-4"
+                                                        fill="none"
+                                                        stroke="currentColor"
                                                         viewBox="0 0 24 24"
                                                         ><path
-                                                            d="M8 5v14l11-7z"
-                                                        /></svg
+                                                            stroke-linecap="round"
+                                                            stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M5 13l4 4L19 7"
+                                                        ></path></svg
                                                     >
-                                                {:else if idx <= 1}
+                                                {:else if activeTopicIndex === idx}
                                                     <svg
                                                         class="w-3 h-3"
                                                         fill="currentColor"
@@ -315,7 +363,7 @@
                                                         fill="currentColor"
                                                         viewBox="0 0 24 24"
                                                         ><path
-                                                            d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"
+                                                            d="M8 5v14l11-7z"
                                                         /></svg
                                                     >
                                                 {/if}
@@ -350,19 +398,57 @@
                                 <h3 class="font-bold text-white mb-4">
                                     Your Progress
                                 </h3>
-                                <div
-                                    class="w-24 h-24 mx-auto rounded-full border-4 border-dark-600 border-t-primary-500 flex items-center justify-center mb-4"
-                                >
-                                    <span class="text-xl font-bold text-white"
-                                        >0%</span
+                                <div class="relative w-24 h-24 mx-auto mb-4">
+                                    <!-- Background circle -->
+                                    <svg
+                                        class="w-full h-full transform -rotate-90"
+                                        viewBox="0 0 100 100"
                                     >
+                                        <circle
+                                            cx="50"
+                                            cy="50"
+                                            r="45"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            class="text-white/10"
+                                            stroke-width="8"
+                                        />
+                                        <!-- Progress circle -->
+                                        <circle
+                                            cx="50"
+                                            cy="50"
+                                            r="45"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            class="text-primary-500 transition-all duration-1000 ease-out"
+                                            stroke-width="8"
+                                            stroke-dasharray="283"
+                                            stroke-dashoffset={283 -
+                                                (283 * progressPercentage) /
+                                                    100}
+                                        />
+                                    </svg>
+                                    <div
+                                        class="absolute inset-0 flex items-center justify-center text-xl font-bold text-white"
+                                    >
+                                        {progressPercentage}%
+                                    </div>
                                 </div>
-                                <p
-                                    class="text-sm text-gray-400 leading-relaxed mb-6"
-                                >
-                                    Complete watching the first module to start
-                                    tracking your progress.
-                                </p>
+                                {#if progressPercentage === 100}
+                                    <p
+                                        class="text-sm text-green-400 font-medium leading-relaxed mb-6"
+                                    >
+                                        Congratulations! You've completed this
+                                        course.
+                                    </p>
+                                {:else}
+                                    <p
+                                        class="text-sm text-gray-400 leading-relaxed mb-6"
+                                    >
+                                        Complete modules to track your progress
+                                        and earn a certificate.
+                                    </p>
+                                {/if}
                                 <div
                                     class="p-3 bg-white/5 rounded-xl border border-white/5 text-left flex items-start gap-3 text-sm text-gray-300"
                                 >
@@ -391,4 +477,4 @@
             </div>
         {/if}
     </div>
-</main>
+</section>

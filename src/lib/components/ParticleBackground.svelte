@@ -1,5 +1,4 @@
 <script>
-	export const count = 0; // Kept for prop compatibility
 	export let color = "mixed"; // 'primary', 'secondary', 'mixed'
 
 	// Generate a few large dynamic blobs instead of tiny particles

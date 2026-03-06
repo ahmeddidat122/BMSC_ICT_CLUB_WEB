@@ -1,10 +1,25 @@
 <script>
+    import { onMount } from "svelte";
     import ScrollReveal from "$lib/components/ScrollReveal.svelte";
     import GlassCard from "$lib/components/GlassCard.svelte";
     import ParticleBackground from "$lib/components/ParticleBackground.svelte";
     import { projectsStore } from "$lib/stores";
 
     let selectedProject = null;
+
+    onMount(async () => {
+        try {
+            const res = await fetch("/api/projects");
+            if (res.ok) {
+                const data = await res.json();
+                if (data.success) {
+                    projectsStore.set(data.projects);
+                }
+            }
+        } catch (error) {
+            console.error("Failed to fetch projects:", error);
+        }
+    });
 
     function getStatusColor(status) {
         switch (status) {
@@ -37,13 +52,23 @@
         name="description"
         content="Explore projects built by BMSC ICT Club members — from websites to IoT devices and mobile apps."
     />
+    <meta property="og:title" content="Our Projects — BMSC ICT Club" />
+    <meta
+        property="og:description"
+        content="Real-world innovation from the students of BMSC ICT Club. Explore our portfolio."
+    />
+    <meta property="twitter:title" content="Our Projects — BMSC ICT Club" />
+    <meta
+        property="twitter:description"
+        content="Real-world innovation from the students of BMSC ICT Club. Explore our portfolio."
+    />
 </svelte:head>
 
 <!-- Hero -->
 <section class="relative py-24 lg:py-32 overflow-hidden">
     <div class="absolute inset-0 bg-gradient-mesh"></div>
     <div class="absolute inset-0 grid-pattern"></div>
-    <ParticleBackground count={15} color="secondary" />
+    <ParticleBackground color="secondary" />
 
     <div
         class="absolute top-1/3 -right-32 w-80 h-80 bg-secondary-500/10 rounded-full blur-3xl"
@@ -76,98 +101,129 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {#each $projectsStore as project, i (project.id || i)}
                 <ScrollReveal delay={i * 100}>
-                    <GlassCard padding="p-0">
-                        <div class="p-6">
-                            <!-- Header -->
-                            <div class="flex items-start justify-between mb-4">
-                                <span class="text-4xl">{project.image}</span>
-                                <span
-                                    class="px-3 py-1 text-xs font-semibold rounded-full border {getStatusColor(
-                                        project.status,
-                                    )}"
-                                >
-                                    {project.status}
-                                </span>
-                            </div>
-
-                            <!-- Content -->
-                            <h3
-                                class="text-xl font-bold font-heading text-white mb-3"
-                            >
-                                {project.title}
-                            </h3>
-                            <p
-                                class="text-gray-400 text-sm leading-relaxed mb-4"
-                            >
-                                {project.description}
-                            </p>
-
-                            <!-- Tags -->
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                {#each project.tags as tag}
-                                    <span
-                                        class="px-2.5 py-1 text-xs rounded-md bg-white/5 text-gray-400 border border-white/5"
-                                        >{tag}</span
-                                    >
-                                {/each}
-                            </div>
-
-                            <!-- Contributors -->
-                            <div class="flex items-center gap-2">
-                                <div class="flex -space-x-2">
-                                    {#each project.contributors.slice(0, 3) as contributor}
-                                        <div
-                                            class="w-7 h-7 rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center text-white text-xs font-bold border-2 border-dark"
-                                        >
-                                            {contributor[0]}
-                                        </div>
-                                    {/each}
-                                </div>
-                                <span class="text-xs text-gray-500"
-                                    >{project.contributors.length} contributors</span
-                                >
-                            </div>
-                        </div>
-
-                        <!-- Footer link to community -->
+                    <div class="h-full group relative">
+                        <!-- Holographic Background Effect -->
                         <div
-                            class="px-6 py-4 border-t border-white/5 flex gap-2"
-                        >
-                            <button
-                                on:click={() => openModal(project)}
-                                class="flex-1 text-sm font-semibold text-primary-400 hover:text-white transition-colors flex items-center justify-center gap-2 group"
+                            class="absolute inset-0 bg-gradient-to-br from-secondary-500/0 via-primary-500/0 to-secondary-500/0 group-hover:from-secondary-500/10 group-hover:via-primary-500/5 group-hover:to-secondary-500/20 rounded-2xl transition-all duration-700 opacity-0 group-hover:opacity-100 -z-10 blur-xl"
+                        ></div>
+
+                        <GlassCard padding="p-0">
+                            <div
+                                class="flex flex-col h-full relative overflow-hidden rounded-2xl z-10 bg-dark/40 group-hover:bg-dark/60 transition-colors duration-500 border border-white/5 group-hover:border-primary-500/30"
                             >
-                                View Details
-                                <svg
-                                    class="w-4 h-4 group-hover:translate-x-1 transition-transform"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
+                                <!-- Top Tech Line -->
+                                <div
+                                    class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-primary-500/50 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
+                                ></div>
+
+                                <div
+                                    class="p-6 flex-1 flex flex-col relative z-20"
                                 >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M13 7l5 5m0 0l-5 5m5-5H6"
-                                    />
-                                </svg>
-                            </button>
-                            <a
-                                href="/community"
-                                class="px-4 py-2 text-sm text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition-colors flex items-center gap-2"
-                                title="Discuss in Community"
-                            >
-                                <svg
-                                    class="w-4 h-4"
-                                    fill="currentColor"
-                                    viewBox="0 0 24 24"
-                                    ><path
-                                        d="M12 2C6.48 2 2 5.92 2 10.75c0 2.76 1.48 5.2 3.82 6.77.29.98-1.07 2.1-1.07 2.1s1.39.06 2.65-.63c1.38.56 2.94.86 4.6.86 5.52 0 10-3.92 10-8.75S17.52 2 12 2z"
-                                    /></svg
+                                    <!-- Header -->
+                                    <div
+                                        class="flex items-start justify-between mb-6"
+                                    >
+                                        <div
+                                            class="w-14 h-14 rounded-xl bg-gradient-to-br from-white/5 to-white/10 border border-white/10 flex items-center justify-center text-3xl shadow-inner group-hover:shadow-[0_0_15px_rgba(206,178,141,0.2)] transition-shadow"
+                                        >
+                                            {project.image}
+                                        </div>
+                                        <span
+                                            class="px-3 py-1 text-xs font-semibold rounded-full border {getStatusColor(
+                                                project.status,
+                                            )} shadow-sm"
+                                        >
+                                            <span
+                                                class="w-1.5 h-1.5 inline-block rounded-full bg-current mr-1 animate-pulse"
+                                            ></span>
+                                            {project.status}
+                                        </span>
+                                    </div>
+
+                                    <!-- Content -->
+                                    <h3
+                                        class="text-2xl font-bold font-heading text-white mb-3 group-hover:text-primary-400 transition-colors"
+                                    >
+                                        {project.title}
+                                    </h3>
+                                    <p
+                                        class="text-gray-400 text-sm leading-relaxed mb-6 flex-1"
+                                    >
+                                        {project.description}
+                                    </p>
+
+                                    <!-- Tags -->
+                                    <div class="flex flex-wrap gap-2 mb-6">
+                                        {#each project.tags as tag}
+                                            <span
+                                                class="px-2.5 py-1 text-[10px] uppercase tracking-wider font-semibold rounded-md bg-primary-500/5 text-primary-300 border border-primary-500/10 group-hover:border-primary-500/30 transition-colors"
+                                                >{tag}</span
+                                            >
+                                        {/each}
+                                    </div>
+
+                                    <!-- Contributors -->
+                                    <div
+                                        class="flex items-center gap-3 mt-auto pt-4 border-t border-white/5"
+                                    >
+                                        <div class="flex -space-x-2">
+                                            {#each project.contributors.slice(0, 3) as contributor}
+                                                <div
+                                                    class="w-8 h-8 rounded-full bg-dark-50 flex items-center justify-center text-white text-xs font-bold border-2 border-dark shadow-sm relative z-10 hover:z-20 hover:scale-110 transition-transform cursor-help"
+                                                    title={contributor}
+                                                >
+                                                    {contributor[0]}
+                                                </div>
+                                            {/each}
+                                        </div>
+                                        <span
+                                            class="text-xs font-medium text-gray-500 uppercase tracking-widest"
+                                            >{project.contributors.length} CONTRIBUTORS</span
+                                        >
+                                    </div>
+                                </div>
+
+                                <!-- Footer link to community -->
+                                <div
+                                    class="px-6 py-4 border-t border-white/5 flex gap-2 mt-auto"
                                 >
-                            </a>
-                        </div>
-                    </GlassCard>
+                                    <button
+                                        on:click={() => openModal(project)}
+                                        class="flex-1 text-sm font-semibold text-primary-400 hover:text-white transition-colors flex items-center justify-center gap-2 group"
+                                    >
+                                        View Details
+                                        <svg
+                                            class="w-4 h-4 group-hover:translate-x-1 transition-transform"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M13 7l5 5m0 0l-5 5m5-5H6"
+                                            />
+                                        </svg>
+                                    </button>
+                                    <a
+                                        href="/community"
+                                        class="px-4 py-2 text-sm text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition-colors flex items-center gap-2"
+                                        title="Discuss in Community"
+                                    >
+                                        <svg
+                                            class="w-4 h-4"
+                                            fill="currentColor"
+                                            viewBox="0 0 24 24"
+                                            ><path
+                                                d="M12 2C6.48 2 2 5.92 2 10.75c0 2.76 1.48 5.2 3.82 6.77.29.98-1.07 2.1-1.07 2.1s1.39.06 2.65-.63c1.38.56 2.94.86 4.6.86 5.52 0 10-3.92 10-8.75S17.52 2 12 2z"
+                                            /></svg
+                                        >
+                                    </a>
+                                </div>
+                            </div>
+                        </GlassCard>
+                    </div>
                 </ScrollReveal>
             {/each}
         </div>

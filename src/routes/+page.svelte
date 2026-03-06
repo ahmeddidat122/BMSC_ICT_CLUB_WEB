@@ -4,6 +4,7 @@
 	import ScrollReveal from "$lib/components/ScrollReveal.svelte";
 	import GlassCard from "$lib/components/GlassCard.svelte";
 	import ParticleBackground from "$lib/components/ParticleBackground.svelte";
+	import Hero3D from "$lib/components/Hero3D.svelte";
 
 	let statsVisible = false;
 	let statsElement;
@@ -100,10 +101,6 @@
 		name="description"
 		content="BMSC ICT Club at BIAM Model School & College, Bogura. Join us to explore cutting-edge technologies, collaborate on innovative projects, and build a future driven by creativity."
 	/>
-	<script
-		type="module"
-		src="https://unpkg.com/@splinetool/viewer@1.9.5/build/spline-viewer.js"
-	></script>
 </svelte:head>
 
 <!-- ===================== HERO SECTION ===================== -->
@@ -120,7 +117,7 @@
 	</div>
 	<div class="absolute inset-0 bg-gradient-mesh opacity-50"></div>
 	<div class="absolute inset-0 grid-pattern"></div>
-	<ParticleBackground count={25} color="mixed" />
+	<ParticleBackground color="primary" />
 
 	<!-- Ambient glow blobs -->
 	<div
@@ -190,16 +187,10 @@
 			</div>
 
 			<div
-				class="flex-1 w-full max-w-2xl h-[400px] lg:h-[600px] animate-fade-in relative flex items-center justify-center p-8 lg:p-12 mb-12 lg:mb-0 animate-float"
+				class="flex-1 w-full max-w-2xl h-[400px] lg:h-[600px] animate-fade-in relative flex items-center justify-center p-8 lg:p-12 mb-12 lg:mb-0"
 				style="animation-delay: 0.5s"
 			>
-				<div class="relative w-full h-full drop-shadow-2xl">
-					<spline-viewer
-						url="https://prod.spline.design/kZGBYuiJ-sT-E1zD/scene.splinecode"
-						loading-anim-type="spinner-small-dark"
-						class="w-full h-full"
-					></spline-viewer>
-				</div>
+				<Hero3D />
 			</div>
 		</div>
 	</div>
@@ -226,16 +217,19 @@
 </section>
 
 <!-- ===================== STATS SECTION ===================== -->
-<section class="relative py-16 overflow-hidden" bind:this={statsElement}>
+<section
+	class="stats-section relative py-16 overflow-hidden"
+	bind:this={statsElement}
+>
 	<div
-		class="absolute inset-0 bg-gradient-to-b from-transparent via-primary-500/5 to-transparent"
+		class="absolute inset-0 bg-gradient-to-b from-transparent via-primary-500/5 to-transparent pointer-events-none"
 	></div>
 	<div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
 		<div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
 			{#each animatedStats as stat, i}
-				<div class="text-center group">
+				<div class="text-center">
 					<div
-						class="text-4xl lg:text-5xl font-bold font-heading text-white mb-2 transition-all duration-300 group-hover:text-gradient"
+						class="stat-number text-4xl lg:text-5xl font-bold font-heading text-white mb-2"
 					>
 						{stat.current}{stat.suffix}
 					</div>
@@ -268,6 +262,7 @@
 						<img
 							src="/images/club_logo.png"
 							alt="BMSC ICT Club Logo"
+							loading="lazy"
 							class="w-40 lg:w-52 relative z-10 hover:scale-105 transition-transform duration-500 drop-shadow-2xl"
 						/>
 					</div>
@@ -368,17 +363,21 @@
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 			{#each features as feature, i}
 				<ScrollReveal delay={i * 100}>
-					<GlassCard>
-						<div class="text-4xl mb-4">{feature.icon}</div>
-						<h3
-							class="text-xl font-bold font-heading text-white mb-3"
-						>
-							{feature.title}
-						</h3>
-						<p class="text-gray-400 leading-relaxed">
-							{feature.description}
-						</p>
-					</GlassCard>
+					<div class="h-full">
+						<GlassCard>
+							<div class="flex flex-col h-full">
+								<div class="text-4xl mb-4">{feature.icon}</div>
+								<h3
+									class="text-xl font-bold font-heading text-white mb-3"
+								>
+									{feature.title}
+								</h3>
+								<p class="text-gray-400 leading-relaxed">
+									{feature.description}
+								</p>
+							</div>
+						</GlassCard>
+					</div>
 				</ScrollReveal>
 			{/each}
 		</div>

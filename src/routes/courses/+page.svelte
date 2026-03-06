@@ -32,13 +32,23 @@
 		name="description"
 		content="Explore our range of technology courses including Web Development, Python, Graphic Design, Robotics, Cybersecurity, and App Development."
 	/>
+	<meta property="og:title" content="Our Courses — BMSC ICT Club" />
+	<meta
+		property="og:description"
+		content="Master coding, robotics, and design with hands-on courses designed by BMSC ICT Club."
+	/>
+	<meta property="twitter:title" content="Our Courses — BMSC ICT Club" />
+	<meta
+		property="twitter:description"
+		content="Master coding, robotics, and design with hands-on courses designed by BMSC ICT Club."
+	/>
 </svelte:head>
 
 <!-- Hero -->
 <section class="relative py-24 lg:py-32 overflow-hidden">
 	<div class="absolute inset-0 bg-gradient-mesh"></div>
 	<div class="absolute inset-0 grid-pattern"></div>
-	<ParticleBackground count={15} color="primary" />
+	<ParticleBackground color="primary" />
 
 	<div
 		class="absolute top-1/4 -right-32 w-80 h-80 bg-primary-500/10 rounded-full blur-3xl"

@@ -3,7 +3,9 @@
 	import GlassCard from "$lib/components/GlassCard.svelte";
 	import ParticleBackground from "$lib/components/ParticleBackground.svelte";
 	import { page } from "$app/stores";
+	import { goto } from "$app/navigation";
 	import { projectsStore, communityStore, authStore } from "$lib/stores";
+	import { LogOut } from "lucide-svelte";
 
 	let activeTab = "projects";
 
@@ -18,7 +20,10 @@
 			$authStore.user?.name === username
 				? $authStore.user?.role
 				: "Member",
-		avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${username.replace(" ", "")}&backgroundColor=0891b2`,
+		avatar:
+			$authStore.user?.name === username && $authStore.user?.avatar
+				? $authStore.user?.avatar
+				: `https://api.dicebear.com/7.x/avataaars/svg?seed=${username.replace(" ", "")}&backgroundColor=0891b2`,
 		bio: "Passionate about technology and learning. Building the future one line of code at a time.",
 		joined: "January 2024",
 	};
@@ -55,6 +60,11 @@
 			description: "Actively participating in club courses.",
 		},
 	];
+
+	function handleLogout() {
+		authStore.signOut();
+		goto("/login");
+	}
 </script>
 
 <svelte:head>
@@ -67,7 +77,7 @@
 
 <section class="relative py-24 lg:py-32 overflow-hidden">
 	<div class="absolute inset-0 bg-gradient-mesh"></div>
-	<ParticleBackground count={10} color="mixed" />
+	<ParticleBackground color="mixed" />
 
 	<div class="relative z-10 max-w-5xl mx-auto px-6 lg:px-8">
 		<!-- Profile Header -->
@@ -163,6 +173,21 @@
 							</div>
 						</div>
 					</div>
+
+					<!-- Sign Out Button (Only if it's the current user's profile) -->
+					{#if $authStore.isAuthenticated && $authStore.user?.name === username}
+						<div class="sm:ml-auto">
+							<button
+								on:click={handleLogout}
+								class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl transition-all duration-300
+									bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/10
+									hover:shadow-lg hover:-translate-y-0.5"
+							>
+								<LogOut size={16} />
+								Sign Out
+							</button>
+						</div>
+					{/if}
 				</div>
 			</div>
 		</ScrollReveal>

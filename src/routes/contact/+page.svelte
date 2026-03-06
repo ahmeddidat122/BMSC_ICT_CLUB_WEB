@@ -117,7 +117,7 @@
 <section class="relative py-24 lg:py-32 overflow-hidden">
 	<div class="absolute inset-0 bg-gradient-mesh"></div>
 	<div class="absolute inset-0 grid-pattern"></div>
-	<ParticleBackground count={12} color="cyan" />
+	<ParticleBackground color="cyan" />
 
 	<div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center">
 		<ScrollReveal>

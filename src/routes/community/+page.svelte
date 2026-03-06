@@ -50,7 +50,9 @@
                 title: newTitle.trim(),
                 content: newContent.trim(),
                 author: authorName,
-                avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${authorName.replace(/\s+/g, "")}&backgroundColor=7c3aed`,
+                avatar:
+                    $authStore.user?.avatar ||
+                    `https://api.dicebear.com/7.x/avataaars/svg?seed=${authorName.replace(/\s+/g, "")}&backgroundColor=7c3aed`,
                 category: newCategory,
                 timestamp: Date.now(),
                 hot: false,
@@ -79,7 +81,7 @@
 <section class="relative py-24 lg:py-32 overflow-hidden">
     <div class="absolute inset-0 bg-gradient-mesh"></div>
     <div class="absolute inset-0 grid-pattern"></div>
-    <ParticleBackground count={15} color="purple" />
+    <ParticleBackground color="purple" />
 
     <div
         class="absolute bottom-0 right-1/4 w-80 h-80 bg-secondary-500/10 rounded-full blur-3xl"
@@ -140,14 +142,31 @@
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
             {#each categories as cat, i}
                 <ScrollReveal delay={i * 60}>
-                    <button class="glass-card p-4 text-center w-full group">
-                        <span class="text-2xl block mb-2">{cat.icon}</span>
-                        <h3 class="text-sm font-semibold text-white mb-1">
-                            {cat.name}
-                        </h3>
-                        <span class="text-xs text-gray-500"
-                            >{cat.count} topics</span
+                    <button class="relative w-full text-center group">
+                        <!-- Holographic Background Effect -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-primary-500/0 via-transparent to-secondary-500/0 group-hover:from-primary-500/10 group-hover:to-secondary-500/20 rounded-2xl transition-all duration-500 blur z-0"
+                        ></div>
+
+                        <div
+                            class="relative z-10 glass-card p-6 h-full border border-white/5 border-b-white/10 group-hover:border-primary-500/30 group-hover:-translate-y-1 transition-all duration-300"
                         >
+                            <div
+                                class="w-12 h-12 mx-auto rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500 shadow-inner group-hover:shadow-[0_0_15px_rgba(206,178,141,0.2)]"
+                            >
+                                {cat.icon}
+                            </div>
+                            <h3
+                                class="text-xs font-bold font-heading text-white mb-2 uppercase tracking-wide group-hover:text-primary-400 transition-colors"
+                            >
+                                {cat.name}
+                            </h3>
+                            <span
+                                class="inline-block px-2 py-0.5 text-[10px] font-semibold text-gray-400 bg-white/5 rounded-full border border-white/5 group-hover:border-primary-500/20 group-hover:text-primary-300 transition-colors"
+                            >
+                                {cat.count} TOPICS
+                            </span>
+                        </div>
                     </button>
                 </ScrollReveal>
             {/each}
@@ -166,96 +185,119 @@
             </h2>
         </ScrollReveal>
 
-        <div class="space-y-3">
+        <div class="space-y-4">
             {#each $communityStore as discussion, i (discussion.id || i)}
                 <ScrollReveal delay={i * 80}>
                     <a
                         href="/community/{discussion.id}"
-                        class="glass-card p-5 flex items-center gap-4 cursor-pointer group block"
+                        class="relative block group"
                     >
-                        <!-- Avatar -->
+                        <!-- Glow Effect -->
                         <div
-                            class="w-10 h-10 rounded-full overflow-hidden border border-white/10 shrink-0"
-                        >
-                            <img
-                                src={discussion.avatar}
-                                alt={discussion.author}
-                                class="w-full h-full object-cover"
-                            />
-                        </div>
+                            class="absolute inset-0 bg-gradient-to-r from-primary-500/0 via-transparent to-transparent group-hover:from-primary-500/5 rounded-2xl transition-colors duration-500 text-transparent"
+                        ></div>
 
-                        <!-- Content -->
-                        <div class="flex-1 min-w-0">
-                            <div class="flex items-center gap-2 mb-1">
-                                {#if discussion.hot}
-                                    <span
-                                        class="text-xs text-orange-400 font-medium flex items-center gap-1"
-                                    >
-                                        🔥 Hot
-                                    </span>
-                                {/if}
-                                <span
-                                    class="text-xs text-gray-500 px-2 py-0.5 rounded-full bg-white/5"
-                                    >{discussion.category}</span
-                                >
-                            </div>
-                            <h3
-                                class="text-white font-medium group-hover:text-primary-400 transition-colors truncate"
-                            >
-                                {discussion.title}
-                            </h3>
+                        <div
+                            class="relative glass-card p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 border border-white/5 hover:border-white/10 group-hover:border-l-primary-500 border-l-[3px] transition-all duration-300"
+                        >
+                            <!-- Avatar -->
                             <div
-                                class="flex items-center gap-3 mt-1 text-xs text-gray-500"
+                                class="w-12 h-12 rounded-xl overflow-hidden border border-white/10 shrink-0 shadow-sm relative group-hover:scale-105 transition-transform"
                             >
-                                <span>{discussion.author}</span>
-                                <span>·</span>
-                                <span>{timeAgo(discussion.timestamp)}</span>
+                                <img
+                                    src={discussion.avatar}
+                                    alt={discussion.author}
+                                    class="w-full h-full object-cover"
+                                />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"
+                                ></div>
                             </div>
-                        </div>
 
-                        <!-- Likes & Replies -->
-                        <div
-                            class="flex items-center gap-4 text-gray-500 shrink-0"
-                        >
-                            <!-- Likes -->
-                            <div class="flex items-center gap-1.5">
-                                <svg
-                                    class="w-4 h-4"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
+                            <!-- Content -->
+                            <div class="flex-1 min-w-0">
+                                <div
+                                    class="flex flex-wrap items-center gap-2 mb-2"
                                 >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"
-                                    />
-                                </svg>
-                                <span class="text-sm"
-                                    >{discussion.likes || 0}</span
+                                    {#if discussion.hot}
+                                        <span
+                                            class="text-[10px] uppercase tracking-wider text-orange-400 font-bold flex items-center gap-1 bg-orange-500/10 px-2 py-0.5 rounded border border-orange-500/20"
+                                        >
+                                            <span class="animate-pulse">🔥</span
+                                            > HOT
+                                        </span>
+                                    {/if}
+                                    <span
+                                        class="text-[10px] uppercase tracking-wider font-semibold text-primary-300 px-2 py-0.5 rounded bg-primary-500/10 border border-primary-500/20"
+                                        >{discussion.category}</span
+                                    >
+                                </div>
+                                <h3
+                                    class="text-lg text-white font-bold font-heading mb-1 group-hover:text-primary-400 transition-colors line-clamp-1"
                                 >
+                                    {discussion.title}
+                                </h3>
+                                <div
+                                    class="flex items-center gap-3 text-xs text-gray-500 font-medium"
+                                >
+                                    <span class="text-gray-400"
+                                        >{discussion.author}</span
+                                    >
+                                    <span
+                                        class="w-1 h-1 rounded-full bg-white/20"
+                                    ></span>
+                                    <span>{timeAgo(discussion.timestamp)}</span>
+                                </div>
                             </div>
-                            <!-- Replies -->
-                            <div class="flex items-center gap-1.5">
-                                <svg
-                                    class="w-4 h-4"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
+
+                            <!-- Likes & Replies -->
+                            <div
+                                class="flex items-center gap-6 text-gray-500 shrink-0 mt-4 sm:mt-0 w-full sm:w-auto justify-end border-t border-white/5 sm:border-t-0 pt-4 sm:pt-0"
+                            >
+                                <!-- Likes -->
+                                <div
+                                    class="flex items-center gap-1.5 group/stat hover:text-white transition-colors"
                                 >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                                    />
-                                </svg>
-                                <span class="text-sm"
-                                    >{discussion.comments
-                                        ? discussion.comments.length
-                                        : 0}</span
+                                    <svg
+                                        class="w-4 h-4 text-gray-600 group-hover/stat:text-red-400 transition-colors"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                        />
+                                    </svg>
+                                    <span class="text-sm font-mono"
+                                        >{discussion.likes || 0}</span
+                                    >
+                                </div>
+                                <!-- Replies -->
+                                <div
+                                    class="flex items-center gap-1.5 group/stat hover:text-white transition-colors"
                                 >
+                                    <svg
+                                        class="w-4 h-4 text-gray-600 group-hover/stat:text-primary-400 transition-colors"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                                        />
+                                    </svg>
+                                    <span class="text-sm font-mono"
+                                        >{discussion.comments
+                                            ? discussion.comments.length
+                                            : 0}</span
+                                    >
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -273,7 +315,8 @@
         on:click|self={() => (isModalOpen = false)}
     >
         <div
-            class="relative w-full max-w-2xl bg-dark/90 border border-white/10 rounded-2xl shadow-2xl overflow-hidden animate-scale-in"
+            class="relative w-full max-w-2xl backdrop-blur-3xl border border-primary-500/20 rounded-[40px] shadow-[0_25px_80px_-15px_rgba(0,0,0,0.9),0_0_30px_rgba(206,178,141,0.1)] overflow-hidden animate-scale-in"
+            style="background: linear-gradient(135deg, rgba(10, 10, 25, 0.99), rgba(45, 35, 25, 0.98), rgba(8, 8, 20, 0.99)), radial-gradient(at 20% 10%, rgba(212, 175, 55, 0.15) 0%, transparent 60%), radial-gradient(at 80% 90%, rgba(206, 178, 141, 0.1) 0%, transparent 60%);"
         >
             <div
                 class="px-8 pt-8 pb-4 flex items-center justify-between border-b border-white/10"

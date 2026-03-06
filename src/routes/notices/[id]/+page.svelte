@@ -53,15 +53,12 @@
     <title>{notice ? notice.title : "Notice"} — BMSC ICT Club</title>
 </svelte:head>
 
-<!-- Background -->
-<div class="fixed inset-0 z-[-1] overflow-hidden">
+<section class="relative min-h-screen pt-24 pb-20 px-6 lg:px-8">
     <div class="absolute inset-0 bg-gradient-mesh"></div>
     <div class="absolute inset-0 grid-pattern"></div>
-    <ParticleBackground count={10} color="mixed" />
-</div>
+    <ParticleBackground color="mixed" />
 
-<main class="min-h-screen pt-24 pb-20 px-6 lg:px-8">
-    <div class="max-w-4xl mx-auto">
+    <div class="relative z-10 max-w-4xl mx-auto">
         {#if notice}
             {@const date = parseDate(notice.date)}
             <ScrollReveal>
@@ -283,4 +280,4 @@
             </div>
         {/if}
     </div>
-</main>
+</section>
