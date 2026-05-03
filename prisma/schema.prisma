@@ -1,25 +1,69 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
+//
+// Database: Supabase (PostgreSQL only). Connection URLs are in prisma.config.ts and .env
+// — no SQLite; do not switch provider to sqlite.
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider  = "postgresql"
+  provider = "postgresql"
 }
 
 model User {
+  id          Int      @id @default(autoincrement())
+  email       String   @unique
+  password    String
+  name        String
+  role        String   @default("Member")
+  avatar      String   @default("")
+  coverImage  String   @default("")
+  bio         String   @default("")
+  github      String   @default("")
+  linkedin    String   @default("")
+  website     String   @default("")
+  xp          Int      @default(0)
+  level       Int      @default(1)
+  isBanned    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  badges      UserBadge[]
+  activities  UserActivity[]
+  discussions Discussion[]
+  replies     DiscussionReply[]
+}
+
+model Badge {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String
+  icon        String   // Emoji or SVG path
+  color       String   @default("#0ea5e9")
+  users       UserBadge[]
+}
+
+model UserBadge {
   id        Int      @id @default(autoincrement())
-  email     String   @unique
-  password  String
-  name      String
-  role      String   @default("Member")
-  avatar    String   @default("")
-  bio       String   @default("")
-  github    String   @default("")
-  linkedin  String   @default("")
-  createdAt DateTime @default(now())
+  userId    Int
+  badgeId   Int
+  user      User     @relation(fields: [userId], references: [id])
+  badge     Badge    @relation(fields: [badgeId], references: [id])
+  earnedAt  DateTime @default(now())
+
+  @@unique([userId, badgeId])
+}
+
+model AuditLog {
+  id          Int      @id @default(autoincrement())
+  adminId     Int
+  action      String   // e.g., "UPDATE_ROLE", "DELETE_PROJECT"
+  targetType  String   // e.g., "User", "Project"
+  targetId    Int?
+  details     String   // JSON string of changes
+  timestamp   DateTime @default(now())
 }
 
 model Course {
@@ -30,7 +74,7 @@ model Course {
   duration    String
   icon        String
   color       String
-  topics      String   // Stored as JSON string representation for SQLite simplicity
+  topics      String   // JSON string representation
 }
 
 model CourseProgress {
@@ -39,9 +83,6 @@ model CourseProgress {
   courseId        Int
   completedTopics String   // JSON string array of topic indices
   updatedAt       DateTime @default(now()) @updatedAt
-  
-  // Note: normally we'd relate these to User and Course models directly
-  // but keeping it detached for minimal SQLite disruption based on existing patterns
 }
 
 model Notice {
@@ -52,6 +93,7 @@ model Notice {
   type        String
   pinned      Boolean  @default(false)
 }
+
 model Project {
   id           Int      @id @default(autoincrement())
   title        String
@@ -68,8 +110,40 @@ model TeamMember {
   name      String
   position  String
   bio       String
-  image     String   // Avatar/Headshot URL
+  image     String
   skills    String   // JSON string array
-  socials   String   // JSON string object {facebook, linkedin, github}
-  order     Int      @default(0) // Dictates display sorting on the team page
+  socials   String   // JSON string object
+  order     Int      @default(0)
+}
+
+model UserActivity {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  type      String   // e.g., "JOINED_PROJECT", "EARNED_BADGE"
+  details   String   // JSON string
+  createdAt DateTime @default(now())
+}
+
+model Discussion {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String
+  authorId  Int
+  author    User     @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  replies   DiscussionReply[]
+}
+
+model DiscussionReply {
+  id           Int        @id @default(autoincrement())
+  content      String
+  authorId     Int
+  discussionId Int
+  author       User       @relation(fields: [authorId], references: [id])
+  discussion   Discussion @relation(fields: [discussionId], references: [id], onDelete: Cascade)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 }

@@ -94,16 +94,27 @@
 					</a>
 				{/each}
 
-				<!-- Login / Profile Button -->
+				<!-- Login / Profile / Admin -->
 				{#if $authStore.isAuthenticated}
+					{#if $authStore.isAdmin}
+						<a
+							href="/admin"
+							class="ml-2 px-4 py-2 text-sm font-semibold rounded-xl transition-all duration-300
+								bg-primary-500/20 hover:bg-primary-500/30 text-primary-400 border border-primary-500/30
+								hover:shadow-lg hover:-translate-y-0.5"
+						>
+							Admin
+						</a>
+					{/if}
 					<a
 						href="/dashboard"
 						class="ml-3 px-5 py-2 text-sm font-semibold rounded-xl transition-all duration-300
 							bg-white/10 hover:bg-white/20 text-white border border-white/10
 							hover:shadow-lg hover:-translate-y-0.5"
 					>
-						{$authStore.isAdmin ? "Dashboard" : "Profile"}
+						Dashboard
 					</a>
+
 				{:else}
 					<a
 						href="/login"
@@ -173,6 +184,17 @@
 						</a>
 					{/each}
 					{#if $authStore.isAuthenticated}
+						{#if $authStore.isAdmin}
+							<a
+								href="/admin"
+								class="mt-2 px-4 py-3 text-sm font-semibold rounded-xl text-center
+									bg-primary-500/20 text-primary-400 border border-primary-500/30
+									hover:bg-primary-500/30 transition-all"
+								on:click={closeMobileMenu}
+							>
+								Admin Panel
+							</a>
+						{/if}
 						<a
 							href="/dashboard"
 							class="mt-2 px-4 py-3 text-sm font-semibold rounded-xl text-center
@@ -180,8 +202,9 @@
 								hover:bg-white/20 transition-all"
 							on:click={closeMobileMenu}
 						>
-							{$authStore.isAdmin ? "Dashboard" : "Profile"}
+							Dashboard
 						</a>
+
 					{:else}
 						<a
 							href="/login"

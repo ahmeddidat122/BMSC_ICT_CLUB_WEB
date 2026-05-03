@@ -1,13 +1,8 @@
+// @ts-nocheck
 import { json } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma.js';
-// Helper function to verify admin access
-async function verifyAdmin(adminId) {
-    if (!adminId) return false;
-    const user = await prisma.user.findUnique({
-        where: { id: parseInt(adminId) }
-    });
-    return user && user.role === 'Admin';
-}
+import { requireAdmin } from '$lib/server/auth.js';
+import { safeJsonParse } from '$lib/utils.js';
 
 // GET all courses
 export async function GET() {
@@ -16,10 +11,9 @@ export async function GET() {
             orderBy: { id: 'asc' }
         });
 
-        // Parse topics back to array for frontend convenience
         const formattedCourses = courses.map(course => ({
             ...course,
-            topics: JSON.parse(course.topics)
+            topics: safeJsonParse(course.topics, [])
         }));
 
         return json({
@@ -34,13 +28,12 @@ export async function GET() {
 }
 
 // POST create new course (Admin only)
-export async function POST({ request }) {
-    try {
-        const { adminId, title, description, level, duration, icon, color, topics } = await request.json();
+export async function POST(event) {
+    const adminResult = await requireAdmin(event);
+    if (adminResult instanceof Response) return adminResult;
 
-        if (!(await verifyAdmin(adminId))) {
-            return json({ success: false, message: 'Forbidden: Admin access required' }, { status: 403 });
-        }
+    try {
+        const { title, description, level, duration, icon, color, topics } = await event.request.json();
 
         const course = await prisma.course.create({
             data: {
@@ -56,7 +49,7 @@ export async function POST({ request }) {
 
         return json({
             success: true,
-            course: { ...course, topics: JSON.parse(course.topics) }
+            course: { ...course, topics: safeJsonParse(course.topics, []) }
         });
     } catch (error) {
         console.error("Admin Course POST error:", error);
@@ -65,13 +58,15 @@ export async function POST({ request }) {
 }
 
 // PUT update existing course (Admin only)
-export async function PUT({ request }) {
-    try {
-        const { adminId, id, title, description, level, duration, icon, color, topics } = await request.json();
+export async function PUT(event) {
+    const adminResult = await requireAdmin(event);
+    if (adminResult instanceof Response) return adminResult;
 
-        if (!(await verifyAdmin(adminId))) {
-            return json({ success: false, message: 'Forbidden: Admin access required' }, { status: 403 });
-        }
+    try {
+        const body = await event.request.json();
+        const id = parseInt(body.id);
+        if (isNaN(id)) return json({ success: false, message: 'Invalid course ID' }, { status: 400 });
+        const { title, description, level, duration, icon, color, topics } = body;
 
         const course = await prisma.course.update({
             where: { id },
@@ -88,7 +83,7 @@ export async function PUT({ request }) {
 
         return json({
             success: true,
-            course: { ...course, topics: JSON.parse(course.topics) }
+            course: { ...course, topics: safeJsonParse(course.topics, []) }
         });
     } catch (error) {
         console.error("Admin Course PUT error:", error);
@@ -97,13 +92,14 @@ export async function PUT({ request }) {
 }
 
 // DELETE course (Admin only)
-export async function DELETE({ request }) {
-    try {
-        const { adminId, id } = await request.json();
+export async function DELETE(event) {
+    const adminResult = await requireAdmin(event);
+    if (adminResult instanceof Response) return adminResult;
 
-        if (!(await verifyAdmin(adminId))) {
-            return json({ success: false, message: 'Forbidden: Admin access required' }, { status: 403 });
-        }
+    try {
+        const body = await event.request.json();
+        const id = parseInt(body.id);
+        if (isNaN(id)) return json({ success: false, message: 'Invalid course ID' }, { status: 400 });
 
         await prisma.course.delete({
             where: { id }

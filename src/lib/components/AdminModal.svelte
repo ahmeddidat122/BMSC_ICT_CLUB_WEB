@@ -1,17 +1,27 @@
 <script>
-    import { createEventDispatcher } from "svelte";
+    import { createEventDispatcher, onDestroy } from "svelte";
+    import { browser } from "$app/environment";
     import { X, Plus, Trash2 } from "lucide-svelte";
 
     export let showModal = null; // 'course', 'notice', 'project', 'team'
     export let formData = {};
     export let editingItem = null;
     export let isSubmitting = false;
+    export let submitError = "";
 
     const dispatch = createEventDispatcher();
 
     function close() {
         dispatch("close");
     }
+
+    $: if (browser) {
+        document.body.style.overflow = showModal ? "hidden" : "";
+    }
+
+    onDestroy(() => {
+        if (browser) document.body.style.overflow = "";
+    });
 
     function submit(e) {
         dispatch("submit", e);
@@ -624,8 +634,12 @@
 
         <!-- Footer -->
         <div
-            class="p-4 border-t border-white/10 bg-black/20 flex justify-end gap-3"
+            class="p-4 border-t border-white/10 bg-black/20 flex flex-col gap-3"
         >
+            {#if submitError}
+                <p class="text-sm text-red-400" role="alert">{submitError}</p>
+            {/if}
+            <div class="flex justify-end gap-3">
             <button
                 type="button"
                 on:click={close}
@@ -664,6 +678,7 @@
                     Save Details
                 {/if}
             </button>
+            </div>
         </div>
     </div>
 </div>

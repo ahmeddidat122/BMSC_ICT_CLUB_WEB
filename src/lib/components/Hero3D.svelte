@@ -26,7 +26,7 @@
         const geometry = new THREE.IcosahedronGeometry(1.8, 1);
 
         const material = new THREE.MeshBasicMaterial({
-            color: 0x06b6d4, // Cyan
+            color: 0xd4af37, // Gold
             wireframe: true,
             transparent: true,
             opacity: 0.4,
@@ -66,7 +66,7 @@
         );
         const particlesMaterial = new THREE.PointsMaterial({
             size: 0.05,
-            color: 0x06b6d4, // Cyan
+            color: 0xd4af37, // Gold
             transparent: true,
             opacity: 0.8,
             blending: THREE.AdditiveBlending,

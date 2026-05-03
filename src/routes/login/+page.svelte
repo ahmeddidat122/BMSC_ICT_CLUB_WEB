@@ -1,10 +1,11 @@
 <script>
 	import ParticleBackground from "$lib/components/ParticleBackground.svelte";
 	import { goto } from "$app/navigation";
+	import { onMount } from "svelte";
 	import { Mail, Lock, User, ArrowLeft, CheckCircle } from "lucide-svelte";
 
 	export let data;
-	$: ({ supabase } = data);
+	$: ({ supabase, next, error: errorParam } = data);
 
 	// authMode can be: 'login', 'register', 'forgot'
 	let authMode = "login";
@@ -19,6 +20,21 @@
 	let errorMsg = "";
 	let successMsg = "";
 	let isLoading = false;
+
+	onMount(() => {
+		// Show auth callback errors (Google OAuth, etc.)
+		if (!errorParam) return;
+		if (errorParam === "auth_failed") {
+			errorMsg =
+				"Google sign-in failed. Make sure your Supabase project's Auth settings allow this redirect URL: " +
+				`${window.location.origin}/auth/callback`;
+		} else if (errorParam === "auth_not_configured") {
+			errorMsg =
+				"Supabase is not configured. Set PUBLIC_SUPABASE_URL and PUBLIC_SUPABASE_ANON_KEY in your .env.";
+		} else {
+			errorMsg = "Authentication failed. Please try again.";
+		}
+	});
 
 	function switchMode(mode) {
 		authMode = mode;
@@ -61,9 +77,17 @@
 			password,
 		});
 
-		if (error) throw error;
+		if (error) {
+			// Common confusion: Google OAuth users don't have a password login unless they set one in Supabase.
+			if (error.message?.toLowerCase().includes("invalid login credentials")) {
+				throw new Error(
+					"Invalid login credentials. If you previously signed in with Google, use the “Google Account” button instead (password sign-in won't work unless you set a password).",
+				);
+			}
+			throw error;
+		}
 
-		goto("/dashboard");
+		goto(next || "/dashboard");
 	}
 
 	async function handleRegister(normalizedEmail) {
@@ -107,7 +131,7 @@
 		const { error } = await supabase.auth.resetPasswordForEmail(
 			normalizedEmail,
 			{
-				redirectTo: `${window.location.origin}/auth/callback?next=/profile`,
+				redirectTo: `${window.location.origin}/auth/callback?next=/dashboard`,
 			},
 		);
 
@@ -121,7 +145,9 @@
 		const { error } = await supabase.auth.signInWithOAuth({
 			provider: "google",
 			options: {
-				redirectTo: `${window.location.origin}/auth/callback`,
+				redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(
+					(next || "/dashboard").replace(/^\//, ""),
+				)}`,
 			},
 		});
 

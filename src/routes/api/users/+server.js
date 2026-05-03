@@ -2,10 +2,12 @@ import { json } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma.js';
 
 // GET all users (Admin only)
-export async function GET({ locals }) {
-    // In a real app, we'd check authentication and admin role here via locals.
-    // For this implementation, we'll assume the client handles the admin check for now,
-    // but ideally, we'd verify the session/token.
+export async function GET({ locals: { safeGetSession } }) {
+    const { dbUser } = await safeGetSession();
+    if (!dbUser || dbUser.role !== 'Admin') {
+        return json({ success: false, message: 'Unauthorized' }, { status: 403 });
+    }
+
     try {
         const users = await prisma.user.findMany({
             select: {
@@ -14,7 +16,10 @@ export async function GET({ locals }) {
                 email: true,
                 role: true,
                 createdAt: true,
-                avatar: true
+                avatar: true,
+                isBanned: true,
+                level: true,
+                xp: true
             },
             orderBy: { createdAt: 'desc' }
         });
@@ -26,23 +31,37 @@ export async function GET({ locals }) {
     }
 }
 
-// PATCH update user role (Admin only)
-export async function PATCH({ request }) {
-    try {
-        const { userId, role } = await request.json();
+// PATCH update user role or status (Admin only)
+export async function PATCH({ request, locals: { safeGetSession } }) {
+    const { dbUser: adminUser } = await safeGetSession();
+    if (!adminUser || adminUser.role !== 'Admin') {
+        return json({ success: false, message: 'Unauthorized' }, { status: 403 });
+    }
 
-        if (!userId || !role) {
-            return json({ success: false, message: 'User ID and role are required' }, { status: 400 });
+    try {
+        const { userId, role, isBanned } = await request.json();
+
+        if (!userId) {
+            return json({ success: false, message: 'User ID is required' }, { status: 400 });
         }
+
+        const updateData = {};
+        if (role !== undefined) updateData.role = role;
+        if (isBanned !== undefined) updateData.isBanned = isBanned;
 
         const updatedUser = await prisma.user.update({
             where: { id: userId },
-            data: { role },
-            select: {
-                id: true,
-                name: true,
-                email: true,
-                role: true
+            data: updateData
+        });
+
+        // Log the action
+        await prisma.auditLog.create({
+            data: {
+                adminId: adminUser.id,
+                action: role !== undefined ? 'UPDATE_ROLE' : 'UPDATE_STATUS',
+                targetType: 'User',
+                targetId: userId,
+                details: JSON.stringify(updateData)
             }
         });
 

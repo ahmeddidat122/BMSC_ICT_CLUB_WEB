@@ -91,86 +91,110 @@
 <section class="pb-20 lg:pb-32 px-6 lg:px-8">
 	<div class="max-w-7xl mx-auto">
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-			{#each teamMembers as member, i}
-				<ScrollReveal delay={i * 80}>
-					<button
-						class="w-full text-left glass-card p-6 group cursor-pointer h-full relative overflow-hidden"
-						on:click={() => openModal(member)}
-					>
-						<!-- Holographic Background Effect -->
-						<div
-							class="absolute inset-0 bg-gradient-to-br from-primary-500/0 to-primary-500/5 group-hover:to-primary-500/20 transition-all duration-500 opacity-0 group-hover:opacity-100"
-						></div>
-
-						<div
-							class="flex flex-col sm:flex-row items-center sm:items-start gap-6 relative z-10"
-						>
-							<!-- Techy Avatar -->
-							<div
-								class="relative w-20 h-20 sm:w-24 sm:h-24 shrink-0 shadow-lg rounded-2xl overflow-hidden border border-white/10 group-hover:border-primary-500/50 glow-secondary transition-all duration-500 flex items-center justify-center bg-dark-50"
-							>
-								<div
-									class="text-2xl sm:text-3xl font-bold font-heading text-gradient"
-								>
-									{member.name
-										.split(" ")
-										.map((n) => n[0])
-										.join("")}
-								</div>
-								<div
-									class="absolute inset-0 bg-grid-pattern opacity-10"
-								></div>
-							</div>
-
-							<!-- Info -->
-							<div class="text-center sm:text-left flex-1">
-								<h3
-									class="text-xl font-bold font-heading text-white group-hover:text-primary-400 transition-colors duration-300"
-								>
-									{member.name}
-								</h3>
-								<div
-									class="inline-flex items-center gap-2 mt-1 mb-3"
-								>
-									<span
-										class="w-1.5 h-1.5 rounded-full bg-secondary-500 shadow-[0_0_5px_theme(colors.secondary.500)]"
-									></span>
-									<p
-										class="text-sm font-medium tracking-wide uppercase text-gray-400"
-									>
-										{member.position}
-									</p>
-								</div>
-
-								<p
-									class="text-sm text-gray-500 line-clamp-2 leading-relaxed mb-4"
-								>
-									{member.bio}
-								</p>
-
-								<div
-									class="flex items-center justify-center sm:justify-start gap-1 text-xs text-primary-500/70 group-hover:text-primary-400 transition-colors font-semibold uppercase tracking-widest mt-auto"
-								>
-									<span>Explore Profile</span>
-									<svg
-										class="w-4 h-4 group-hover:translate-x-1 transition-transform"
-										fill="none"
-										stroke="currentColor"
-										viewBox="0 0 24 24"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											stroke-width="2"
-											d="M17 8l4 4m0 0l-4 4m4-4H3"
-										/>
-									</svg>
-								</div>
+			{#if isLoading}
+				<!-- Loading State -->
+				{#each Array(6) as _}
+					<div class="w-full text-left glass-card p-6 h-full relative overflow-hidden animate-pulse border-white/5">
+						<div class="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+							<div class="w-20 h-20 sm:w-24 sm:h-24 bg-white/10 rounded-2xl shrink-0"></div>
+							<div class="flex-1 w-full space-y-3">
+								<div class="h-6 bg-white/10 rounded w-3/4"></div>
+								<div class="h-4 bg-white/10 rounded w-1/2"></div>
+								<div class="h-3 bg-white/10 rounded w-full mt-4"></div>
+								<div class="h-3 bg-white/10 rounded w-full"></div>
 							</div>
 						</div>
-					</button>
-				</ScrollReveal>
-			{/each}
+					</div>
+				{/each}
+			{:else if teamMembers.length === 0}
+				<!-- Empty State -->
+				<div class="col-span-1 md:col-span-2 lg:col-span-3 glass-card p-12 text-center border-dashed">
+					<div class="text-4xl mb-4 opacity-50">👥</div>
+					<h3 class="text-xl font-bold text-white mb-2">Team Coming Soon</h3>
+					<p class="text-gray-400">Our executive committee members will be listed here.</p>
+				</div>
+			{:else}
+				{#each teamMembers as member, i}
+					<ScrollReveal delay={i * 80}>
+						<button
+							class="w-full text-left glass-card p-6 group cursor-pointer h-full relative overflow-hidden"
+							on:click={() => openModal(member)}
+						>
+							<!-- Holographic Background Effect -->
+							<div
+								class="absolute inset-0 bg-gradient-to-br from-primary-500/0 to-primary-500/5 group-hover:to-primary-500/20 transition-all duration-500 opacity-0 group-hover:opacity-100"
+							></div>
+
+							<div
+								class="flex flex-col sm:flex-row items-center sm:items-start gap-6 relative z-10"
+							>
+								<!-- Techy Avatar -->
+								<div
+									class="relative w-20 h-20 sm:w-24 sm:h-24 shrink-0 shadow-lg rounded-2xl overflow-hidden border border-white/10 group-hover:border-primary-500/50 glow-secondary transition-all duration-500 flex items-center justify-center bg-dark-50"
+								>
+									<div
+										class="text-2xl sm:text-3xl font-bold font-heading text-gradient"
+									>
+										{member.name
+											.split(" ")
+											.map((n) => n[0])
+											.join("")}
+									</div>
+									<div
+										class="absolute inset-0 bg-grid-pattern opacity-10"
+									></div>
+								</div>
+
+								<!-- Info -->
+								<div class="text-center sm:text-left flex-1">
+									<h3
+										class="text-xl font-bold font-heading text-white group-hover:text-primary-400 transition-colors duration-300"
+									>
+										{member.name}
+									</h3>
+									<div
+										class="inline-flex items-center gap-2 mt-1 mb-3"
+									>
+										<span
+											class="w-1.5 h-1.5 rounded-full bg-secondary-500 shadow-[0_0_5px_theme(colors.secondary.500)]"
+										></span>
+										<p
+											class="text-sm font-medium tracking-wide uppercase text-gray-400"
+										>
+											{member.position}
+										</p>
+									</div>
+
+									<p
+										class="text-sm text-gray-500 line-clamp-2 leading-relaxed mb-4"
+									>
+										{member.bio}
+									</p>
+
+									<div
+										class="flex items-center justify-center sm:justify-start gap-1 text-xs text-primary-500/70 group-hover:text-primary-400 transition-colors font-semibold uppercase tracking-widest mt-auto"
+									>
+										<span>Explore Profile</span>
+										<svg
+											class="w-4 h-4 group-hover:translate-x-1 transition-transform"
+											fill="none"
+											stroke="currentColor"
+											viewBox="0 0 24 24"
+										>
+											<path
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												stroke-width="2"
+												d="M17 8l4 4m0 0l-4 4m4-4H3"
+											/>
+										</svg>
+									</div>
+								</div>
+							</div>
+						</button>
+					</ScrollReveal>
+				{/each}
+			{/if}
 		</div>
 	</div>
 </section>

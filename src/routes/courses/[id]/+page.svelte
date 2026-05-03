@@ -1,6 +1,6 @@
 <script>
     import { page } from "$app/stores";
-    import { coursesStore, authStore } from "$lib/stores";
+    import { coursesStore, authStore, toastStore } from "$lib/stores";
     import ScrollReveal from "$lib/components/ScrollReveal.svelte";
     import GlassCard from "$lib/components/GlassCard.svelte";
     import ParticleBackground from "$lib/components/ParticleBackground.svelte";
@@ -28,11 +28,9 @@
     }
 
     onMount(async () => {
-        if ($authStore.isAuthenticated && $authStore.user?.id) {
+        if ($authStore.isAuthenticated) {
             try {
-                const res = await fetch(
-                    `/api/courses/${courseId}/progress?userId=${$authStore.user.id}`,
-                );
+                const res = await fetch(`/api/courses/${courseId}/progress`);
                 const data = await res.json();
                 if (data.success) {
                     completedTopics = data.completedTopics;
@@ -45,24 +43,32 @@
 
     async function handleMarkComplete() {
         if (!$authStore.isAuthenticated) {
-            alert("Please log in to track your progress.");
+            toastStore.error("Please log in to track your progress.");
             return;
         }
 
         if (!completedTopics.includes(activeTopicIndex)) {
+            const oldProgress = [...completedTopics];
             completedTopics = [...completedTopics, activeTopicIndex];
 
             try {
-                await fetch(`/api/courses/${courseId}/progress`, {
+                const res = await fetch(`/api/courses/${courseId}/progress`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        userId: $authStore.user.id,
-                        completedTopics: completedTopics,
-                    }),
+                    body: JSON.stringify({ completedTopics: completedTopics }),
                 });
+                
+                if (res.ok) {
+                    toastStore.success('Progress saved!');
+                } else {
+                    const data = await res.json().catch(()=>({}));
+                    toastStore.error(data.message || 'Failed to save progress');
+                    completedTopics = oldProgress;
+                }
             } catch (e) {
                 console.error("Failed to save progress", e);
+                toastStore.error("Network error when saving progress");
+                completedTopics = oldProgress;
             }
         }
     }

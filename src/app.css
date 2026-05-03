@@ -14,9 +14,9 @@
         --color-primary-light: #e6d3af;
         --color-secondary: #d4af37;
         --color-secondary-light: #ffc140;
-        --glass-bg: rgba(255, 255, 255, 0.03);
-        --glass-border: rgba(255, 255, 255, 0.08);
-        --glass-bg-hover: rgba(255, 255, 255, 0.06);
+        --glass-bg: rgba(212, 175, 55, 0.03);
+        --glass-border: rgba(212, 175, 55, 0.1);
+        --glass-bg-hover: rgba(212, 175, 55, 0.08);
     }
 
     * {
@@ -34,7 +34,7 @@
     body {
         font-family: 'Inter', sans-serif;
         background-color: var(--color-dark);
-        background-image: linear-gradient(to bottom, rgba(10, 10, 26, 0.8), rgba(10, 10, 26, 0.95)), url('/images/background.png');
+        background-image: linear-gradient(to bottom, rgba(10, 10, 16, 0.85), rgba(10, 10, 16, 1)), url('/images/background.webp');
         background-size: cover;
         background-position: center;
         background-attachment: scroll;
@@ -144,15 +144,15 @@
 
     /* Button styles */
     .btn-primary {
-        @apply px-8 py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-[#0a0a1a] font-bold rounded-xl hover:from-primary-400 hover:to-primary-500 transition-all duration-300 shadow-lg shadow-primary-500/20 hover:shadow-primary-500/40 hover:-translate-y-0.5;
+        @apply px-8 py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-[#0a0a1a] font-bold rounded-xl hover:from-primary-400 hover:to-primary-500 transition-all duration-300 shadow-lg shadow-primary-500/20 hover:shadow-primary-500/40 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed;
     }
 
     .btn-outline {
-        @apply px-8 py-3 border-2 border-primary-500/50 text-primary-400 font-semibold rounded-xl hover:bg-primary-500/10 hover:border-primary-400 transition-all duration-300 hover:-translate-y-0.5;
+        @apply px-8 py-3 border-2 border-primary-500/50 text-primary-400 font-semibold rounded-xl hover:bg-primary-500/10 hover:border-primary-400 transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:border-primary-500/20 disabled:text-primary-500/50 disabled:cursor-not-allowed;
     }
 
     .btn-ghost {
-        @apply px-6 py-2.5 text-gray-300 font-medium rounded-lg hover:bg-white/5 hover:text-white transition-all duration-300;
+        @apply px-6 py-2.5 text-gray-300 font-medium rounded-lg hover:bg-white/5 hover:text-white transition-all duration-300 active:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed;
     }
 
     /* Section spacing */
@@ -300,5 +300,15 @@
 
     .delay-600 {
         transition-delay: 0.6s;
+    }
+}
+
+/* Accessibility & Performance: Disable heavy animations for low-end / preference */
+@media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }

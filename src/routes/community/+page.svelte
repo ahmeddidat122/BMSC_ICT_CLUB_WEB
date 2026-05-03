@@ -186,123 +186,137 @@
         </ScrollReveal>
 
         <div class="space-y-4">
-            {#each $communityStore as discussion, i (discussion.id || i)}
-                <ScrollReveal delay={i * 80}>
-                    <a
-                        href="/community/{discussion.id}"
-                        class="relative block group"
+            {#if $communityStore.length === 0}
+                <div class="glass-card p-12 text-center border-dashed">
+                    <div class="text-4xl mb-4 opacity-50">💬</div>
+                    <h3 class="text-xl font-bold text-white mb-2">No Discussions Yet</h3>
+                    <p class="text-gray-400">Be the first to start a conversation in our community.</p>
+                    <button
+                        on:click={() => (isModalOpen = true)}
+                        class="mt-6 btn-primary inline-flex items-center gap-2"
                     >
-                        <!-- Glow Effect -->
-                        <div
-                            class="absolute inset-0 bg-gradient-to-r from-primary-500/0 via-transparent to-transparent group-hover:from-primary-500/5 rounded-2xl transition-colors duration-500 text-transparent"
-                        ></div>
-
-                        <div
-                            class="relative glass-card p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 border border-white/5 hover:border-white/10 group-hover:border-l-primary-500 border-l-[3px] transition-all duration-300"
+                        Start a Discussion
+                    </button>
+                </div>
+            {:else}
+                {#each $communityStore as discussion, i (discussion.id || i)}
+                    <ScrollReveal delay={i * 80}>
+                        <a
+                            href={`/community/${discussion.id}`}
+                            class="relative block group"
                         >
-                            <!-- Avatar -->
+                            <!-- Glow Effect -->
                             <div
-                                class="w-12 h-12 rounded-xl overflow-hidden border border-white/10 shrink-0 shadow-sm relative group-hover:scale-105 transition-transform"
-                            >
-                                <img
-                                    src={discussion.avatar}
-                                    alt={discussion.author}
-                                    class="w-full h-full object-cover"
-                                />
-                                <div
-                                    class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"
-                                ></div>
-                            </div>
+                                class="absolute inset-0 bg-gradient-to-r from-primary-500/0 via-transparent to-transparent group-hover:from-primary-500/5 rounded-2xl transition-colors duration-500 text-transparent"
+                            ></div>
 
-                            <!-- Content -->
-                            <div class="flex-1 min-w-0">
+                            <div
+                                class="relative glass-card p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 border border-white/5 hover:border-white/10 group-hover:border-l-primary-500 border-l-[3px] transition-all duration-300"
+                            >
+                                <!-- Avatar -->
                                 <div
-                                    class="flex flex-wrap items-center gap-2 mb-2"
+                                    class="w-12 h-12 rounded-xl overflow-hidden border border-white/10 shrink-0 shadow-sm relative group-hover:scale-105 transition-transform"
                                 >
-                                    {#if discussion.hot}
+                                    <img
+                                        src={discussion.avatar}
+                                        alt={discussion.author}
+                                        class="w-full h-full object-cover"
+                                    />
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"
+                                    ></div>
+                                </div>
+
+                                <!-- Content -->
+                                <div class="flex-1 min-w-0">
+                                    <div
+                                        class="flex flex-wrap items-center gap-2 mb-2"
+                                    >
+                                        {#if discussion.hot}
+                                            <span
+                                                class="text-[10px] uppercase tracking-wider text-orange-400 font-bold flex items-center gap-1 bg-orange-500/10 px-2 py-0.5 rounded border border-orange-500/20"
+                                            >
+                                                <span class="animate-pulse">🔥</span
+                                                > HOT
+                                            </span>
+                                        {/if}
                                         <span
-                                            class="text-[10px] uppercase tracking-wider text-orange-400 font-bold flex items-center gap-1 bg-orange-500/10 px-2 py-0.5 rounded border border-orange-500/20"
+                                            class="text-[10px] uppercase tracking-wider font-semibold text-primary-300 px-2 py-0.5 rounded bg-primary-500/10 border border-primary-500/20"
+                                            >{discussion.category}</span
                                         >
-                                            <span class="animate-pulse">🔥</span
-                                            > HOT
-                                        </span>
-                                    {/if}
-                                    <span
-                                        class="text-[10px] uppercase tracking-wider font-semibold text-primary-300 px-2 py-0.5 rounded bg-primary-500/10 border border-primary-500/20"
-                                        >{discussion.category}</span
+                                    </div>
+                                    <h3
+                                        class="text-lg text-white font-bold font-heading mb-1 group-hover:text-primary-400 transition-colors line-clamp-1"
                                     >
-                                </div>
-                                <h3
-                                    class="text-lg text-white font-bold font-heading mb-1 group-hover:text-primary-400 transition-colors line-clamp-1"
-                                >
-                                    {discussion.title}
-                                </h3>
-                                <div
-                                    class="flex items-center gap-3 text-xs text-gray-500 font-medium"
-                                >
-                                    <span class="text-gray-400"
-                                        >{discussion.author}</span
+                                        {discussion.title}
+                                    </h3>
+                                    <div
+                                        class="flex items-center gap-3 text-xs text-gray-500 font-medium"
                                     >
-                                    <span
-                                        class="w-1 h-1 rounded-full bg-white/20"
-                                    ></span>
-                                    <span>{timeAgo(discussion.timestamp)}</span>
+                                        <span class="text-gray-400"
+                                            >{discussion.author}</span
+                                        >
+                                        <span
+                                            class="w-1 h-1 rounded-full bg-white/20"
+                                        ></span>
+                                        <span>{timeAgo(discussion.timestamp)}</span>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <!-- Likes & Replies -->
-                            <div
-                                class="flex items-center gap-6 text-gray-500 shrink-0 mt-4 sm:mt-0 w-full sm:w-auto justify-end border-t border-white/5 sm:border-t-0 pt-4 sm:pt-0"
-                            >
-                                <!-- Likes -->
+                                <!-- Likes & Replies -->
                                 <div
-                                    class="flex items-center gap-1.5 group/stat hover:text-white transition-colors"
+                                    class="flex items-center gap-6 text-gray-500 shrink-0 mt-4 sm:mt-0 w-full sm:w-auto justify-end border-t border-white/5 sm:border-t-0 pt-4 sm:pt-0"
                                 >
-                                    <svg
-                                        class="w-4 h-4 text-gray-600 group-hover/stat:text-red-400 transition-colors"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
+                                    <!-- Likes -->
+                                    <div
+                                        class="flex items-center gap-1.5 group/stat hover:text-white transition-colors"
                                     >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                                        />
-                                    </svg>
-                                    <span class="text-sm font-mono"
-                                        >{discussion.likes || 0}</span
+                                        <svg
+                                            class="w-4 h-4 text-gray-600 group-hover/stat:text-red-400 transition-colors"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                            />
+                                        </svg>
+                                        <span class="text-sm font-mono"
+                                            >{discussion.likes || 0}</span
+                                        >
+                                    </div>
+                                    <!-- Replies -->
+                                    <div
+                                        class="flex items-center gap-1.5 group/stat hover:text-white transition-colors"
                                     >
-                                </div>
-                                <!-- Replies -->
-                                <div
-                                    class="flex items-center gap-1.5 group/stat hover:text-white transition-colors"
-                                >
-                                    <svg
-                                        class="w-4 h-4 text-gray-600 group-hover/stat:text-primary-400 transition-colors"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                                        />
-                                    </svg>
-                                    <span class="text-sm font-mono"
-                                        >{discussion.comments
-                                            ? discussion.comments.length
-                                            : 0}</span
-                                    >
+                                        <svg
+                                            class="w-4 h-4 text-gray-600 group-hover/stat:text-primary-400 transition-colors"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                                            />
+                                        </svg>
+                                        <span class="text-sm font-mono"
+                                            >{discussion.comments
+                                                ? discussion.comments.length
+                                                : 0}</span
+                                        >
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
-                </ScrollReveal>
-            {/each}
+                        </a>
+                    </ScrollReveal>
+                {/each}
+            {/if}
         </div>
     </div>
 </section>

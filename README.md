@@ -14,7 +14,8 @@ A modern, responsive website for the BMSC ICT Club built with SvelteKit and Tail
 
 - **Framework**: SvelteKit
 - **Styling**: Tailwind CSS
-- **3D Graphics**: Spline 3D Viewer
+- **Database**: Supabase (PostgreSQL) — see [docs/DATABASE.md](docs/DATABASE.md)
+- **Auth**: Supabase Auth
 - **Build Tool**: Vite
 - **Package Manager**: npm
 

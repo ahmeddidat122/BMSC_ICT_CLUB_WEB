@@ -3,18 +3,16 @@
 	import { browser } from "$app/environment";
 	import ScrollReveal from "$lib/components/ScrollReveal.svelte";
 	import GlassCard from "$lib/components/GlassCard.svelte";
-	import ParticleBackground from "$lib/components/ParticleBackground.svelte";
-	import Hero3D from "$lib/components/Hero3D.svelte";
 
-	let statsVisible = false;
-	let statsElement;
+	let ParticleBackground;
+	let Hero3D;
 
-	const stats = [
-		{ value: 50, suffix: "+", label: "Active Members" },
-		{ value: 10, suffix: "+", label: "Events Hosted" },
-		{ value: 6, suffix: "+", label: "Courses Offered" },
-		{ value: 15, suffix: "+", label: "Projects Built" },
-	];
+	onMount(async () => {
+		if (browser) {
+			ParticleBackground = (await import("$lib/components/ParticleBackground.svelte")).default;
+			Hero3D = (await import("$lib/components/Hero3D.svelte")).default;
+		}
+	});
 
 	const features = [
 		{
@@ -54,45 +52,6 @@
 				"Connect with tech enthusiasts, alumni, and professionals from the wider tech community.",
 		},
 	];
-
-	let animatedStats = stats.map((s) => ({ ...s, current: 0 }));
-
-	function animateCounters() {
-		if (statsVisible) return;
-		statsVisible = true;
-
-		animatedStats.forEach((stat, i) => {
-			const target = stat.value;
-			const increment = target / 50;
-			let current = 0;
-			const timer = setInterval(() => {
-				current += increment;
-				if (current >= target) {
-					current = target;
-					clearInterval(timer);
-				}
-				animatedStats[i].current = Math.floor(current);
-				animatedStats = animatedStats;
-			}, 30);
-		});
-	}
-
-	onMount(() => {
-		if (!statsElement) return;
-		const observer = new IntersectionObserver(
-			(entries) => {
-				if (entries[0].isIntersecting) {
-					animateCounters();
-					observer.unobserve(entries[0].target);
-				}
-			},
-			{ threshold: 0.3 },
-		);
-		observer.observe(statsElement);
-		return () => {
-			if (statsElement) observer.unobserve(statsElement);
-		};
-	});
 </script>
 
 <svelte:head>
@@ -111,13 +70,16 @@
 	<!-- Background layers -->
 	<div class="absolute inset-0 z-[-1] bg-dark-900">
 		<div
-			class="absolute inset-0 bg-[url('/images/circuit-bg.jpg')] bg-cover bg-center bg-no-repeat blur-[10px] scale-105 opacity-80"
+			class="absolute inset-0 bg-[url('/images/circuit-bg.webp')] bg-cover bg-center bg-no-repeat blur-[6px] scale-105 opacity-50 grayscale"
 		></div>
-		<div class="absolute inset-0 bg-dark-900/60"></div>
+		<div class="absolute inset-0 bg-gradient-to-b from-dark-900/40 via-dark-900/80 to-[#0A0A10]"></div>
 	</div>
 	<div class="absolute inset-0 bg-gradient-mesh opacity-50"></div>
 	<div class="absolute inset-0 grid-pattern"></div>
-	<ParticleBackground color="primary" />
+	<!-- Heavy components are lazy-loaded -->
+	{#if ParticleBackground}
+		<svelte:component this={ParticleBackground} color="primary" />
+	{/if}
 
 	<!-- Ambient glow blobs -->
 	<div
@@ -190,7 +152,16 @@
 				class="flex-1 w-full max-w-2xl h-[400px] lg:h-[600px] animate-fade-in relative flex items-center justify-center p-8 lg:p-12 mb-12 lg:mb-0"
 				style="animation-delay: 0.5s"
 			>
-				<Hero3D />
+				{#if Hero3D}
+					<div class="w-full h-full animate-fade-in transition-all duration-1000">
+						<svelte:component this={Hero3D} />
+					</div>
+				{:else}
+					<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+						<div class="w-[300px] h-[300px] bg-primary-500/10 rounded-full animate-pulse blur-3xl"></div>
+						<div class="w-12 h-12 border-t-2 border-r-2 border-primary-500 rounded-full animate-spin"></div>
+					</div>
+				{/if}
 			</div>
 		</div>
 	</div>
@@ -216,28 +187,33 @@
 	</div>
 </section>
 
-<!-- ===================== STATS SECTION ===================== -->
-<section
-	class="stats-section relative py-16 overflow-hidden"
-	bind:this={statsElement}
->
+<!-- ===================== HIGHLIGHTS SECTION ===================== -->
+<section class="relative py-16 overflow-hidden">
 	<div
 		class="absolute inset-0 bg-gradient-to-b from-transparent via-primary-500/5 to-transparent pointer-events-none"
 	></div>
 	<div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
-		<div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
-			{#each animatedStats as stat, i}
-				<div class="text-center">
-					<div
-						class="stat-number text-4xl lg:text-5xl font-bold font-heading text-white mb-2"
-					>
-						{stat.current}{stat.suffix}
-					</div>
-					<div class="text-sm text-gray-400 uppercase tracking-wider">
-						{stat.label}
-					</div>
-				</div>
-			{/each}
+		<div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+			<div class="glass-card p-6 text-center group hover:border-primary-500/30 transition-colors">
+				<div class="text-3xl mb-3">🎯</div>
+				<h3 class="text-sm font-semibold text-white mb-1">Hands-on Learning</h3>
+				<p class="text-xs text-gray-500">Learn by building real projects</p>
+			</div>
+			<div class="glass-card p-6 text-center group hover:border-primary-500/30 transition-colors">
+				<div class="text-3xl mb-3">🤝</div>
+				<h3 class="text-sm font-semibold text-white mb-1">Community Driven</h3>
+				<p class="text-xs text-gray-500">Grow together with peers</p>
+			</div>
+			<div class="glass-card p-6 text-center group hover:border-primary-500/30 transition-colors">
+				<div class="text-3xl mb-3">🏆</div>
+				<h3 class="text-sm font-semibold text-white mb-1">Compete & Win</h3>
+				<p class="text-xs text-gray-500">Hackathons & contests</p>
+			</div>
+			<div class="glass-card p-6 text-center group hover:border-primary-500/30 transition-colors">
+				<div class="text-3xl mb-3">🚀</div>
+				<h3 class="text-sm font-semibold text-white mb-1">Launch Ideas</h3>
+				<p class="text-xs text-gray-500">Turn concepts into reality</p>
+			</div>
 		</div>
 	</div>
 </section>

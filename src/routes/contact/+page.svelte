@@ -1,17 +1,7 @@
 <script>
 	import ScrollReveal from "$lib/components/ScrollReveal.svelte";
 	import ParticleBackground from "$lib/components/ParticleBackground.svelte";
-	import emailjs from "@emailjs/browser";
-	import {
-		PUBLIC_EMAILJS_SERVICE_ID,
-		PUBLIC_EMAILJS_TEMPLATE_ID,
-		PUBLIC_EMAILJS_PUBLIC_KEY,
-	} from "$env/static/public";
 
-	const EMAILJS_SERVICE_ID = PUBLIC_EMAILJS_SERVICE_ID || "YOUR_SERVICE_ID";
-	const EMAILJS_TEMPLATE_ID =
-		PUBLIC_EMAILJS_TEMPLATE_ID || "YOUR_TEMPLATE_ID";
-	const EMAILJS_PUBLIC_KEY = PUBLIC_EMAILJS_PUBLIC_KEY || "YOUR_PUBLIC_KEY";
 
 	let formData = { name: "", email: "", phone: "", subject: "", message: "" };
 	let errors = {};
@@ -59,27 +49,15 @@
 		submissionSuccess = false;
 		submissionError = false;
 		try {
-			if (
-				EMAILJS_SERVICE_ID === "YOUR_SERVICE_ID" ||
-				!EMAILJS_SERVICE_ID
-			) {
-				// Mock submission for demonstration if EmailJS is not configured
-				await new Promise((resolve) => setTimeout(resolve, 1500));
-			} else {
-				const templateParams = {
-					from_name: formData.name,
-					from_email: formData.email,
-					phone: formData.phone,
-					subject: formData.subject,
-					message: formData.message,
-					to_name: "BMSC ICT Club",
-				};
-				await emailjs.send(
-					EMAILJS_SERVICE_ID,
-					EMAILJS_TEMPLATE_ID,
-					templateParams,
-					EMAILJS_PUBLIC_KEY,
-				);
+			const res = await fetch("/api/contact", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(formData),
+			});
+			if (!res.ok) {
+				throw new Error("Failed to send message");
 			}
 			submissionSuccess = true;
 			formData = {
@@ -91,7 +69,7 @@
 			};
 			errors = {};
 		} catch (error) {
-			console.error("EmailJS Error:", error);
+			console.error("Contact Form Error:", error);
 			submissionError = true;
 		} finally {
 			isSubmitting = false;
@@ -153,6 +131,8 @@
 						>
 							Send a Message
 						</h2>
+
+
 
 						<form on:submit={handleSubmit} class="space-y-5">
 							<div class="grid grid-cols-1 sm:grid-cols-2 gap-5">

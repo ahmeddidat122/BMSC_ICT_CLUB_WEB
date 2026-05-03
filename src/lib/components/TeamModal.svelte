@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { createEventDispatcher } from "svelte";
+	import { createEventDispatcher, onDestroy } from "svelte";
+	import { browser } from "$app/environment";
 	import { fly, fade } from "svelte/transition";
 
 	export let member: any = null;
@@ -11,6 +12,14 @@
 		dispatch("close");
 	}
 
+	$: if (browser) {
+		document.body.style.overflow = (show && member) ? "hidden" : "";
+	}
+
+	onDestroy(() => {
+		if (browser) document.body.style.overflow = "";
+	});
+
 	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === "Escape") close();
 	}
@@ -21,7 +30,7 @@
 {#if show && member}
 	<!-- Backdrop close on click (using |self to only trigger when backdrop is clicked, not modal) -->
 	<div
-		class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+		class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[100] flex items-center justify-center p-4"
 		on:click|self={close}
 		on:keydown|self={handleKeydown}
 		role="button"

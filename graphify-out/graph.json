@@ -1,0 +1,2359 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "postcss.config.js",
+      "file_type": "code",
+      "source_file": "postcss.config.js",
+      "source_location": "L1",
+      "id": "postcss_config_js",
+      "community": 27,
+      "norm_label": "postcss.config.js"
+    },
+    {
+      "label": "svelte.config.js",
+      "file_type": "code",
+      "source_file": "svelte.config.js",
+      "source_location": "L1",
+      "id": "svelte_config_js",
+      "community": 28,
+      "norm_label": "svelte.config.js"
+    },
+    {
+      "label": "vite.config.js",
+      "file_type": "code",
+      "source_file": "vite.config.js",
+      "source_location": "L1",
+      "id": "vite_config_js",
+      "community": 29,
+      "norm_label": "vite.config.js"
+    },
+    {
+      "label": "prisma.config.ts",
+      "file_type": "code",
+      "source_file": "prisma.config.ts",
+      "source_location": "L1",
+      "id": "prisma_config_ts",
+      "community": 30,
+      "norm_label": "prisma.config.ts"
+    },
+    {
+      "label": "tailwind.config.js",
+      "file_type": "code",
+      "source_file": "tailwind.config.js",
+      "source_location": "L1",
+      "id": "tailwind_config_js",
+      "community": 31,
+      "norm_label": "tailwind.config.js"
+    },
+    {
+      "label": "promote.js",
+      "file_type": "code",
+      "source_file": "promote.js",
+      "source_location": "L1",
+      "id": "promote_js",
+      "community": 10,
+      "norm_label": "promote.js"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "promote.js",
+      "source_location": "L4",
+      "id": "bmsc_ict_club_web_promote_main",
+      "community": 10,
+      "norm_label": "main()"
+    },
+    {
+      "label": "hooks.server.js",
+      "file_type": "code",
+      "source_file": "src/hooks.server.js",
+      "source_location": "L1",
+      "id": "src_hooks_server_js",
+      "community": 3,
+      "norm_label": "hooks.server.js"
+    },
+    {
+      "label": "handle()",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/hooks.server.js",
+      "source_location": "L4",
+      "id": "src_hooks_server_handle",
+      "community": 3,
+      "norm_label": "handle()"
+    },
+    {
+      "label": "app.d.ts",
+      "file_type": "code",
+      "source_file": "src/app.d.ts",
+      "source_location": "L1",
+      "id": "src_app_d_ts",
+      "community": 32,
+      "norm_label": "app.d.ts"
+    },
+    {
+      "label": "mockData.js",
+      "file_type": "code",
+      "source_file": "src/lib/mockData.js",
+      "source_location": "L1",
+      "id": "src_lib_mockdata_js",
+      "community": 33,
+      "norm_label": "mockdata.js"
+    },
+    {
+      "label": "stores.js",
+      "file_type": "code",
+      "source_file": "src/lib/stores.js",
+      "source_location": "L1",
+      "id": "src_lib_stores_js",
+      "community": 6,
+      "norm_label": "stores.js"
+    },
+    {
+      "label": "createPersistentStore()",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/lib/stores.js",
+      "source_location": "L6",
+      "id": "lib_stores_createpersistentstore",
+      "community": 6,
+      "norm_label": "createpersistentstore()"
+    },
+    {
+      "label": "createToastStore()",
+      "file_type": "code",
+      "source_file": "src/lib/stores.js",
+      "source_location": "L59",
+      "id": "lib_stores_createtoaststore",
+      "community": 6,
+      "norm_label": "createtoaststore()"
+    },
+    {
+      "label": "utils.js",
+      "file_type": "code",
+      "source_file": "src/lib/utils.js",
+      "source_location": "L1",
+      "id": "src_lib_utils_js",
+      "community": 1,
+      "norm_label": "utils.js"
+    },
+    {
+      "label": "safeJsonParse()",
+      "file_type": "code",
+      "source_file": "src/lib/utils.js",
+      "source_location": "L7",
+      "id": "lib_utils_safejsonparse",
+      "community": 1,
+      "norm_label": "safejsonparse()"
+    },
+    {
+      "label": "Footer.svelte",
+      "file_type": "code",
+      "source_file": "src/lib/components/Footer.svelte",
+      "source_location": "L1",
+      "id": "src_lib_components_footer_svelte",
+      "community": 34,
+      "norm_label": "footer.svelte"
+    },
+    {
+      "label": "Navbar.svelte",
+      "file_type": "code",
+      "source_file": "src/lib/components/Navbar.svelte",
+      "source_location": "L1",
+      "id": "src_lib_components_navbar_svelte",
+      "community": 35,
+      "norm_label": "navbar.svelte"
+    },
+    {
+      "label": "GlassCard.svelte",
+      "file_type": "code",
+      "source_file": "src/lib/components/GlassCard.svelte",
+      "source_location": "L1",
+      "id": "src_lib_components_glasscard_svelte",
+      "community": 36,
+      "norm_label": "glasscard.svelte"
+    },
+    {
+      "label": "ParticleBackground.svelte",
+      "file_type": "code",
+      "source_file": "src/lib/components/ParticleBackground.svelte",
+      "source_location": "L1",
+      "id": "src_lib_components_particlebackground_svelte",
+      "community": 37,
+      "norm_label": "particlebackground.svelte"
+    },
+    {
+      "label": "TeamModal.svelte",
+      "file_type": "code",
+      "source_file": "src/lib/components/TeamModal.svelte",
+      "source_location": "L1",
+      "id": "src_lib_components_teammodal_svelte",
+      "community": 38,
+      "norm_label": "teammodal.svelte"
+    },
+    {
+      "label": "ScrollReveal.svelte",
+      "file_type": "code",
+      "source_file": "src/lib/components/ScrollReveal.svelte",
+      "source_location": "L1",
+      "id": "src_lib_components_scrollreveal_svelte",
+      "community": 39,
+      "norm_label": "scrollreveal.svelte"
+    },
+    {
+      "label": "Hero3D.svelte",
+      "file_type": "code",
+      "source_file": "src/lib/components/Hero3D.svelte",
+      "source_location": "L1",
+      "id": "src_lib_components_hero3d_svelte",
+      "community": 40,
+      "norm_label": "hero3d.svelte"
+    },
+    {
+      "label": "AdminModal.svelte",
+      "file_type": "code",
+      "source_file": "src/lib/components/AdminModal.svelte",
+      "source_location": "L1",
+      "id": "src_lib_components_adminmodal_svelte",
+      "community": 41,
+      "norm_label": "adminmodal.svelte"
+    },
+    {
+      "label": "Toast.svelte",
+      "file_type": "code",
+      "source_file": "src/lib/components/Toast.svelte",
+      "source_location": "L1",
+      "id": "src_lib_components_toast_svelte",
+      "community": 42,
+      "norm_label": "toast.svelte"
+    },
+    {
+      "label": "ProfileCard.svelte",
+      "file_type": "code",
+      "source_file": "src/lib/components/dashboard/ProfileCard.svelte",
+      "source_location": "L1",
+      "id": "src_lib_components_dashboard_profilecard_svelte",
+      "community": 43,
+      "norm_label": "profilecard.svelte"
+    },
+    {
+      "label": "StatCard.svelte",
+      "file_type": "code",
+      "source_file": "src/lib/components/dashboard/StatCard.svelte",
+      "source_location": "L1",
+      "id": "src_lib_components_dashboard_statcard_svelte",
+      "community": 44,
+      "norm_label": "statcard.svelte"
+    },
+    {
+      "label": "AchievementList.svelte",
+      "file_type": "code",
+      "source_file": "src/lib/components/dashboard/AchievementList.svelte",
+      "source_location": "L1",
+      "id": "src_lib_components_dashboard_achievementlist_svelte",
+      "community": 45,
+      "norm_label": "achievementlist.svelte"
+    },
+    {
+      "label": "PerformanceGraph.svelte",
+      "file_type": "code",
+      "source_file": "src/lib/components/dashboard/PerformanceGraph.svelte",
+      "source_location": "L1",
+      "id": "src_lib_components_dashboard_performancegraph_svelte",
+      "community": 46,
+      "norm_label": "performancegraph.svelte"
+    },
+    {
+      "label": "prisma.js",
+      "file_type": "code",
+      "source_file": "src/lib/server/prisma.js",
+      "source_location": "L1",
+      "id": "src_lib_server_prisma_js",
+      "community": 11,
+      "norm_label": "prisma.js"
+    },
+    {
+      "label": "getPrisma()",
+      "file_type": "code",
+      "source_file": "src/lib/server/prisma.js",
+      "source_location": "L7",
+      "id": "server_prisma_getprisma",
+      "community": 11,
+      "norm_label": "getprisma()"
+    },
+    {
+      "label": "supabase.js",
+      "file_type": "code",
+      "source_file": "src/lib/server/supabase.js",
+      "source_location": "L1",
+      "id": "src_lib_server_supabase_js",
+      "community": 3,
+      "norm_label": "supabase.js"
+    },
+    {
+      "label": "createSupabaseServerClient()",
+      "file_type": "code",
+      "source_file": "src/lib/server/supabase.js",
+      "source_location": "L8",
+      "id": "server_supabase_createsupabaseserverclient",
+      "community": 3,
+      "norm_label": "createsupabaseserverclient()"
+    },
+    {
+      "label": "auth.js",
+      "file_type": "code",
+      "source_file": "src/lib/server/auth.js",
+      "source_location": "L1",
+      "id": "src_lib_server_auth_js",
+      "community": 0,
+      "norm_label": "auth.js"
+    },
+    {
+      "label": "requireAdmin()",
+      "file_type": "code",
+      "source_file": "src/lib/server/auth.js",
+      "source_location": "L9",
+      "id": "server_auth_requireadmin",
+      "community": 0,
+      "norm_label": "requireadmin()"
+    },
+    {
+      "label": "+layout.svelte",
+      "file_type": "code",
+      "source_file": "src/routes/+layout.svelte",
+      "source_location": "L1",
+      "id": "src_routes_layout_svelte",
+      "community": 47,
+      "norm_label": "+layout.svelte"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "src/routes/+page.svelte",
+      "source_location": "L1",
+      "id": "src_routes_page_svelte",
+      "community": 48,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "+layout.server.js",
+      "file_type": "code",
+      "source_file": "src/routes/+layout.server.js",
+      "source_location": "L1",
+      "id": "src_routes_layout_server_js",
+      "community": 12,
+      "norm_label": "+layout.server.js"
+    },
+    {
+      "label": "load()",
+      "file_type": "code",
+      "source_file": "src/routes/+layout.server.js",
+      "source_location": "L1",
+      "id": "routes_layout_server_load",
+      "community": 12,
+      "norm_label": "load()"
+    },
+    {
+      "label": "+layout.js",
+      "file_type": "code",
+      "source_file": "src/routes/+layout.js",
+      "source_location": "L1",
+      "id": "src_routes_layout_js",
+      "community": 13,
+      "norm_label": "+layout.js"
+    },
+    {
+      "label": "load()",
+      "file_type": "code",
+      "source_file": "src/routes/+layout.js",
+      "source_location": "L4",
+      "id": "routes_layout_load",
+      "community": 13,
+      "norm_label": "load()"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "src/routes/contact/+page.svelte",
+      "source_location": "L1",
+      "id": "src_routes_contact_page_svelte",
+      "community": 7,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "if()",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/contact/+page.svelte",
+      "source_location": "L62",
+      "id": "contact_page_if",
+      "community": 7,
+      "norm_label": "if()"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "src/routes/team/+page.svelte",
+      "source_location": "L1",
+      "id": "src_routes_team_page_svelte",
+      "community": 49,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "src/routes/courses/+page.svelte",
+      "source_location": "L1",
+      "id": "src_routes_courses_page_svelte",
+      "community": 50,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "src/routes/courses/[id]/+page.svelte",
+      "source_location": "L1",
+      "id": "src_routes_courses_id_page_svelte",
+      "community": 14,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "handleMarkComplete()",
+      "file_type": "code",
+      "source_file": "src/routes/courses/[id]/+page.svelte",
+      "source_location": "L44",
+      "id": "id_page_handlemarkcomplete",
+      "community": 14,
+      "norm_label": "handlemarkcomplete()"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "src/routes/login/+page.svelte",
+      "source_location": "L1",
+      "id": "src_routes_login_page_svelte",
+      "community": 5,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "if()",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/login/+page.svelte",
+      "source_location": "L42",
+      "id": "login_page_if",
+      "community": 5,
+      "norm_label": "if()"
+    },
+    {
+      "label": "+page.server.js",
+      "file_type": "code",
+      "source_file": "src/routes/login/+page.server.js",
+      "source_location": "L1",
+      "id": "src_routes_login_page_server_js",
+      "community": 15,
+      "norm_label": "+page.server.js"
+    },
+    {
+      "label": "load()",
+      "file_type": "code",
+      "source_file": "src/routes/login/+page.server.js",
+      "source_location": "L14",
+      "id": "login_page_server_load",
+      "community": 15,
+      "norm_label": "load()"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "src/routes/notices/+page.svelte",
+      "source_location": "L1",
+      "id": "src_routes_notices_page_svelte",
+      "community": 51,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "src/routes/notices/[id]/+page.svelte",
+      "source_location": "L1",
+      "id": "src_routes_notices_id_page_svelte",
+      "community": 52,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "src/routes/projects/+page.svelte",
+      "source_location": "L1",
+      "id": "src_routes_projects_page_svelte",
+      "community": 53,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "src/routes/community/+page.svelte",
+      "source_location": "L1",
+      "id": "src_routes_community_page_svelte",
+      "community": 54,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "src/routes/community/[id]/+page.svelte",
+      "source_location": "L1",
+      "id": "src_routes_community_id_page_svelte",
+      "community": 2,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "handleLike()",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/community/[id]/+page.svelte",
+      "source_location": "L17",
+      "id": "id_page_handlelike",
+      "community": 2,
+      "norm_label": "handlelike()"
+    },
+    {
+      "label": "handleShare()",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/community/[id]/+page.svelte",
+      "source_location": "L27",
+      "id": "id_page_handleshare",
+      "community": 2,
+      "norm_label": "handleshare()"
+    },
+    {
+      "label": "handleAddComment()",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/community/[id]/+page.svelte",
+      "source_location": "L33",
+      "id": "id_page_handleaddcomment",
+      "community": 2,
+      "norm_label": "handleaddcomment()"
+    },
+    {
+      "label": "timeAgo()",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/community/[id]/+page.svelte",
+      "source_location": "L55",
+      "id": "id_page_timeago",
+      "community": 2,
+      "norm_label": "timeago()"
+    },
+    {
+      "label": "+server.js",
+      "file_type": "code",
+      "source_file": "src/routes/api/courses/+server.js",
+      "source_location": "L1",
+      "id": "src_routes_api_courses_server_js",
+      "community": 1,
+      "norm_label": "+server.js"
+    },
+    {
+      "label": "GET()",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/api/courses/+server.js",
+      "source_location": "L4",
+      "id": "courses_server_get",
+      "community": 1,
+      "norm_label": "get()"
+    },
+    {
+      "label": "POST()",
+      "file_type": "code",
+      "source_file": "src/routes/api/courses/+server.js",
+      "source_location": "L30",
+      "id": "courses_server_post",
+      "community": 1,
+      "norm_label": "post()"
+    },
+    {
+      "label": "PUT()",
+      "file_type": "code",
+      "source_file": "src/routes/api/courses/+server.js",
+      "source_location": "L60",
+      "id": "courses_server_put",
+      "community": 1,
+      "norm_label": "put()"
+    },
+    {
+      "label": "DELETE()",
+      "file_type": "code",
+      "source_file": "src/routes/api/courses/+server.js",
+      "source_location": "L94",
+      "id": "courses_server_delete",
+      "community": 1,
+      "norm_label": "delete()"
+    },
+    {
+      "label": "+server.js",
+      "file_type": "code",
+      "source_file": "src/routes/api/courses/[id]/progress/+server.js",
+      "source_location": "L1",
+      "id": "src_routes_api_courses_id_progress_server_js",
+      "community": 1,
+      "norm_label": "+server.js"
+    },
+    {
+      "label": "GET()",
+      "file_type": "code",
+      "source_file": "src/routes/api/courses/[id]/progress/+server.js",
+      "source_location": "L6",
+      "id": "progress_server_get",
+      "community": 1,
+      "norm_label": "get()"
+    },
+    {
+      "label": "POST()",
+      "file_type": "code",
+      "source_file": "src/routes/api/courses/[id]/progress/+server.js",
+      "source_location": "L40",
+      "id": "progress_server_post",
+      "community": 1,
+      "norm_label": "post()"
+    },
+    {
+      "label": "+server.js",
+      "file_type": "code",
+      "source_file": "src/routes/api/notices/+server.js",
+      "source_location": "L1",
+      "id": "src_routes_api_notices_server_js",
+      "community": 0,
+      "norm_label": "+server.js"
+    },
+    {
+      "label": "GET()",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/api/notices/+server.js",
+      "source_location": "L4",
+      "id": "notices_server_get",
+      "community": 0,
+      "norm_label": "get()"
+    },
+    {
+      "label": "POST()",
+      "file_type": "code",
+      "source_file": "src/routes/api/notices/+server.js",
+      "source_location": "L24",
+      "id": "notices_server_post",
+      "community": 0,
+      "norm_label": "post()"
+    },
+    {
+      "label": "PUT()",
+      "file_type": "code",
+      "source_file": "src/routes/api/notices/+server.js",
+      "source_location": "L60",
+      "id": "notices_server_put",
+      "community": 0,
+      "norm_label": "put()"
+    },
+    {
+      "label": "DELETE()",
+      "file_type": "code",
+      "source_file": "src/routes/api/notices/+server.js",
+      "source_location": "L108",
+      "id": "notices_server_delete",
+      "community": 0,
+      "norm_label": "delete()"
+    },
+    {
+      "label": "+server.js",
+      "file_type": "code",
+      "source_file": "src/routes/api/users/+server.js",
+      "source_location": "L1",
+      "id": "src_routes_api_users_server_js",
+      "community": 8,
+      "norm_label": "+server.js"
+    },
+    {
+      "label": "GET()",
+      "file_type": "code",
+      "source_file": "src/routes/api/users/+server.js",
+      "source_location": "L5",
+      "id": "users_server_get",
+      "community": 8,
+      "norm_label": "get()"
+    },
+    {
+      "label": "PATCH()",
+      "file_type": "code",
+      "source_file": "src/routes/api/users/+server.js",
+      "source_location": "L35",
+      "id": "users_server_patch",
+      "community": 8,
+      "norm_label": "patch()"
+    },
+    {
+      "label": "+server.js",
+      "file_type": "code",
+      "source_file": "src/routes/api/projects/+server.js",
+      "source_location": "L1",
+      "id": "src_routes_api_projects_server_js",
+      "community": 0,
+      "norm_label": "+server.js"
+    },
+    {
+      "label": "GET()",
+      "file_type": "code",
+      "source_file": "src/routes/api/projects/+server.js",
+      "source_location": "L7",
+      "id": "projects_server_get",
+      "community": 0,
+      "norm_label": "get()"
+    },
+    {
+      "label": "POST()",
+      "file_type": "code",
+      "source_file": "src/routes/api/projects/+server.js",
+      "source_location": "L27",
+      "id": "projects_server_post",
+      "community": 0,
+      "norm_label": "post()"
+    },
+    {
+      "label": "PUT()",
+      "file_type": "code",
+      "source_file": "src/routes/api/projects/+server.js",
+      "source_location": "L75",
+      "id": "projects_server_put",
+      "community": 0,
+      "norm_label": "put()"
+    },
+    {
+      "label": "DELETE()",
+      "file_type": "code",
+      "source_file": "src/routes/api/projects/+server.js",
+      "source_location": "L136",
+      "id": "projects_server_delete",
+      "community": 0,
+      "norm_label": "delete()"
+    },
+    {
+      "label": "+server.js",
+      "file_type": "code",
+      "source_file": "src/routes/api/team/+server.js",
+      "source_location": "L1",
+      "id": "src_routes_api_team_server_js",
+      "community": 4,
+      "norm_label": "+server.js"
+    },
+    {
+      "label": "GET()",
+      "file_type": "code",
+      "source_file": "src/routes/api/team/+server.js",
+      "source_location": "L7",
+      "id": "team_server_get",
+      "community": 4,
+      "norm_label": "get()"
+    },
+    {
+      "label": "POST()",
+      "file_type": "code",
+      "source_file": "src/routes/api/team/+server.js",
+      "source_location": "L30",
+      "id": "team_server_post",
+      "community": 4,
+      "norm_label": "post()"
+    },
+    {
+      "label": "PUT()",
+      "file_type": "code",
+      "source_file": "src/routes/api/team/+server.js",
+      "source_location": "L64",
+      "id": "team_server_put",
+      "community": 4,
+      "norm_label": "put()"
+    },
+    {
+      "label": "DELETE()",
+      "file_type": "code",
+      "source_file": "src/routes/api/team/+server.js",
+      "source_location": "L101",
+      "id": "team_server_delete",
+      "community": 4,
+      "norm_label": "delete()"
+    },
+    {
+      "label": "+server.js",
+      "file_type": "code",
+      "source_file": "src/routes/api/bootstrap-admin/+server.js",
+      "source_location": "L1",
+      "id": "src_routes_api_bootstrap_admin_server_js",
+      "community": 16,
+      "norm_label": "+server.js"
+    },
+    {
+      "label": "GET()",
+      "file_type": "code",
+      "source_file": "src/routes/api/bootstrap-admin/+server.js",
+      "source_location": "L13",
+      "id": "bootstrap_admin_server_get",
+      "community": 16,
+      "norm_label": "get()"
+    },
+    {
+      "label": "+server.js",
+      "file_type": "code",
+      "source_file": "src/routes/api/profile/+server.js",
+      "source_location": "L1",
+      "id": "src_routes_api_profile_server_js",
+      "community": 9,
+      "norm_label": "+server.js"
+    },
+    {
+      "label": "GET()",
+      "file_type": "code",
+      "source_file": "src/routes/api/profile/+server.js",
+      "source_location": "L3",
+      "id": "profile_server_get",
+      "community": 9,
+      "norm_label": "get()"
+    },
+    {
+      "label": "PUT()",
+      "file_type": "code",
+      "source_file": "src/routes/api/profile/+server.js",
+      "source_location": "L15",
+      "id": "profile_server_put",
+      "community": 9,
+      "norm_label": "put()"
+    },
+    {
+      "label": "+server.js",
+      "file_type": "code",
+      "source_file": "src/routes/auth/callback/+server.js",
+      "source_location": "L1",
+      "id": "src_routes_auth_callback_server_js",
+      "community": 17,
+      "norm_label": "+server.js"
+    },
+    {
+      "label": "GET()",
+      "file_type": "code",
+      "source_file": "src/routes/auth/callback/+server.js",
+      "source_location": "L5",
+      "id": "callback_server_get",
+      "community": 17,
+      "norm_label": "get()"
+    },
+    {
+      "label": "+page.server.js",
+      "file_type": "code",
+      "source_file": "src/routes/admin/+page.server.js",
+      "source_location": "L1",
+      "id": "src_routes_admin_page_server_js",
+      "community": 18,
+      "norm_label": "+page.server.js"
+    },
+    {
+      "label": "load()",
+      "file_type": "code",
+      "source_file": "src/routes/admin/+page.server.js",
+      "source_location": "L4",
+      "id": "admin_page_server_load",
+      "community": 18,
+      "norm_label": "load()"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "src/routes/admin/+page.svelte",
+      "source_location": "L1",
+      "id": "src_routes_admin_page_svelte",
+      "community": 19,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "if()",
+      "file_type": "code",
+      "source_file": "src/routes/admin/+page.svelte",
+      "source_location": "L180",
+      "id": "admin_page_if",
+      "community": 19,
+      "norm_label": "if()"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "src/routes/dashboard/+page.svelte",
+      "source_location": "L1",
+      "id": "src_routes_dashboard_page_svelte",
+      "community": 55,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "+page.server.js",
+      "file_type": "code",
+      "source_file": "src/routes/profile/+page.server.js",
+      "source_location": "L1",
+      "id": "src_routes_profile_page_server_js",
+      "community": 20,
+      "norm_label": "+page.server.js"
+    },
+    {
+      "label": "load()",
+      "file_type": "code",
+      "source_file": "src/routes/profile/+page.server.js",
+      "source_location": "L3",
+      "id": "profile_page_server_load",
+      "community": 20,
+      "norm_label": "load()"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "src/routes/profile/[id]/+page.svelte",
+      "source_location": "L1",
+      "id": "src_routes_profile_id_page_svelte",
+      "community": 56,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "seed.js",
+      "file_type": "code",
+      "source_file": "prisma/seed.js",
+      "source_location": "L1",
+      "id": "prisma_seed_js",
+      "community": 21,
+      "norm_label": "seed.js"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "prisma/seed.js",
+      "source_location": "L5",
+      "id": "prisma_seed_main",
+      "community": 21,
+      "norm_label": "main()"
+    },
+    {
+      "label": "postcss.config.js",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/postcss.config.js",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_postcss_config_js",
+      "community": 57,
+      "norm_label": "postcss.config.js"
+    },
+    {
+      "label": "prisma.config.ts",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/prisma.config.ts",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_prisma_config_ts",
+      "community": 58,
+      "norm_label": "prisma.config.ts"
+    },
+    {
+      "label": "svelte.config.js",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/svelte.config.js",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_svelte_config_js",
+      "community": 59,
+      "norm_label": "svelte.config.js"
+    },
+    {
+      "label": "tailwind.config.js",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/tailwind.config.js",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_tailwind_config_js",
+      "community": 60,
+      "norm_label": "tailwind.config.js"
+    },
+    {
+      "label": "vite.config.js",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/vite.config.js",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_vite_config_js",
+      "community": 61,
+      "norm_label": "vite.config.js"
+    },
+    {
+      "label": "hooks.server.js",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/hooks.server.js",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_hooks_server_js",
+      "community": 3,
+      "norm_label": "hooks.server.js"
+    },
+    {
+      "label": "mockData.js",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/lib/mockData.js",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_lib_mockdata_js",
+      "community": 62,
+      "norm_label": "mockdata.js"
+    },
+    {
+      "label": "stores.js",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/lib/stores.js",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_lib_stores_js",
+      "community": 6,
+      "norm_label": "stores.js"
+    },
+    {
+      "label": "Footer.svelte",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/lib/components/Footer.svelte",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_lib_components_footer_svelte",
+      "community": 63,
+      "norm_label": "footer.svelte"
+    },
+    {
+      "label": "GlassCard.svelte",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/lib/components/GlassCard.svelte",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_lib_components_glasscard_svelte",
+      "community": 64,
+      "norm_label": "glasscard.svelte"
+    },
+    {
+      "label": "Navbar.svelte",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/lib/components/Navbar.svelte",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_lib_components_navbar_svelte",
+      "community": 65,
+      "norm_label": "navbar.svelte"
+    },
+    {
+      "label": "ParticleBackground.svelte",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/lib/components/ParticleBackground.svelte",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_lib_components_particlebackground_svelte",
+      "community": 66,
+      "norm_label": "particlebackground.svelte"
+    },
+    {
+      "label": "ScrollReveal.svelte",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/lib/components/ScrollReveal.svelte",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_lib_components_scrollreveal_svelte",
+      "community": 67,
+      "norm_label": "scrollreveal.svelte"
+    },
+    {
+      "label": "TeamModal.svelte",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/lib/components/TeamModal.svelte",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_lib_components_teammodal_svelte",
+      "community": 68,
+      "norm_label": "teammodal.svelte"
+    },
+    {
+      "label": "prisma.js",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/lib/server/prisma.js",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_lib_server_prisma_js",
+      "community": 69,
+      "norm_label": "prisma.js"
+    },
+    {
+      "label": "+layout.svelte",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/+layout.svelte",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_routes_layout_svelte",
+      "community": 70,
+      "norm_label": "+layout.svelte"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/+page.svelte",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_routes_page_svelte",
+      "community": 71,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/admin/+page.svelte",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_routes_admin_page_svelte",
+      "community": 72,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "+server.js",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/api/auth/forgot/+server.js",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_routes_api_auth_forgot_server_js",
+      "community": 22,
+      "norm_label": "+server.js"
+    },
+    {
+      "label": "POST()",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/api/auth/forgot/+server.js",
+      "source_location": "L4",
+      "id": "forgot_server_post",
+      "community": 22,
+      "norm_label": "post()"
+    },
+    {
+      "label": "+server.js",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/api/auth/login/+server.js",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_routes_api_auth_login_server_js",
+      "community": 23,
+      "norm_label": "+server.js"
+    },
+    {
+      "label": "POST()",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/api/auth/login/+server.js",
+      "source_location": "L4",
+      "id": "login_server_post",
+      "community": 23,
+      "norm_label": "post()"
+    },
+    {
+      "label": "+server.js",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/api/auth/register/+server.js",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_routes_api_auth_register_server_js",
+      "community": 24,
+      "norm_label": "+server.js"
+    },
+    {
+      "label": "POST()",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/api/auth/register/+server.js",
+      "source_location": "L4",
+      "id": "register_server_post",
+      "community": 24,
+      "norm_label": "post()"
+    },
+    {
+      "label": "+server.js",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/api/courses/+server.js",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_routes_api_courses_server_js",
+      "community": 1,
+      "norm_label": "+server.js"
+    },
+    {
+      "label": "+server.js",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/api/notices/+server.js",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_routes_api_notices_server_js",
+      "community": 0,
+      "norm_label": "+server.js"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/community/+page.svelte",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_routes_community_page_svelte",
+      "community": 73,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/community/[id]/+page.svelte",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_routes_community_id_page_svelte",
+      "community": 2,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/contact/+page.svelte",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_routes_contact_page_svelte",
+      "community": 7,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/courses/+page.svelte",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_routes_courses_page_svelte",
+      "community": 74,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/courses/[id]/+page.svelte",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_routes_courses_id_page_svelte",
+      "community": 75,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/dashboard/+page.svelte",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_routes_dashboard_page_svelte",
+      "community": 76,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/login/+page.svelte",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_routes_login_page_svelte",
+      "community": 5,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "handleRegister()",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/login/+page.svelte",
+      "source_location": "L45",
+      "id": "login_page_handleregister",
+      "community": 5,
+      "norm_label": "handleregister()"
+    },
+    {
+      "label": "handleForgot()",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/login/+page.svelte",
+      "source_location": "L124",
+      "id": "login_page_handleforgot",
+      "community": 5,
+      "norm_label": "handleforgot()"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/notices/+page.svelte",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_routes_notices_page_svelte",
+      "community": 77,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/notices/[id]/+page.svelte",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_routes_notices_id_page_svelte",
+      "community": 78,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/profile/+page.svelte",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_routes_profile_page_svelte",
+      "community": 79,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/profile/[id]/+page.svelte",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_routes_profile_id_page_svelte",
+      "community": 80,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/projects/+page.svelte",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_routes_projects_page_svelte",
+      "community": 81,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/team/+page.svelte",
+      "source_location": "L1",
+      "id": "old_backup_duplicate_src_routes_team_page_svelte",
+      "community": 82,
+      "norm_label": "+page.svelte"
+    },
+    {
+      "label": "make-admin.js",
+      "file_type": "code",
+      "source_file": "scripts/make-admin.js",
+      "source_location": "L1",
+      "id": "scripts_make_admin_js",
+      "community": 25,
+      "norm_label": "make-admin.js"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "scripts/make-admin.js",
+      "source_location": "L14",
+      "id": "scripts_make_admin_main",
+      "community": 25,
+      "norm_label": "main()"
+    },
+    {
+      "label": "extract_colors.py",
+      "file_type": "code",
+      "source_file": "scripts/extract_colors.py",
+      "source_location": "L1",
+      "id": "scripts_extract_colors_py",
+      "community": 26,
+      "norm_label": "extract_colors.py"
+    },
+    {
+      "label": "extract_colors()",
+      "file_type": "code",
+      "source_file": "scripts/extract_colors.py",
+      "source_location": "L6",
+      "id": "scripts_extract_colors_extract_colors",
+      "community": 26,
+      "norm_label": "extract_colors()"
+    },
+    {
+      "label": "screenshot.js",
+      "file_type": "code",
+      "source_file": "scripts/screenshot.js",
+      "source_location": "L1",
+      "id": "scripts_screenshot_js",
+      "community": 83,
+      "norm_label": "screenshot.js"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "promote.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_src": "promote_js",
+      "_tgt": "bmsc_ict_club_web_promote_main",
+      "source": "promote_js",
+      "target": "bmsc_ict_club_web_promote_main",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks.server.js",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_src": "src_hooks_server_js",
+      "_tgt": "src_hooks_server_handle",
+      "source": "src_hooks_server_js",
+      "target": "src_hooks_server_handle",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/hooks.server.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_src": "old_backup_duplicate_src_hooks_server_js",
+      "_tgt": "src_hooks_server_handle",
+      "source": "src_hooks_server_handle",
+      "target": "old_backup_duplicate_src_hooks_server_js",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/hooks.server.js",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_src": "src_hooks_server_handle",
+      "_tgt": "server_supabase_createsupabaseserverclient",
+      "source": "src_hooks_server_handle",
+      "target": "server_supabase_createsupabaseserverclient"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/stores.js",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_src": "src_lib_stores_js",
+      "_tgt": "lib_stores_createpersistentstore",
+      "source": "src_lib_stores_js",
+      "target": "lib_stores_createpersistentstore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/stores.js",
+      "source_location": "L59",
+      "weight": 1.0,
+      "_src": "src_lib_stores_js",
+      "_tgt": "lib_stores_createtoaststore",
+      "source": "src_lib_stores_js",
+      "target": "lib_stores_createtoaststore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/lib/stores.js",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_src": "old_backup_duplicate_src_lib_stores_js",
+      "_tgt": "lib_stores_createpersistentstore",
+      "source": "lib_stores_createpersistentstore",
+      "target": "old_backup_duplicate_src_lib_stores_js",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/utils.js",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_src": "src_lib_utils_js",
+      "_tgt": "lib_utils_safejsonparse",
+      "source": "src_lib_utils_js",
+      "target": "lib_utils_safejsonparse",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/routes/api/courses/+server.js",
+      "source_location": "L51",
+      "weight": 1.0,
+      "_src": "courses_server_post",
+      "_tgt": "lib_utils_safejsonparse",
+      "source": "lib_utils_safejsonparse",
+      "target": "courses_server_post"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/routes/api/courses/+server.js",
+      "source_location": "L85",
+      "weight": 1.0,
+      "_src": "courses_server_put",
+      "_tgt": "lib_utils_safejsonparse",
+      "source": "lib_utils_safejsonparse",
+      "target": "courses_server_put"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/routes/api/courses/[id]/progress/+server.js",
+      "source_location": "L28",
+      "weight": 1.0,
+      "_src": "progress_server_get",
+      "_tgt": "lib_utils_safejsonparse",
+      "source": "lib_utils_safejsonparse",
+      "target": "progress_server_get"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/routes/api/projects/+server.js",
+      "source_location": "L64",
+      "weight": 1.0,
+      "_src": "projects_server_post",
+      "_tgt": "lib_utils_safejsonparse",
+      "source": "lib_utils_safejsonparse",
+      "target": "projects_server_post"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/routes/api/projects/+server.js",
+      "source_location": "L90",
+      "weight": 1.0,
+      "_src": "projects_server_put",
+      "_tgt": "lib_utils_safejsonparse",
+      "source": "lib_utils_safejsonparse",
+      "target": "projects_server_put"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/routes/api/team/+server.js",
+      "source_location": "L53",
+      "weight": 1.0,
+      "_src": "team_server_post",
+      "_tgt": "lib_utils_safejsonparse",
+      "source": "lib_utils_safejsonparse",
+      "target": "team_server_post"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/routes/api/team/+server.js",
+      "source_location": "L90",
+      "weight": 1.0,
+      "_src": "team_server_put",
+      "_tgt": "lib_utils_safejsonparse",
+      "source": "lib_utils_safejsonparse",
+      "target": "team_server_put"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/server/prisma.js",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_src": "src_lib_server_prisma_js",
+      "_tgt": "server_prisma_getprisma",
+      "source": "src_lib_server_prisma_js",
+      "target": "server_prisma_getprisma",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/server/supabase.js",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_src": "src_lib_server_supabase_js",
+      "_tgt": "server_supabase_createsupabaseserverclient",
+      "source": "src_lib_server_supabase_js",
+      "target": "server_supabase_createsupabaseserverclient",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/server/auth.js",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_src": "src_lib_server_auth_js",
+      "_tgt": "server_auth_requireadmin",
+      "source": "src_lib_server_auth_js",
+      "target": "server_auth_requireadmin",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/routes/api/courses/+server.js",
+      "source_location": "L31",
+      "weight": 1.0,
+      "_src": "courses_server_post",
+      "_tgt": "server_auth_requireadmin",
+      "source": "server_auth_requireadmin",
+      "target": "courses_server_post"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/routes/api/courses/+server.js",
+      "source_location": "L61",
+      "weight": 1.0,
+      "_src": "courses_server_put",
+      "_tgt": "server_auth_requireadmin",
+      "source": "server_auth_requireadmin",
+      "target": "courses_server_put"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/routes/api/courses/+server.js",
+      "source_location": "L95",
+      "weight": 1.0,
+      "_src": "courses_server_delete",
+      "_tgt": "server_auth_requireadmin",
+      "source": "server_auth_requireadmin",
+      "target": "courses_server_delete"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/routes/api/notices/+server.js",
+      "source_location": "L25",
+      "weight": 1.0,
+      "_src": "notices_server_post",
+      "_tgt": "server_auth_requireadmin",
+      "source": "server_auth_requireadmin",
+      "target": "notices_server_post"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/routes/api/notices/+server.js",
+      "source_location": "L61",
+      "weight": 1.0,
+      "_src": "notices_server_put",
+      "_tgt": "server_auth_requireadmin",
+      "source": "server_auth_requireadmin",
+      "target": "notices_server_put"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/routes/api/notices/+server.js",
+      "source_location": "L109",
+      "weight": 1.0,
+      "_src": "notices_server_delete",
+      "_tgt": "server_auth_requireadmin",
+      "source": "server_auth_requireadmin",
+      "target": "notices_server_delete"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/routes/api/projects/+server.js",
+      "source_location": "L28",
+      "weight": 1.0,
+      "_src": "projects_server_post",
+      "_tgt": "server_auth_requireadmin",
+      "source": "server_auth_requireadmin",
+      "target": "projects_server_post"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/routes/api/projects/+server.js",
+      "source_location": "L76",
+      "weight": 1.0,
+      "_src": "projects_server_put",
+      "_tgt": "server_auth_requireadmin",
+      "source": "server_auth_requireadmin",
+      "target": "projects_server_put"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/routes/api/projects/+server.js",
+      "source_location": "L137",
+      "weight": 1.0,
+      "_src": "projects_server_delete",
+      "_tgt": "server_auth_requireadmin",
+      "source": "server_auth_requireadmin",
+      "target": "projects_server_delete"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/routes/api/team/+server.js",
+      "source_location": "L31",
+      "weight": 1.0,
+      "_src": "team_server_post",
+      "_tgt": "server_auth_requireadmin",
+      "source": "server_auth_requireadmin",
+      "target": "team_server_post"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/routes/api/team/+server.js",
+      "source_location": "L65",
+      "weight": 1.0,
+      "_src": "team_server_put",
+      "_tgt": "server_auth_requireadmin",
+      "source": "server_auth_requireadmin",
+      "target": "team_server_put"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/routes/api/team/+server.js",
+      "source_location": "L102",
+      "weight": 1.0,
+      "_src": "team_server_delete",
+      "_tgt": "server_auth_requireadmin",
+      "source": "server_auth_requireadmin",
+      "target": "team_server_delete"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/+layout.server.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_src": "src_routes_layout_server_js",
+      "_tgt": "routes_layout_server_load",
+      "source": "src_routes_layout_server_js",
+      "target": "routes_layout_server_load",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/+layout.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_src": "src_routes_layout_js",
+      "_tgt": "routes_layout_load",
+      "source": "src_routes_layout_js",
+      "target": "routes_layout_load",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/contact/+page.svelte",
+      "source_location": "L64",
+      "weight": 1.0,
+      "_src": "src_routes_contact_page_svelte",
+      "_tgt": "contact_page_if",
+      "source": "src_routes_contact_page_svelte",
+      "target": "contact_page_if",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/contact/+page.svelte",
+      "source_location": "L62",
+      "weight": 1.0,
+      "_src": "old_backup_duplicate_src_routes_contact_page_svelte",
+      "_tgt": "contact_page_if",
+      "source": "contact_page_if",
+      "target": "old_backup_duplicate_src_routes_contact_page_svelte",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/courses/[id]/+page.svelte",
+      "source_location": "L44",
+      "weight": 1.0,
+      "_src": "src_routes_courses_id_page_svelte",
+      "_tgt": "id_page_handlemarkcomplete",
+      "source": "src_routes_courses_id_page_svelte",
+      "target": "id_page_handlemarkcomplete",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/login/+page.svelte",
+      "source_location": "L56",
+      "weight": 1.0,
+      "_src": "src_routes_login_page_svelte",
+      "_tgt": "login_page_if",
+      "source": "src_routes_login_page_svelte",
+      "target": "login_page_if",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/login/+page.svelte",
+      "source_location": "L42",
+      "weight": 1.0,
+      "_src": "old_backup_duplicate_src_routes_login_page_svelte",
+      "_tgt": "login_page_if",
+      "source": "login_page_if",
+      "target": "old_backup_duplicate_src_routes_login_page_svelte",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/login/+page.server.js",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_src": "src_routes_login_page_server_js",
+      "_tgt": "login_page_server_load",
+      "source": "src_routes_login_page_server_js",
+      "target": "login_page_server_load",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/community/[id]/+page.svelte",
+      "source_location": "L17",
+      "weight": 1.0,
+      "_src": "src_routes_community_id_page_svelte",
+      "_tgt": "id_page_handlelike",
+      "source": "src_routes_community_id_page_svelte",
+      "target": "id_page_handlelike",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/community/[id]/+page.svelte",
+      "source_location": "L27",
+      "weight": 1.0,
+      "_src": "src_routes_community_id_page_svelte",
+      "_tgt": "id_page_handleshare",
+      "source": "src_routes_community_id_page_svelte",
+      "target": "id_page_handleshare",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/community/[id]/+page.svelte",
+      "source_location": "L33",
+      "weight": 1.0,
+      "_src": "src_routes_community_id_page_svelte",
+      "_tgt": "id_page_handleaddcomment",
+      "source": "src_routes_community_id_page_svelte",
+      "target": "id_page_handleaddcomment",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/community/[id]/+page.svelte",
+      "source_location": "L57",
+      "weight": 1.0,
+      "_src": "src_routes_community_id_page_svelte",
+      "_tgt": "id_page_timeago",
+      "source": "src_routes_community_id_page_svelte",
+      "target": "id_page_timeago",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/community/[id]/+page.svelte",
+      "source_location": "L17",
+      "weight": 1.0,
+      "_src": "old_backup_duplicate_src_routes_community_id_page_svelte",
+      "_tgt": "id_page_handlelike",
+      "source": "id_page_handlelike",
+      "target": "old_backup_duplicate_src_routes_community_id_page_svelte",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/community/[id]/+page.svelte",
+      "source_location": "L27",
+      "weight": 1.0,
+      "_src": "old_backup_duplicate_src_routes_community_id_page_svelte",
+      "_tgt": "id_page_handleshare",
+      "source": "id_page_handleshare",
+      "target": "old_backup_duplicate_src_routes_community_id_page_svelte",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/community/[id]/+page.svelte",
+      "source_location": "L33",
+      "weight": 1.0,
+      "_src": "old_backup_duplicate_src_routes_community_id_page_svelte",
+      "_tgt": "id_page_handleaddcomment",
+      "source": "id_page_handleaddcomment",
+      "target": "old_backup_duplicate_src_routes_community_id_page_svelte",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/community/[id]/+page.svelte",
+      "source_location": "L55",
+      "weight": 1.0,
+      "_src": "old_backup_duplicate_src_routes_community_id_page_svelte",
+      "_tgt": "id_page_timeago",
+      "source": "id_page_timeago",
+      "target": "old_backup_duplicate_src_routes_community_id_page_svelte",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/api/courses/+server.js",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_src": "src_routes_api_courses_server_js",
+      "_tgt": "courses_server_get",
+      "source": "src_routes_api_courses_server_js",
+      "target": "courses_server_get",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/api/courses/+server.js",
+      "source_location": "L30",
+      "weight": 1.0,
+      "_src": "src_routes_api_courses_server_js",
+      "_tgt": "courses_server_post",
+      "source": "src_routes_api_courses_server_js",
+      "target": "courses_server_post",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/api/courses/+server.js",
+      "source_location": "L60",
+      "weight": 1.0,
+      "_src": "src_routes_api_courses_server_js",
+      "_tgt": "courses_server_put",
+      "source": "src_routes_api_courses_server_js",
+      "target": "courses_server_put",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/api/courses/+server.js",
+      "source_location": "L94",
+      "weight": 1.0,
+      "_src": "src_routes_api_courses_server_js",
+      "_tgt": "courses_server_delete",
+      "source": "src_routes_api_courses_server_js",
+      "target": "courses_server_delete",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/api/courses/+server.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_src": "old_backup_duplicate_src_routes_api_courses_server_js",
+      "_tgt": "courses_server_get",
+      "source": "courses_server_get",
+      "target": "old_backup_duplicate_src_routes_api_courses_server_js",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/api/courses/[id]/progress/+server.js",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_src": "src_routes_api_courses_id_progress_server_js",
+      "_tgt": "progress_server_get",
+      "source": "src_routes_api_courses_id_progress_server_js",
+      "target": "progress_server_get",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/api/courses/[id]/progress/+server.js",
+      "source_location": "L40",
+      "weight": 1.0,
+      "_src": "src_routes_api_courses_id_progress_server_js",
+      "_tgt": "progress_server_post",
+      "source": "src_routes_api_courses_id_progress_server_js",
+      "target": "progress_server_post",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/api/notices/+server.js",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_src": "src_routes_api_notices_server_js",
+      "_tgt": "notices_server_get",
+      "source": "src_routes_api_notices_server_js",
+      "target": "notices_server_get",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/api/notices/+server.js",
+      "source_location": "L24",
+      "weight": 1.0,
+      "_src": "src_routes_api_notices_server_js",
+      "_tgt": "notices_server_post",
+      "source": "src_routes_api_notices_server_js",
+      "target": "notices_server_post",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/api/notices/+server.js",
+      "source_location": "L60",
+      "weight": 1.0,
+      "_src": "src_routes_api_notices_server_js",
+      "_tgt": "notices_server_put",
+      "source": "src_routes_api_notices_server_js",
+      "target": "notices_server_put",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/api/notices/+server.js",
+      "source_location": "L108",
+      "weight": 1.0,
+      "_src": "src_routes_api_notices_server_js",
+      "_tgt": "notices_server_delete",
+      "source": "src_routes_api_notices_server_js",
+      "target": "notices_server_delete",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/api/notices/+server.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_src": "old_backup_duplicate_src_routes_api_notices_server_js",
+      "_tgt": "notices_server_get",
+      "source": "notices_server_get",
+      "target": "old_backup_duplicate_src_routes_api_notices_server_js",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/api/users/+server.js",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_src": "src_routes_api_users_server_js",
+      "_tgt": "users_server_get",
+      "source": "src_routes_api_users_server_js",
+      "target": "users_server_get",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/api/users/+server.js",
+      "source_location": "L35",
+      "weight": 1.0,
+      "_src": "src_routes_api_users_server_js",
+      "_tgt": "users_server_patch",
+      "source": "src_routes_api_users_server_js",
+      "target": "users_server_patch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/api/projects/+server.js",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_src": "src_routes_api_projects_server_js",
+      "_tgt": "projects_server_get",
+      "source": "src_routes_api_projects_server_js",
+      "target": "projects_server_get",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/api/projects/+server.js",
+      "source_location": "L27",
+      "weight": 1.0,
+      "_src": "src_routes_api_projects_server_js",
+      "_tgt": "projects_server_post",
+      "source": "src_routes_api_projects_server_js",
+      "target": "projects_server_post",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/api/projects/+server.js",
+      "source_location": "L75",
+      "weight": 1.0,
+      "_src": "src_routes_api_projects_server_js",
+      "_tgt": "projects_server_put",
+      "source": "src_routes_api_projects_server_js",
+      "target": "projects_server_put",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/api/projects/+server.js",
+      "source_location": "L136",
+      "weight": 1.0,
+      "_src": "src_routes_api_projects_server_js",
+      "_tgt": "projects_server_delete",
+      "source": "src_routes_api_projects_server_js",
+      "target": "projects_server_delete",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/api/team/+server.js",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_src": "src_routes_api_team_server_js",
+      "_tgt": "team_server_get",
+      "source": "src_routes_api_team_server_js",
+      "target": "team_server_get",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/api/team/+server.js",
+      "source_location": "L30",
+      "weight": 1.0,
+      "_src": "src_routes_api_team_server_js",
+      "_tgt": "team_server_post",
+      "source": "src_routes_api_team_server_js",
+      "target": "team_server_post",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/api/team/+server.js",
+      "source_location": "L64",
+      "weight": 1.0,
+      "_src": "src_routes_api_team_server_js",
+      "_tgt": "team_server_put",
+      "source": "src_routes_api_team_server_js",
+      "target": "team_server_put",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/api/team/+server.js",
+      "source_location": "L101",
+      "weight": 1.0,
+      "_src": "src_routes_api_team_server_js",
+      "_tgt": "team_server_delete",
+      "source": "src_routes_api_team_server_js",
+      "target": "team_server_delete",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/api/bootstrap-admin/+server.js",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_src": "src_routes_api_bootstrap_admin_server_js",
+      "_tgt": "bootstrap_admin_server_get",
+      "source": "src_routes_api_bootstrap_admin_server_js",
+      "target": "bootstrap_admin_server_get",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/api/profile/+server.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_src": "src_routes_api_profile_server_js",
+      "_tgt": "profile_server_get",
+      "source": "src_routes_api_profile_server_js",
+      "target": "profile_server_get",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/api/profile/+server.js",
+      "source_location": "L15",
+      "weight": 1.0,
+      "_src": "src_routes_api_profile_server_js",
+      "_tgt": "profile_server_put",
+      "source": "src_routes_api_profile_server_js",
+      "target": "profile_server_put",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/auth/callback/+server.js",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_src": "src_routes_auth_callback_server_js",
+      "_tgt": "callback_server_get",
+      "source": "src_routes_auth_callback_server_js",
+      "target": "callback_server_get",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/admin/+page.server.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_src": "src_routes_admin_page_server_js",
+      "_tgt": "admin_page_server_load",
+      "source": "src_routes_admin_page_server_js",
+      "target": "admin_page_server_load",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/admin/+page.svelte",
+      "source_location": "L180",
+      "weight": 1.0,
+      "_src": "src_routes_admin_page_svelte",
+      "_tgt": "admin_page_if",
+      "source": "src_routes_admin_page_svelte",
+      "target": "admin_page_if",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/profile/+page.server.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_src": "src_routes_profile_page_server_js",
+      "_tgt": "profile_page_server_load",
+      "source": "src_routes_profile_page_server_js",
+      "target": "profile_page_server_load",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "prisma/seed.js",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_src": "prisma_seed_js",
+      "_tgt": "prisma_seed_main",
+      "source": "prisma_seed_js",
+      "target": "prisma_seed_main",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/api/auth/forgot/+server.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_src": "old_backup_duplicate_src_routes_api_auth_forgot_server_js",
+      "_tgt": "forgot_server_post",
+      "source": "old_backup_duplicate_src_routes_api_auth_forgot_server_js",
+      "target": "forgot_server_post",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/api/auth/login/+server.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_src": "old_backup_duplicate_src_routes_api_auth_login_server_js",
+      "_tgt": "login_server_post",
+      "source": "old_backup_duplicate_src_routes_api_auth_login_server_js",
+      "target": "login_server_post",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/api/auth/register/+server.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_src": "old_backup_duplicate_src_routes_api_auth_register_server_js",
+      "_tgt": "register_server_post",
+      "source": "old_backup_duplicate_src_routes_api_auth_register_server_js",
+      "target": "register_server_post",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/login/+page.svelte",
+      "source_location": "L45",
+      "weight": 1.0,
+      "_src": "old_backup_duplicate_src_routes_login_page_svelte",
+      "_tgt": "login_page_handleregister",
+      "source": "old_backup_duplicate_src_routes_login_page_svelte",
+      "target": "login_page_handleregister",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/login/+page.svelte",
+      "source_location": "L124",
+      "weight": 1.0,
+      "_src": "old_backup_duplicate_src_routes_login_page_svelte",
+      "_tgt": "login_page_handleforgot",
+      "source": "old_backup_duplicate_src_routes_login_page_svelte",
+      "target": "login_page_handleforgot",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "_OLD_BACKUP_DUPLICATE/src/routes/login/+page.svelte",
+      "source_location": "L47",
+      "weight": 1.0,
+      "_src": "login_page_handleregister",
+      "_tgt": "login_page_handleforgot",
+      "source": "login_page_handleregister",
+      "target": "login_page_handleforgot",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/make-admin.js",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_src": "scripts_make_admin_js",
+      "_tgt": "scripts_make_admin_main",
+      "source": "scripts_make_admin_js",
+      "target": "scripts_make_admin_main",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/extract_colors.py",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_src": "scripts_extract_colors_py",
+      "_tgt": "scripts_extract_colors_extract_colors",
+      "source": "scripts_extract_colors_py",
+      "target": "scripts_extract_colors_extract_colors",
+      "confidence_score": 1.0
+    }
+  ],
+  "hyperedges": []
+}

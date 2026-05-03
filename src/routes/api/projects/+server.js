@@ -1,13 +1,8 @@
+// @ts-nocheck
 import { json } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma.js';
-// Helper function to verify admin access
-async function verifyAdmin(adminId) {
-    if (!adminId) return false;
-    const user = await prisma.user.findUnique({
-        where: { id: parseInt(adminId) }
-    });
-    return user && user.role === 'Admin';
-}
+import { requireAdmin } from '$lib/server/auth.js';
+import { safeJsonParse } from '$lib/utils.js';
 
 // GET all projects
 export async function GET() {
@@ -16,11 +11,10 @@ export async function GET() {
             orderBy: { id: 'desc' }
         });
 
-        // Format tags and contributors from JSON strings
         const formattedProjects = projects.map(project => ({
             ...project,
-            tags: JSON.parse(project.tags),
-            contributors: JSON.parse(project.contributors)
+            tags: safeJsonParse(project.tags, []),
+            contributors: safeJsonParse(project.contributors, [])
         }));
 
         return json({ success: true, projects: formattedProjects });
@@ -31,13 +25,12 @@ export async function GET() {
 }
 
 // POST create project (Admin only)
-export async function POST({ request }) {
-    try {
-        const { adminId, title, description, image, tags, contributors, status } = await request.json();
+export async function POST(event) {
+    const adminResult = await requireAdmin(event);
+    if (adminResult instanceof Response) return adminResult;
 
-        if (!(await verifyAdmin(adminId))) {
-            return json({ success: false, message: 'Forbidden: Admin access required' }, { status: 403 });
-        }
+    try {
+        const { title, description, image, tags, contributors, status } = await event.request.json();
 
         const project = await prisma.project.create({
             data: {
@@ -50,12 +43,27 @@ export async function POST({ request }) {
             }
         });
 
+        if (Array.isArray(contributors) && contributors.length > 0) {
+            const users = await prisma.user.findMany({
+                where: { name: { in: contributors } }
+            });
+            if (users.length > 0) {
+                await prisma.userActivity.createMany({
+                    data: users.map(u => ({
+                        userId: u.id,
+                        type: 'JOINED_PROJECT',
+                        details: JSON.stringify({ projectId: project.id, projectTitle: project.title, image: project.image })
+                    }))
+                });
+            }
+        }
+
         return json({
             success: true,
             project: {
                 ...project,
-                tags: JSON.parse(project.tags),
-                contributors: JSON.parse(project.contributors)
+                tags: safeJsonParse(project.tags, []),
+                contributors: safeJsonParse(project.contributors, [])
             }
         });
     } catch (error) {
@@ -65,13 +73,24 @@ export async function POST({ request }) {
 }
 
 // PUT update project (Admin only)
-export async function PUT({ request }) {
-    try {
-        const { adminId, id, title, description, image, tags, contributors, status } = await request.json();
+export async function PUT(event) {
+    const adminResult = await requireAdmin(event);
+    if (adminResult instanceof Response) return adminResult;
 
-        if (!(await verifyAdmin(adminId))) {
-            return json({ success: false, message: 'Forbidden: Admin access required' }, { status: 403 });
-        }
+    try {
+        const body = await event.request.json();
+        const id = parseInt(body.id);
+        if (isNaN(id)) return json({ success: false, message: 'Invalid project ID' }, { status: 400 });
+        const { title, description, image, tags, contributors, status } = body;
+
+        // Find old project contributors
+        const oldProject = await prisma.project.findUnique({
+            where: { id },
+            select: { contributors: true }
+        });
+        const oldContributors = safeJsonParse(oldProject?.contributors, []);
+        const newContributors = Array.isArray(contributors) ? contributors : [];
+        const addedContributors = newContributors.filter(c => !oldContributors.includes(c));
 
         const project = await prisma.project.update({
             where: { id },
@@ -85,12 +104,27 @@ export async function PUT({ request }) {
             }
         });
 
+        if (addedContributors.length > 0) {
+            const users = await prisma.user.findMany({
+                where: { name: { in: addedContributors } }
+            });
+            if (users.length > 0) {
+                await prisma.userActivity.createMany({
+                    data: users.map(u => ({
+                        userId: u.id,
+                        type: 'JOINED_PROJECT',
+                        details: JSON.stringify({ projectId: project.id, projectTitle: project.title, image: project.image })
+                    }))
+                });
+            }
+        }
+
         return json({
             success: true,
             project: {
                 ...project,
-                tags: JSON.parse(project.tags),
-                contributors: JSON.parse(project.contributors)
+                tags: safeJsonParse(project.tags, []),
+                contributors: safeJsonParse(project.contributors, [])
             }
         });
     } catch (error) {
@@ -100,13 +134,14 @@ export async function PUT({ request }) {
 }
 
 // DELETE project (Admin only)
-export async function DELETE({ request }) {
-    try {
-        const { adminId, id } = await request.json();
+export async function DELETE(event) {
+    const adminResult = await requireAdmin(event);
+    if (adminResult instanceof Response) return adminResult;
 
-        if (!(await verifyAdmin(adminId))) {
-            return json({ success: false, message: 'Forbidden: Admin access required' }, { status: 403 });
-        }
+    try {
+        const body = await event.request.json();
+        const id = parseInt(body.id);
+        if (isNaN(id)) return json({ success: false, message: 'Invalid project ID' }, { status: 400 });
 
         await prisma.project.delete({
             where: { id }

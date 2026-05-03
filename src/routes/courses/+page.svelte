@@ -1,10 +1,29 @@
 <script>
+	import { onMount, onDestroy } from "svelte";
+	import { browser } from "$app/environment";
 	import ScrollReveal from "$lib/components/ScrollReveal.svelte";
 	import GlassCard from "$lib/components/GlassCard.svelte";
 	import ParticleBackground from "$lib/components/ParticleBackground.svelte";
 	import { coursesStore, authStore } from "$lib/stores";
 
 	let selectedCourse = null;
+	let isLoading = true;
+
+	onMount(async () => {
+		try {
+			const res = await fetch("/api/courses");
+			if (res.ok) {
+				const data = await res.json();
+				if (data.success) {
+					coursesStore.set(data.courses);
+				}
+			}
+		} catch (error) {
+			console.error("Failed to fetch courses:", error);
+		} finally {
+			isLoading = false;
+		}
+	});
 
 	function getLevelColor(level) {
 		if (level === "Beginner")
@@ -24,6 +43,10 @@
 		selectedCourse = null;
 		if (typeof document !== "undefined") document.body.style.overflow = "";
 	}
+
+	onDestroy(() => {
+		if (browser) document.body.style.overflow = "";
+	});
 </script>
 
 <svelte:head>
@@ -79,110 +102,141 @@
 <section class="pb-20 lg:pb-32 px-6 lg:px-8">
 	<div class="max-w-7xl mx-auto">
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-			{#each $coursesStore as course, i (course.id || i)}
-				<ScrollReveal delay={i * 100}>
-					<GlassCard padding="p-0">
-						<div class="p-6">
-							<!-- Header -->
-							<div class="flex items-start justify-between mb-4">
-								<span class="text-4xl">{course.icon}</span>
-								<span
-									class="px-3 py-1 text-xs font-semibold rounded-full border {getLevelColor(
-										course.level,
-									)}"
-								>
-									{course.level}
-								</span>
-							</div>
-
-							<!-- Content -->
-							<h3
-								class="text-xl font-bold font-heading text-white mb-3"
-							>
-								{course.title}
-							</h3>
-							<p
-								class="text-gray-400 text-sm leading-relaxed mb-4"
-							>
-								{course.description}
-							</p>
-
-							<!-- Duration -->
-							<div
-								class="flex items-center gap-2 text-sm text-gray-500 mb-4"
-							>
-								<svg
-									class="w-4 h-4"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-									/>
-								</svg>
-								{course.duration}
-							</div>
-
-							<!-- Topics -->
-							<div class="flex flex-wrap gap-2">
-								{#each course.topics as topic}
+			{#if isLoading}
+				<!-- Loading State -->
+				{#each Array(6) as _}
+					<div class="glass-card p-6 h-full flex flex-col border-white/5 animate-pulse">
+						<div class="flex items-start justify-between mb-4">
+							<div class="w-12 h-12 bg-white/10 rounded-xl"></div>
+							<div class="w-20 h-6 bg-white/10 rounded-full"></div>
+						</div>
+						<div class="h-6 w-3/4 bg-white/10 rounded mb-3"></div>
+						<div class="h-4 w-full bg-white/10 rounded mb-2"></div>
+						<div class="h-4 w-5/6 bg-white/10 rounded mb-4"></div>
+						<div class="w-24 h-5 bg-white/10 rounded mb-4"></div>
+						<div class="flex gap-2 mb-6">
+							<div class="w-16 h-6 bg-white/10 rounded"></div>
+							<div class="w-20 h-6 bg-white/10 rounded"></div>
+						</div>
+						<div class="mt-auto pt-4 border-t border-white/5 flex gap-2">
+							<div class="flex-1 h-10 bg-white/10 rounded-lg"></div>
+							<div class="w-12 h-10 bg-white/10 rounded-lg"></div>
+						</div>
+					</div>
+				{/each}
+			{:else if $coursesStore.length === 0}
+				<!-- Empty state -->
+				<div class="col-span-1 md:col-span-2 lg:col-span-3 glass-card p-12 text-center border-dashed">
+					<div class="text-4xl mb-4 opacity-50">🎓</div>
+					<h3 class="text-xl font-bold text-white mb-2">Courses Coming Soon</h3>
+					<p class="text-gray-400">We are currently preparing new courses for this semester.</p>
+				</div>
+			{:else}
+				{#each $coursesStore as course, i (course.id || i)}
+					<ScrollReveal delay={i * 100}>
+						<GlassCard padding="p-0">
+							<div class="p-6">
+								<!-- Header -->
+								<div class="flex items-start justify-between mb-4">
+									<span class="text-4xl">{course.icon}</span>
 									<span
-										class="px-2.5 py-1 text-xs rounded-md bg-white/5 text-gray-400 border border-white/5"
+										class="px-3 py-1 text-xs font-semibold rounded-full border {getLevelColor(
+											course.level,
+										)}"
 									>
-										{topic}
+										{course.level}
 									</span>
-								{/each}
-							</div>
-						</div>
+								</div>
 
-						<!-- Footer -->
-						<div
-							class="px-6 py-4 border-t border-white/5 flex gap-2"
-						>
-							<button
-								on:click={() => openModal(course)}
-								class="flex-1 text-sm font-semibold text-{course.color ===
-								'primary'
-									? 'primary'
-									: 'secondary'}-400 hover:text-white transition-colors flex items-center justify-center gap-2 group"
-							>
-								Learn More
-								<svg
-									class="w-4 h-4 group-hover:translate-x-1 transition-transform"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
+								<!-- Content -->
+								<h3
+									class="text-xl font-bold font-heading text-white mb-3"
 								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M13 7l5 5m0 0l-5 5m5-5H6"
-									/>
-								</svg>
-							</button>
-							<a
-								href="/community"
-								class="px-4 py-2 text-sm text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition-colors flex items-center gap-2"
-								title="Discuss in Community"
-							>
-								<svg
-									class="w-4 h-4"
-									fill="currentColor"
-									viewBox="0 0 24 24"
-									><path
-										d="M12 2C6.48 2 2 5.92 2 10.75c0 2.76 1.48 5.2 3.82 6.77.29.98-1.07 2.1-1.07 2.1s1.39.06 2.65-.63c1.38.56 2.94.86 4.6.86 5.52 0 10-3.92 10-8.75S17.52 2 12 2z"
-									/></svg
+									{course.title}
+								</h3>
+								<p
+									class="text-gray-400 text-sm leading-relaxed mb-4"
 								>
-							</a>
-						</div>
-					</GlassCard>
-				</ScrollReveal>
-			{/each}
+									{course.description}
+								</p>
+
+								<!-- Duration -->
+								<div
+									class="flex items-center gap-2 text-sm text-gray-500 mb-4"
+								>
+									<svg
+										class="w-4 h-4"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+										/>
+									</svg>
+									{course.duration}
+								</div>
+
+								<!-- Topics -->
+								<div class="flex flex-wrap gap-2">
+									{#each course.topics as topic}
+										<span
+											class="px-2.5 py-1 text-xs rounded-md bg-white/5 text-gray-400 border border-white/5"
+										>
+											{topic}
+										</span>
+									{/each}
+								</div>
+							</div>
+
+							<!-- Footer -->
+							<div
+								class="px-6 py-4 border-t border-white/5 flex gap-2"
+							>
+								<button
+									on:click={() => openModal(course)}
+									class="flex-1 text-sm font-semibold text-{course.color ===
+									'primary'
+										? 'primary'
+										: 'secondary'}-400 hover:text-white transition-colors flex items-center justify-center gap-2 group"
+								>
+									Learn More
+									<svg
+										class="w-4 h-4 group-hover:translate-x-1 transition-transform"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M13 7l5 5m0 0l-5 5m5-5H6"
+										/>
+									</svg>
+								</button>
+								<a
+									href="/community"
+									class="px-4 py-2 text-sm text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition-colors flex items-center gap-2"
+									title="Discuss in Community"
+								>
+									<svg
+										class="w-4 h-4"
+										fill="currentColor"
+										viewBox="0 0 24 24"
+										><path
+											d="M12 2C6.48 2 2 5.92 2 10.75c0 2.76 1.48 5.2 3.82 6.77.29.98-1.07 2.1-1.07 2.1s1.39.06 2.65-.63c1.38.56 2.94.86 4.6.86 5.52 0 10-3.92 10-8.75S17.52 2 12 2z"
+										/></svg
+									>
+								</a>
+							</div>
+						</GlassCard>
+					</ScrollReveal>
+				{/each}
+			{/if}
 		</div>
 	</div>
 </section>
@@ -213,7 +267,7 @@
 {#if selectedCourse}
 	<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
 	<div
-		class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/60 backdrop-blur-md animate-fade-in"
+		class="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/60 backdrop-blur-md animate-fade-in"
 		on:click|self={closeModal}
 	>
 		<div

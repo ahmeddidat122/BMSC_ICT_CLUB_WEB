@@ -1,0 +1,32 @@
+
+> bmsc-ict-club-website@0.0.0 dev
+> vite dev
+
+
+  VITE v5.4.21  ready in 1270 ms
+
+  ➜  Local:   http://localhost:3000/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+
+[1;31m[500] GET /profile/1[0m
+PrismaClientInitializationError: `PrismaClient` needs to be constructed with a non-empty, valid `PrismaClientOptions`:
+
+```
+new PrismaClient({
+  ...
+})
+```
+
+or
+
+```
+constructor() {
+  super({ ... });
+}
+```
+          
+    at new t (node_modules/@prisma/client/runtime/client.js:70:960)
+    at getPrisma (src/lib/server/prisma.js:10:20)
+    at Object.get (src/lib/server/prisma.js:22:24)
+    at load (src/routes/profile/[id]/+page.server.js:10:29)

@@ -5,6 +5,8 @@
 	import ParticleBackground from "$lib/components/ParticleBackground.svelte";
 	import { noticesStore } from "$lib/stores";
 
+	let isLoading = true;
+
 	onMount(async () => {
 		try {
 			const res = await fetch("/api/notices");
@@ -16,6 +18,8 @@
 			}
 		} catch (error) {
 			console.error("Failed to fetch notices:", error);
+		} finally {
+			isLoading = false;
 		}
 	});
 
@@ -104,9 +108,31 @@
 	<div
 		class="max-w-5xl mx-auto space-y-6 relative before:absolute before:inset-0 before:ml-12 sm:before:ml-20 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-white/10 before:to-transparent"
 	>
-		{#each $noticesStore as notice, i (notice.id || i)}
-			{@const date = parseDate(notice.date)}
-			<ScrollReveal delay={i * 80}>
+		{#if isLoading}
+			<!-- Loading state -->
+			{#each Array(3) as _}
+				<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse animate-pulse">
+					<div class="flex flex-col items-center justify-center w-8 h-8 rounded-full border border-white/10 bg-dark md:order-1 md:translate-x-1/2 md:odd:-translate-x-1/2 z-10 shrink-0"></div>
+					<div class="w-[calc(100%-3rem)] md:w-[calc(50%-2rem)]">
+						<div class="glass-card p-6 border-white/10 h-32 flex flex-col justify-between">
+							<div class="w-24 h-4 bg-white/10 rounded"></div>
+							<div class="w-3/4 h-6 bg-white/10 rounded"></div>
+							<div class="w-full h-4 bg-white/10 rounded"></div>
+						</div>
+					</div>
+				</div>
+			{/each}
+		{:else if $noticesStore.length === 0}
+			<!-- Empty state -->
+			<div class="glass-card p-12 text-center relative z-10 w-full max-w-2xl mx-auto border-dashed">
+				<div class="text-4xl mb-4 opacity-50">📰</div>
+				<h3 class="text-xl font-bold text-white mb-2">No Notices Yet</h3>
+				<p class="text-gray-400">Check back later for announcements and events.</p>
+			</div>
+		{:else}
+			{#each $noticesStore as notice, i (notice.id || i)}
+				{@const date = parseDate(notice.date)}
+				<ScrollReveal delay={i * 80}>
 				<div
 					class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active"
 				>
@@ -201,5 +227,6 @@
 				</div>
 			</ScrollReveal>
 		{/each}
+		{/if}
 	</div>
 </section>

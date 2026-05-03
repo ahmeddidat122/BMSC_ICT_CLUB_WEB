@@ -1,0 +1,21 @@
+{
+  "name": "BMSC ICT Club",
+  "short_name": "ICT Club",
+  "description": "Bogura Zilla School ICT Club Member Portal",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a1a",
+  "theme_color": "#0a0a1a",
+  "icons": [
+    {
+      "src": "/images/club_logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/club_logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

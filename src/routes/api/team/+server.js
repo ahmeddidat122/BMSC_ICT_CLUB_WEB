@@ -1,14 +1,8 @@
+// @ts-nocheck
 import { json } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma.js';
-
-// Helper function to verify admin access
-async function verifyAdmin(adminId) {
-    if (!adminId) return false;
-    const user = await prisma.user.findUnique({
-        where: { id: parseInt(adminId) }
-    });
-    return user && user.role === 'Admin';
-}
+import { requireAdmin } from '$lib/server/auth.js';
+import { safeJsonParse } from '$lib/utils.js';
 
 // GET all team members (Public)
 export async function GET() {
@@ -17,11 +11,10 @@ export async function GET() {
             orderBy: { order: 'asc' }
         });
 
-        // Parse JSON fields back to objects/arrays for frontend
         const formattedTeam = team.map(member => ({
             ...member,
-            skills: member.skills ? JSON.parse(member.skills) : [],
-            socials: member.socials ? JSON.parse(member.socials) : {}
+            skills: safeJsonParse(member.skills, []),
+            socials: safeJsonParse(member.socials, {})
         }));
 
         return json({
@@ -35,13 +28,12 @@ export async function GET() {
 }
 
 // POST create new team member (Admin only)
-export async function POST({ request }) {
-    try {
-        const { adminId, name, position, bio, image, skills, socials, order } = await request.json();
+export async function POST(event) {
+    const adminResult = await requireAdmin(event);
+    if (adminResult instanceof Response) return adminResult;
 
-        if (!(await verifyAdmin(adminId))) {
-            return json({ success: false, message: 'Forbidden: Admin access required' }, { status: 403 });
-        }
+    try {
+        const { name, position, bio, image, skills, socials, order } = await event.request.json();
 
         const member = await prisma.teamMember.create({
             data: {
@@ -59,8 +51,8 @@ export async function POST({ request }) {
             success: true,
             member: {
                 ...member,
-                skills: JSON.parse(member.skills),
-                socials: JSON.parse(member.socials)
+                skills: safeJsonParse(member.skills, []),
+                socials: safeJsonParse(member.socials, {})
             }
         });
     } catch (error) {
@@ -70,13 +62,12 @@ export async function POST({ request }) {
 }
 
 // PUT update existing team member (Admin only)
-export async function PUT({ request }) {
-    try {
-        const { adminId, id, name, position, bio, image, skills, socials, order } = await request.json();
+export async function PUT(event) {
+    const adminResult = await requireAdmin(event);
+    if (adminResult instanceof Response) return adminResult;
 
-        if (!(await verifyAdmin(adminId))) {
-            return json({ success: false, message: 'Forbidden: Admin access required' }, { status: 403 });
-        }
+    try {
+        const { id, name, position, bio, image, skills, socials, order } = await event.request.json();
 
         if (!id) return json({ success: false, message: 'Member ID required' }, { status: 400 });
 
@@ -97,8 +88,8 @@ export async function PUT({ request }) {
             success: true,
             member: {
                 ...member,
-                skills: JSON.parse(member.skills),
-                socials: JSON.parse(member.socials)
+                skills: safeJsonParse(member.skills, []),
+                socials: safeJsonParse(member.socials, {})
             }
         });
     } catch (error) {
@@ -108,13 +99,12 @@ export async function PUT({ request }) {
 }
 
 // DELETE team member (Admin only)
-export async function DELETE({ request }) {
-    try {
-        const { adminId, id } = await request.json();
+export async function DELETE(event) {
+    const adminResult = await requireAdmin(event);
+    if (adminResult instanceof Response) return adminResult;
 
-        if (!(await verifyAdmin(adminId))) {
-            return json({ success: false, message: 'Forbidden: Admin access required' }, { status: 403 });
-        }
+    try {
+        const { id } = await event.request.json();
 
         if (!id) return json({ success: false, message: 'Member ID required' }, { status: 400 });
 

@@ -1,11 +1,13 @@
 <script>
-    import { onMount } from "svelte";
+    import { onMount, onDestroy } from "svelte";
+    import { browser } from "$app/environment";
     import ScrollReveal from "$lib/components/ScrollReveal.svelte";
     import GlassCard from "$lib/components/GlassCard.svelte";
     import ParticleBackground from "$lib/components/ParticleBackground.svelte";
     import { projectsStore } from "$lib/stores";
 
     let selectedProject = null;
+    let isLoading = true;
 
     onMount(async () => {
         try {
@@ -18,6 +20,8 @@
             }
         } catch (error) {
             console.error("Failed to fetch projects:", error);
+        } finally {
+            isLoading = false;
         }
     });
 
@@ -44,6 +48,10 @@
         selectedProject = null;
         if (typeof document !== "undefined") document.body.style.overflow = "";
     }
+
+    onDestroy(() => {
+        if (browser) document.body.style.overflow = "";
+    });
 </script>
 
 <svelte:head>
@@ -99,133 +107,162 @@
 <section class="pb-20 lg:pb-32 px-6 lg:px-8">
     <div class="max-w-7xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {#each $projectsStore as project, i (project.id || i)}
-                <ScrollReveal delay={i * 100}>
-                    <div class="h-full group relative">
-                        <!-- Holographic Background Effect -->
-                        <div
-                            class="absolute inset-0 bg-gradient-to-br from-secondary-500/0 via-primary-500/0 to-secondary-500/0 group-hover:from-secondary-500/10 group-hover:via-primary-500/5 group-hover:to-secondary-500/20 rounded-2xl transition-all duration-700 opacity-0 group-hover:opacity-100 -z-10 blur-xl"
-                        ></div>
-
-                        <GlassCard padding="p-0">
+            {#if isLoading}
+                <!-- Loading state -->
+                {#each Array(6) as _}
+                    <div class="glass-card p-0 overflow-hidden border-white/5 animate-pulse h-80 flex flex-col relative">
+                        <div class="absolute top-0 w-full h-[2px] bg-gradient-to-r from-transparent via-primary-500/20 to-transparent"></div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="flex items-start justify-between mb-6">
+                                <div class="w-14 h-14 rounded-xl bg-white/10"></div>
+                                <div class="w-20 h-6 bg-white/10 rounded-full"></div>
+                            </div>
+                            <div class="h-6 w-3/4 bg-white/10 rounded mb-3"></div>
+                            <div class="h-4 w-full bg-white/10 rounded mb-2"></div>
+                            <div class="h-4 w-5/6 bg-white/10 rounded mb-6"></div>
+                            <div class="flex gap-2">
+                                <div class="w-12 h-5 bg-white/10 rounded-md"></div>
+                                <div class="w-16 h-5 bg-white/10 rounded-md"></div>
+                            </div>
+                        </div>
+                    </div>
+                {/each}
+            {:else if $projectsStore.length === 0}
+                <!-- Empty state -->
+                <div class="col-span-1 md:col-span-2 lg:col-span-3 glass-card p-12 text-center border-dashed">
+                    <div class="text-4xl mb-4 opacity-50">🚀</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Projects Coming Soon</h3>
+                    <p class="text-gray-400">Our members are working hard on exciting new projects.</p>
+                </div>
+            {:else}
+                {#each $projectsStore as project, i (project.id || i)}
+                    <ScrollReveal delay={i * 100}>
+                        <div class="h-full group relative">
+                            <!-- Holographic Background Effect -->
                             <div
-                                class="flex flex-col h-full relative overflow-hidden rounded-2xl z-10 bg-dark/40 group-hover:bg-dark/60 transition-colors duration-500 border border-white/5 group-hover:border-primary-500/30"
-                            >
-                                <!-- Top Tech Line -->
-                                <div
-                                    class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-primary-500/50 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
-                                ></div>
+                                class="absolute inset-0 bg-gradient-to-br from-secondary-500/0 via-primary-500/0 to-secondary-500/0 group-hover:from-secondary-500/10 group-hover:via-primary-500/5 group-hover:to-secondary-500/20 rounded-2xl transition-all duration-700 opacity-0 group-hover:opacity-100 -z-10 blur-xl"
+                            ></div>
 
+                            <GlassCard padding="p-0">
                                 <div
-                                    class="p-6 flex-1 flex flex-col relative z-20"
+                                    class="flex flex-col h-full relative overflow-hidden rounded-2xl z-10 bg-dark/40 group-hover:bg-dark/60 transition-colors duration-500 border border-white/5 group-hover:border-primary-500/30"
                                 >
-                                    <!-- Header -->
+                                    <!-- Top Tech Line -->
                                     <div
-                                        class="flex items-start justify-between mb-6"
+                                        class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-primary-500/50 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
+                                    ></div>
+
+                                    <div
+                                        class="p-6 flex-1 flex flex-col relative z-20"
                                     >
+                                        <!-- Header -->
                                         <div
-                                            class="w-14 h-14 rounded-xl bg-gradient-to-br from-white/5 to-white/10 border border-white/10 flex items-center justify-center text-3xl shadow-inner group-hover:shadow-[0_0_15px_rgba(206,178,141,0.2)] transition-shadow"
+                                            class="flex items-start justify-between mb-6"
                                         >
-                                            {project.image}
-                                        </div>
-                                        <span
-                                            class="px-3 py-1 text-xs font-semibold rounded-full border {getStatusColor(
-                                                project.status,
-                                            )} shadow-sm"
-                                        >
-                                            <span
-                                                class="w-1.5 h-1.5 inline-block rounded-full bg-current mr-1 animate-pulse"
-                                            ></span>
-                                            {project.status}
-                                        </span>
-                                    </div>
-
-                                    <!-- Content -->
-                                    <h3
-                                        class="text-2xl font-bold font-heading text-white mb-3 group-hover:text-primary-400 transition-colors"
-                                    >
-                                        {project.title}
-                                    </h3>
-                                    <p
-                                        class="text-gray-400 text-sm leading-relaxed mb-6 flex-1"
-                                    >
-                                        {project.description}
-                                    </p>
-
-                                    <!-- Tags -->
-                                    <div class="flex flex-wrap gap-2 mb-6">
-                                        {#each project.tags as tag}
-                                            <span
-                                                class="px-2.5 py-1 text-[10px] uppercase tracking-wider font-semibold rounded-md bg-primary-500/5 text-primary-300 border border-primary-500/10 group-hover:border-primary-500/30 transition-colors"
-                                                >{tag}</span
+                                            <div
+                                                class="w-14 h-14 rounded-xl bg-gradient-to-br from-white/5 to-white/10 border border-white/10 flex items-center justify-center text-3xl shadow-inner group-hover:shadow-[0_0_15px_rgba(206,178,141,0.2)] transition-shadow"
                                             >
-                                        {/each}
-                                    </div>
+                                                {project.image}
+                                            </div>
+                                            <span
+                                                class="px-3 py-1 text-xs font-semibold rounded-full border {getStatusColor(
+                                                    project.status,
+                                                )} shadow-sm"
+                                            >
+                                                <span
+                                                    class="w-1.5 h-1.5 inline-block rounded-full bg-current mr-1 animate-pulse"
+                                                ></span>
+                                                {project.status}
+                                            </span>
+                                        </div>
 
-                                    <!-- Contributors -->
-                                    <div
-                                        class="flex items-center gap-3 mt-auto pt-4 border-t border-white/5"
-                                    >
-                                        <div class="flex -space-x-2">
-                                            {#each project.contributors.slice(0, 3) as contributor}
-                                                <div
-                                                    class="w-8 h-8 rounded-full bg-dark-50 flex items-center justify-center text-white text-xs font-bold border-2 border-dark shadow-sm relative z-10 hover:z-20 hover:scale-110 transition-transform cursor-help"
-                                                    title={contributor}
+                                        <!-- Content -->
+                                        <h3
+                                            class="text-2xl font-bold font-heading text-white mb-3 group-hover:text-primary-400 transition-colors"
+                                        >
+                                            {project.title}
+                                        </h3>
+                                        <p
+                                            class="text-gray-400 text-sm leading-relaxed mb-6 flex-1"
+                                        >
+                                            {project.description}
+                                        </p>
+
+                                        <!-- Tags -->
+                                        <div class="flex flex-wrap gap-2 mb-6">
+                                            {#each project.tags as tag}
+                                                <span
+                                                    class="px-2.5 py-1 text-[10px] uppercase tracking-wider font-semibold rounded-md bg-primary-500/5 text-primary-300 border border-primary-500/10 group-hover:border-primary-500/30 transition-colors"
+                                                    >{tag}</span
                                                 >
-                                                    {contributor[0]}
-                                                </div>
                                             {/each}
                                         </div>
-                                        <span
-                                            class="text-xs font-medium text-gray-500 uppercase tracking-widest"
-                                            >{project.contributors.length} CONTRIBUTORS</span
+
+                                        <!-- Contributors -->
+                                        <div
+                                            class="flex items-center gap-3 mt-auto pt-4 border-t border-white/5"
                                         >
+                                            <div class="flex -space-x-2">
+                                                {#each project.contributors.slice(0, 3) as contributor}
+                                                    <div
+                                                        class="w-8 h-8 rounded-full bg-dark-50 flex items-center justify-center text-white text-xs font-bold border-2 border-dark shadow-sm relative z-10 hover:z-20 hover:scale-110 transition-transform cursor-help"
+                                                        title={contributor}
+                                                    >
+                                                        {contributor[0]}
+                                                    </div>
+                                                {/each}
+                                            </div>
+                                            <span
+                                                class="text-xs font-medium text-gray-500 uppercase tracking-widest"
+                                                >{project.contributors.length} CONTRIBUTORS</span
+                                            >
+                                        </div>
+                                    </div>
+
+                                    <!-- Footer link to community -->
+                                    <div
+                                        class="px-6 py-4 border-t border-white/5 flex gap-2 mt-auto"
+                                    >
+                                        <button
+                                            on:click={() => openModal(project)}
+                                            class="flex-1 text-sm font-semibold text-primary-400 hover:text-white transition-colors flex items-center justify-center gap-2 group"
+                                        >
+                                            View Details
+                                            <svg
+                                                class="w-4 h-4 group-hover:translate-x-1 transition-transform"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                                                />
+                                            </svg>
+                                        </button>
+                                        <a
+                                            href="/community"
+                                            class="px-4 py-2 text-sm text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition-colors flex items-center gap-2"
+                                            title="Discuss in Community"
+                                        >
+                                            <svg
+                                                class="w-4 h-4"
+                                                fill="currentColor"
+                                                viewBox="0 0 24 24"
+                                                ><path
+                                                    d="M12 2C6.48 2 2 5.92 2 10.75c0 2.76 1.48 5.2 3.82 6.77.29.98-1.07 2.1-1.07 2.1s1.39.06 2.65-.63c1.38.56 2.94.86 4.6.86 5.52 0 10-3.92 10-8.75S17.52 2 12 2z"
+                                                /></svg
+                                            >
+                                        </a>
                                     </div>
                                 </div>
-
-                                <!-- Footer link to community -->
-                                <div
-                                    class="px-6 py-4 border-t border-white/5 flex gap-2 mt-auto"
-                                >
-                                    <button
-                                        on:click={() => openModal(project)}
-                                        class="flex-1 text-sm font-semibold text-primary-400 hover:text-white transition-colors flex items-center justify-center gap-2 group"
-                                    >
-                                        View Details
-                                        <svg
-                                            class="w-4 h-4 group-hover:translate-x-1 transition-transform"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M13 7l5 5m0 0l-5 5m5-5H6"
-                                            />
-                                        </svg>
-                                    </button>
-                                    <a
-                                        href="/community"
-                                        class="px-4 py-2 text-sm text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition-colors flex items-center gap-2"
-                                        title="Discuss in Community"
-                                    >
-                                        <svg
-                                            class="w-4 h-4"
-                                            fill="currentColor"
-                                            viewBox="0 0 24 24"
-                                            ><path
-                                                d="M12 2C6.48 2 2 5.92 2 10.75c0 2.76 1.48 5.2 3.82 6.77.29.98-1.07 2.1-1.07 2.1s1.39.06 2.65-.63c1.38.56 2.94.86 4.6.86 5.52 0 10-3.92 10-8.75S17.52 2 12 2z"
-                                            /></svg
-                                        >
-                                    </a>
-                                </div>
-                            </div>
-                        </GlassCard>
-                    </div>
-                </ScrollReveal>
-            {/each}
+                            </GlassCard>
+                        </div>
+                    </ScrollReveal>
+                {/each}
+            {/if}
         </div>
     </div>
 </section>
@@ -256,7 +293,7 @@
 {#if selectedProject}
     <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
     <div
-        class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/60 backdrop-blur-md animate-fade-in"
+        class="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/60 backdrop-blur-md animate-fade-in"
         on:click|self={closeModal}
     >
         <div

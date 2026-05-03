@@ -35,3 +35,4 @@ Thumbs.db
 dev.db
 prisma/dev.db
 /prisma/dev.db
+.agent/skills/claude-superskills/
