@@ -66,6 +66,41 @@ function applyOrderBy(query, orderBy) {
 }
 
 // ---------------------------------------------------------------------------
+// Helper: add default timestamps to create data (replaces Prisma's @default(now()) / @updatedAt)
+// Maps every table to the timestamp columns it needs auto-filled.
+// ---------------------------------------------------------------------------
+const TIMESTAMP_COLUMNS = {
+    User:            { createdAt: true, updatedAt: true },
+    Discussion:      { createdAt: true, updatedAt: true },
+    DiscussionReply: { createdAt: true, updatedAt: true },
+    Project:         { createdAt: true },
+    UserBadge:       { earnedAt: true },
+    UserActivity:    { createdAt: true },
+    AuditLog:        { timestamp: true },
+    CourseProgress:  { updatedAt: true },
+};
+
+function addTimestampDefaults(tableName, data) {
+    const cols = TIMESTAMP_COLUMNS[tableName];
+    if (!cols) return data;
+    const now = new Date().toISOString();
+    const out = { ...data };
+    for (const col of Object.keys(cols)) {
+        if (out[col] === undefined) out[col] = now;
+    }
+    return out;
+}
+
+function addUpdatedAt(tableName, data) {
+    const cols = TIMESTAMP_COLUMNS[tableName];
+    if (!cols) return data;
+    const now = new Date().toISOString();
+    const out = { ...data };
+    if (cols.updatedAt && out.updatedAt === undefined) out.updatedAt = now;
+    return out;
+}
+
+// ---------------------------------------------------------------------------
 // Helper: apply `select` columns
 // ---------------------------------------------------------------------------
 function buildSelectString(select, include) {
@@ -163,12 +198,16 @@ function createModel(tableName) {
          * create({ data }) → returns the created row
          */
         create: async ({ data }) => {
+            const dataWithDefaults = addTimestampDefaults(tableName, data);
             const { data: result, error } = await supabase
                 .from(tableName)
-                .insert(data)
+                .insert(dataWithDefaults)
                 .select('*')
                 .single();
-            if (error) { console.error(`[prisma.${tableName}.create]`, error); throw error; }
+            if (error) { 
+                console.error(`[prisma.${tableName}.create]`, error); 
+                throw new Error(error.message);
+            }
             return result;
         },
 
@@ -176,7 +215,8 @@ function createModel(tableName) {
          * createMany({ data: [...] })
          */
         createMany: async ({ data }) => {
-            const { error } = await supabase.from(tableName).insert(data);
+            const rows = data.map(row => addTimestampDefaults(tableName, row));
+            const { error } = await supabase.from(tableName).insert(rows);
             if (error) { console.error(`[prisma.${tableName}.createMany]`, error); throw error; }
             return { count: data.length };
         },
@@ -185,7 +225,8 @@ function createModel(tableName) {
          * update({ where: { id }, data }) → returns the updated row
          */
         update: async ({ where, data }) => {
-            let q = supabase.from(tableName).update(data);
+            const dataWithTs = addUpdatedAt(tableName, data);
+            let q = supabase.from(tableName).update(dataWithTs);
             q = applyWhere(q, where);
             q = q.select('*').single();
             const { data: result, error } = await q;
@@ -197,7 +238,8 @@ function createModel(tableName) {
          * updateMany({ where, data }) → returns { count }
          */
         updateMany: async ({ where, data }) => {
-            let q = supabase.from(tableName).update(data);
+            const dataWithTs = addUpdatedAt(tableName, data);
+            let q = supabase.from(tableName).update(dataWithTs);
             q = applyWhere(q, where);
             q = q.select('id');
             const { data: rows, error } = await q;
