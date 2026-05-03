@@ -36,3 +36,6 @@ dev.db
 prisma/dev.db
 /prisma/dev.db
 .agent/skills/claude-superskills/
+graphify-out/
+.agent/skills/claude-superskills/
+*.log
