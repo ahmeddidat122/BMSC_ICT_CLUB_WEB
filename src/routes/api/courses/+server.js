@@ -3,6 +3,7 @@ import { json } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma.js';
 import { requireAdmin } from '$lib/server/auth.js';
 import { safeJsonParse } from '$lib/utils.js';
+import { rateLimit, sanitize } from '$lib/server/security.js';
 
 // GET all courses
 export async function GET() {
@@ -13,7 +14,9 @@ export async function GET() {
 
         const formattedCourses = courses.map(course => ({
             ...course,
-            topics: safeJsonParse(course.topics, [])
+            topics: safeJsonParse(course.topics, []),
+            videoUrls: safeJsonParse(course.videoUrls, []),
+            courseVideoUrl: course.courseVideoUrl || ""
         }));
 
         return json({
@@ -33,23 +36,33 @@ export async function POST(event) {
     if (adminResult instanceof Response) return adminResult;
 
     try {
-        const { title, description, level, duration, icon, color, topics } = await event.request.json();
+        const { title, description, level, duration, icon, color, topics, videoUrls, courseVideoUrl } = await event.request.json();
+
+        const limitRes = rateLimit(`admin_courses_post_${event.locals.dbUser?.id || 'anon'}`, 10, 60000);
+        if (limitRes) return limitRes;
 
         const course = await prisma.course.create({
             data: {
-                title,
-                description,
+                title: sanitize(title),
+                description: sanitize(description),
                 level,
                 duration,
                 icon,
                 color,
-                topics: JSON.stringify(topics)
+                topics: JSON.stringify(topics),
+                videoUrls: JSON.stringify(videoUrls || []),
+                courseVideoUrl: courseVideoUrl || ""
             }
         });
 
         return json({
             success: true,
-            course: { ...course, topics: safeJsonParse(course.topics, []) }
+            course: { 
+                ...course, 
+                topics: safeJsonParse(course.topics, []),
+                videoUrls: safeJsonParse(course.videoUrls, []),
+                courseVideoUrl: course.courseVideoUrl || ""
+            }
         });
     } catch (error) {
         console.error("Admin Course POST error:", error);
@@ -66,7 +79,7 @@ export async function PUT(event) {
         const body = await event.request.json();
         const id = parseInt(body.id);
         if (isNaN(id)) return json({ success: false, message: 'Invalid course ID' }, { status: 400 });
-        const { title, description, level, duration, icon, color, topics } = body;
+        const { title, description, level, duration, icon, color, topics, videoUrls, courseVideoUrl } = body;
 
         const course = await prisma.course.update({
             where: { id },
@@ -77,13 +90,20 @@ export async function PUT(event) {
                 duration,
                 icon,
                 color,
-                topics: JSON.stringify(topics)
+                topics: JSON.stringify(topics),
+                videoUrls: JSON.stringify(videoUrls || []),
+                courseVideoUrl: courseVideoUrl || ""
             }
         });
 
         return json({
             success: true,
-            course: { ...course, topics: safeJsonParse(course.topics, []) }
+            course: { 
+                ...course, 
+                topics: safeJsonParse(course.topics, []),
+                videoUrls: safeJsonParse(course.videoUrls, []),
+                courseVideoUrl: course.courseVideoUrl || ""
+            }
         });
     } catch (error) {
         console.error("Admin Course PUT error:", error);

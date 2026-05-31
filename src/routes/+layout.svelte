@@ -67,12 +67,11 @@
 	<Toast />
 	<Navbar />
 
-	<main class="flex-1 grid">
+	<main class="flex-1 flex flex-col relative w-full">
 		{#key $page.url.pathname}
 			<div
 				in:fly={{ y: 20, duration: 300, delay: 150 }}
 				out:fade={{ duration: 150 }}
-				class="col-start-1 row-start-1"
 			>
 				<slot />
 			</div>

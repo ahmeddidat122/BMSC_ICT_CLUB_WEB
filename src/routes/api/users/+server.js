@@ -1,25 +1,23 @@
 import { json } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma.js';
+import { rateLimit, sanitize } from '$lib/server/security.js';
 
 // GET all users (Admin only)
-export async function GET({ locals: { safeGetSession } }) {
+export async function GET(event) {
+    const { locals: { safeGetSession } } = event;
     const { dbUser } = await safeGetSession();
     if (!dbUser || dbUser.role !== 'Admin') {
         return json({ success: false, message: 'Unauthorized' }, { status: 403 });
     }
 
+    // Rate limit admin listing
+    const limitRes = rateLimit(`admin_users_get_${dbUser.id}`, 20, 60000);
+    if (limitRes) return limitRes;
+
     try {
         const users = await prisma.user.findMany({
             select: {
-                id: true,
-                name: true,
-                email: true,
-                role: true,
-                createdAt: true,
-                avatar: true,
-                isBanned: true,
-                level: true,
-                xp: true
+// ... existing select ...
             },
             orderBy: { createdAt: 'desc' }
         });
@@ -32,11 +30,16 @@ export async function GET({ locals: { safeGetSession } }) {
 }
 
 // PATCH update user role or status (Admin only)
-export async function PATCH({ request, locals: { safeGetSession } }) {
+export async function PATCH(event) {
+    const { request, locals: { safeGetSession } } = event;
     const { dbUser: adminUser } = await safeGetSession();
     if (!adminUser || adminUser.role !== 'Admin') {
         return json({ success: false, message: 'Unauthorized' }, { status: 403 });
     }
+
+    // Rate limit administrative actions
+    const limitRes = rateLimit(`admin_users_patch_${adminUser.id}`, 30, 60000);
+    if (limitRes) return limitRes;
 
     try {
         const { userId, role, isBanned } = await request.json();

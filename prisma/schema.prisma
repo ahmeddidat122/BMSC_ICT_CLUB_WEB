@@ -75,6 +75,8 @@ model Course {
   icon        String
   color       String
   topics      String   // JSON string representation
+  videoUrls      String   @default("[]") // JSON string of video links
+  courseVideoUrl String   @default("") // Global course preview video
 }
 
 model CourseProgress {

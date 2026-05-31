@@ -8,6 +8,7 @@
     export let editingItem = null;
     export let isSubmitting = false;
     export let submitError = "";
+    export let supabase = null;
 
     const dispatch = createEventDispatcher();
 
@@ -41,6 +42,63 @@
 
     function removeArrayItem(field, index) {
         formData[field] = formData[field].filter((_, i) => i !== index);
+        // Also remove corresponding videoUrls if field is topics
+        if (field === 'topics' && formData.videoUrls) {
+            formData.videoUrls = formData.videoUrls.filter((_, i) => i !== index);
+        }
+    }
+
+    let uploadingVideo = null; // index of topic being uploaded
+    async function handleVideoUpload(index, event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        if (!supabase) {
+            submitError = "Supabase storage not configured.";
+            return;
+        }
+
+        try {
+            uploadingVideo = index;
+            const fileExt = file.name.split('.').pop();
+            const fileName = `${Math.random().toString(36).substring(2)}_${Date.now()}.${fileExt}`;
+            const filePath = `course-videos/${fileName}`;
+
+            const { error: uploadError, data } = await supabase.storage
+                .from('course-videos')
+                .upload(filePath, file);
+
+            if (uploadError) throw uploadError;
+
+            // Get public URL
+            const { data: { publicUrl } } = supabase.storage
+                .from('course-videos')
+                .getPublicUrl(filePath);
+
+            if (!formData.videoUrls) formData.videoUrls = [];
+            formData.videoUrls[index] = publicUrl;
+        } catch (e) {
+            console.error("Upload error:", e);
+            submitError = "Failed to upload video: " + e.message;
+        } finally {
+            uploadingVideo = null;
+        }
+    }
+
+    async function handleGlobalVideoUpload(event) {
+        const file = event.target.files[0];
+        if (!file || !supabase) return;
+        try {
+            const fileExt = file.name.split('.').pop();
+            const fileName = `preview_${Math.random().toString(36).substring(2)}_${Date.now()}.${fileExt}`;
+            const filePath = `course-videos/${fileName}`;
+            const { error: uploadError } = await supabase.storage.from('course-videos').upload(filePath, file);
+            if (uploadError) throw uploadError;
+            const { data: { publicUrl } } = supabase.storage.from('course-videos').getPublicUrl(filePath);
+            formData.courseVideoUrl = publicUrl;
+        } catch (e) {
+            submitError = "Upload failed: " + e.message;
+        }
     }
 </script>
 
@@ -171,15 +229,56 @@
                                 class="w-full h-10 p-1 bg-dark-800 border border-white/10 rounded-lg cursor-pointer"
                             />
                         </div>
+                        
+                        <!-- NEW: Global Course Video -->
+                        <div class="col-span-2 p-4 bg-primary-500/5 rounded-xl border border-primary-500/10 mb-2">
+                            <div class="block text-sm font-bold text-primary-400 mb-2 uppercase tracking-wider flex items-center gap-2">
+                                <span class="bg-primary-500 text-black p-0.5 rounded text-[10px]">NEW</span>
+                                Course Preview Video
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="global-video-link" class="block text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-1">Video Link (YouTube/Direct)</label>
+                                    <input 
+                                        id="global-video-link"
+                                        type="text"
+                                        placeholder="Paste preview video URL here..."
+                                        bind:value={formData.courseVideoUrl}
+                                        class="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:border-primary-500/50 outline-none"
+                                    />
+                                </div>
+                                <div class="flex flex-col justify-end">
+                                    <span class="block text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-1">Or Upload Preview</span>
+                                    <div class="flex items-center gap-2">
+                                        <input 
+                                            type="file"
+                                            accept="video/*"
+                                            id="global-video-upload"
+                                            class="hidden"
+                                            on:change={handleGlobalVideoUpload}
+                                        />
+                                        <label 
+                                            for="global-video-upload"
+                                            class="flex-1 cursor-pointer bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg px-3 py-2 text-xs text-gray-300 text-center transition-all truncate"
+                                        >
+                                            {formData.courseVideoUrl ? "Change Preview" : "Choose Preview Video"}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-span-2">
-                            <label
-                                for="course-topics"
-                                class="block text-sm font-medium text-gray-300 mb-1"
-                                >Syllabus Topics</label
-                            >
-                            <div class="flex gap-2 mb-2">
+                            <div class="flex items-center justify-between mb-2">
+                                <label
+                                    for="course-syllabus-input"
+                                    class="block text-sm font-medium text-gray-300"
+                                    >Syllabus Topics & Videos</label
+                                >
+                                <span class="text-[10px] uppercase tracking-wider text-gray-500 font-bold">One video per topic</span>
+                            </div>
+                            <div class="flex gap-2 mb-4">
                                 <input
-                                    id="course-topics"
+                                    id="course-syllabus-input"
                                     bind:value={newTopic}
                                     on:keydown={(e) =>
                                         e.key === "Enter" &&
@@ -190,8 +289,8 @@
                                             (v) => (newTopic = v),
                                         ))}
                                     type="text"
-                                    placeholder="Add topic and press Enter"
-                                    class="flex-1 bg-dark-800 border border-white/10 rounded-lg px-4 py-2 text-white outline-none"
+                                    placeholder="Add topic title and press Enter"
+                                    class="flex-1 bg-dark-800 border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-primary-500/50"
                                 />
                                 <button
                                     type="button"
@@ -201,25 +300,63 @@
                                             newTopic,
                                             (v) => (newTopic = v),
                                         )}
-                                    class="px-4 bg-primary-500/20 text-primary-400 rounded-lg hover:bg-primary-500/30"
-                                    >Add</button
+                                    class="px-6 bg-primary-500/10 text-primary-400 border border-primary-500/20 rounded-lg hover:bg-primary-500/20 transition-all font-bold text-xs uppercase"
+                                    >Add Topic</button
                                 >
                             </div>
-                            <div class="flex flex-col gap-2">
+                            <div class="space-y-3">
                                 {#each formData.topics || [] as topic, i}
                                     <div
-                                        class="flex items-center justify-between bg-dark-800 px-3 py-2 rounded-lg border border-white/5"
+                                        class="p-4 bg-white/5 rounded-xl border border-white/10 space-y-3"
                                     >
-                                        <span class="text-sm text-gray-300"
-                                            >{i + 1}. {topic}</span
-                                        >
-                                        <button
-                                            type="button"
-                                            on:click={() =>
-                                                removeArrayItem("topics", i)}
-                                            class="text-red-400 hover:text-red-300"
-                                            ><Trash2 size={14} /></button
-                                        >
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-sm font-bold text-white"
+                                                >{i + 1}. {topic}</span
+                                            >
+                                            <button
+                                                type="button"
+                                                on:click={() =>
+                                                    removeArrayItem("topics", i)}
+                                                class="text-gray-500 hover:text-red-400 transition-colors"
+                                                ><Trash2 size={16} /></button
+                                            >
+                                        </div>
+                                        
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 border-t border-white/5">
+                                            <div>
+                                                <label for="video-link-{i}" class="block text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-1">Video Link (YouTube/Direct)</label>
+                                                <input 
+                                                    id="video-link-{i}"
+                                                    type="text"
+                                                    placeholder="Paste URL here..."
+                                                    bind:value={formData.videoUrls[i]}
+                                                    class="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:border-primary-500/50 outline-none"
+                                                />
+                                            </div>
+                                            <div>
+                                                <span class="block text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-1">Or Upload File</span>
+                                                <div class="flex items-center gap-2">
+                                                    <input 
+                                                        type="file"
+                                                        accept="video/*"
+                                                        id="video-upload-{i}"
+                                                        class="hidden"
+                                                        on:change={(e) => handleVideoUpload(i, e)}
+                                                    />
+                                                    <label 
+                                                        for="video-upload-{i}"
+                                                        class="flex-1 cursor-pointer bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-gray-300 text-center transition-all truncate"
+                                                    >
+                                                        {uploadingVideo === i ? "Uploading..." : (formData.videoUrls[i] ? "Change File" : "Choose Video")}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {#if formData.videoUrls[i]}
+                                            <p class="text-[10px] text-primary-500/70 truncate font-mono">
+                                                {formData.videoUrls[i]}
+                                            </p>
+                                        {/if}
                                     </div>
                                 {/each}
                             </div>

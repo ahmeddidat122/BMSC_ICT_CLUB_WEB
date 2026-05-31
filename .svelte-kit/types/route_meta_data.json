@@ -13,9 +13,6 @@
 	"/api/badges": [
 		"src/routes/api/badges/+server.js"
 	],
-	"/api/bootstrap-admin": [
-		"src/routes/api/bootstrap-admin/+server.js"
-	],
 	"/api/contact": [
 		"src/routes/api/contact/+server.js"
 	],

@@ -14,15 +14,15 @@
 		</div>
 	</div>
 
-	<div class="text-center sm:text-left flex-1">
-		<h2 class="text-2xl sm:text-3xl font-bold font-heading text-white mb-2">{user.name}</h2>
-		<p class="text-primary-400 font-medium mb-1 flex items-center justify-center sm:justify-start gap-2">
-			<span>{user.role}</span>
-			<span class="w-1.5 h-1.5 rounded-full bg-white/20"></span>
-			<span class="text-gray-400 text-sm font-normal">{user.joinDate}</span>
+	<div class="text-center sm:text-left flex-1 w-full sm:w-auto">
+		<h2 class="text-2xl sm:text-4xl font-extrabold font-heading text-white mb-2 tracking-tight">{user.name}</h2>
+		<p class="text-primary-400 font-semibold mb-1 flex items-center justify-center sm:justify-start gap-2">
+			<span class="bg-primary-500/10 px-2 py-0.5 rounded text-xs uppercase tracking-wider">{user.role}</span>
+			<span class="w-1 h-1 rounded-full bg-white/20"></span>
+			<span class="text-gray-400 text-sm font-normal">Joined {user.joinDate}</span>
 		</p>
-		<p class="text-gray-300 text-sm max-w-md mx-auto sm:mx-0 mt-3">
-			Ready to dive into new projects and push boundaries in the tech club.
+		<p class="text-gray-400 text-sm leading-relaxed max-w-md mx-auto sm:mx-0 mt-4 italic">
+			"Ready to dive into new projects and push boundaries in the tech club."
 		</p>
 	</div>
 	

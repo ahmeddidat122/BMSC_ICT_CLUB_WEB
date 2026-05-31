@@ -12,7 +12,9 @@ export async function GET() {
 
 export async function POST({ request, locals: { safeGetSession } }) {
   const { dbUser } = await safeGetSession();
-  if (!dbUser) return json({ success: false, message: 'Unauthorized' }, { status: 401 });
+  if (!dbUser) {
+    return json({ success: false, message: 'Unauthorized' }, { status: 401 });
+  }
 
   const data = await request.json();
   const discussion = await prisma.discussion.create({

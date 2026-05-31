@@ -2,6 +2,7 @@
 import { json } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma.js';
 import { requireAdmin } from '$lib/server/auth.js';
+import { rateLimit, sanitize } from '$lib/server/security.js';
 
 // GET all notices
 export async function GET({ setHeaders }) {
@@ -31,9 +32,18 @@ export async function POST(event) {
 
     try {
         const { title, description, date, type, pinned } = await event.request.json();
+        
+        const limitRes = rateLimit(`admin_notices_post_${event.locals.dbUser?.id || 'anon'}`, 10, 60000);
+        if (limitRes) return limitRes;
 
         const notice = await prisma.notice.create({
-            data: { title, description, date, type, pinned: pinned || false }
+            data: { 
+                title: sanitize(title), 
+                description: sanitize(description), 
+                date, 
+                type, 
+                pinned: pinned || false 
+            }
         });
 
         // Extract mentions safely (@username)

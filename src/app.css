@@ -8,15 +8,18 @@
 
 @layer base {
     :root {
-        --color-dark: #0a0a1a;
-        --color-dark-50: #1a1a2e;
+        --color-dark: #05050a;
+        --color-dark-50: #0a0a1a;
+        --color-dark-100: #101025;
         --color-primary: #ceb28d;
-        --color-primary-light: #e6d3af;
+        --color-primary-light: #f3dfc1;
+        --color-primary-dark: #a68b6d;
         --color-secondary: #d4af37;
-        --color-secondary-light: #ffc140;
-        --glass-bg: rgba(212, 175, 55, 0.03);
-        --glass-border: rgba(212, 175, 55, 0.1);
-        --glass-bg-hover: rgba(212, 175, 55, 0.08);
+        --color-secondary-light: #ffeb3b;
+        --glass-bg: rgba(255, 255, 255, 0.03);
+        --glass-border: rgba(206, 178, 141, 0.1);
+        --glass-bg-hover: rgba(206, 178, 141, 0.08);
+        --accent-glow: rgba(206, 178, 141, 0.4);
     }
 
     * {

@@ -13,13 +13,27 @@
     let activeTopicIndex = 0;
     let completedTopics = [];
     let progressPercentage = 0;
-    let videoUrls = [
-        "https://www.youtube.com/embed/mU6anWqZJcc?si=41U7mPz8hS1tAigW",
-        "https://www.youtube.com/embed/1Rs2ND1ryYc?si=XzY7tJv8yQ0sR0I9",
-        "https://www.youtube.com/embed/W6NZfCO5SIk?si=1V4lX-3aVb9r8gE9",
-        "https://www.youtube.com/embed/zJSY8tbf_ys?si=7v5mPZ9hX2kQw8e4",
-        "https://www.youtube.com/embed/PkZNo7MFOUg?si=6mY3bV0pL1nX9kR8",
-    ];
+    $: activeVideoUrl = (course?.courseVideoUrl && activeTopicIndex === 0) 
+        ? course.courseVideoUrl 
+        : (course?.videoUrls && course.videoUrls[activeTopicIndex]) || course?.courseVideoUrl || "";
+
+    function getEmbedUrl(url) {
+        if (!url) return "";
+        if (url.includes('youtube.com') || url.includes('youtu.be')) {
+            let videoId = "";
+            if (url.includes('v=')) {
+                videoId = url.split('v=')[1].split('&')[0];
+            } else {
+                // Handle youtu.be/ID?si=...
+                const lastPart = url.split('/').pop();
+                videoId = lastPart.split('?')[0];
+            }
+            return `https://www.youtube.com/embed/${videoId}`;
+        }
+        return url;
+    }
+
+    $: embedUrl = getEmbedUrl(activeVideoUrl);
 
     $: if (course && completedTopics) {
         progressPercentage =
@@ -131,18 +145,32 @@
                     <ScrollReveal delay={100}>
                         <!-- Dynamic Video Player -->
                         <div
-                            class="glass-card rounded-2xl overflow-hidden aspect-video relative group border border-white/10 shadow-2xl"
+                            class="glass-card rounded-2xl overflow-hidden aspect-video relative group border border-white/10 shadow-2xl bg-black"
                         >
-                            <iframe
-                                class="w-full h-full absolute inset-0 rounded-2xl"
-                                src={videoUrls[
-                                    activeTopicIndex % videoUrls.length
-                                ]}
-                                title="Course Video Player"
-                                frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen
-                            ></iframe>
+                            {#if embedUrl && (embedUrl.includes('youtube.com') || embedUrl.includes('vimeo.com'))}
+                                <iframe
+                                    class="w-full h-full absolute inset-0 rounded-2xl"
+                                    src={embedUrl}
+                                    title="Course Video Player"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen
+                                ></iframe>
+                            {:else if activeVideoUrl}
+                                <video 
+                                    class="w-full h-full absolute inset-0 rounded-2xl"
+                                    controls
+                                    src={activeVideoUrl}
+                                >
+                                    <track kind="captions" />
+                                    Your browser does not support the video tag.
+                                </video>
+                            {:else}
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-gray-500 gap-3">
+                                    <svg class="w-12 h-12 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                    <p class="text-sm font-medium">No video available for this topic</p>
+                                </div>
+                            {/if}
                         </div>
 
                         <!-- Mark Complete Action Bar -->

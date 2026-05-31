@@ -17,13 +17,15 @@
         );
         camera.position.z = 5;
 
-        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        const isMobile = window.innerWidth < 768;
+        
+        renderer = new THREE.WebGLRenderer({ antialias: !isMobile, alpha: true });
         renderer.setSize(container.clientWidth, container.clientHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1 : 2));
         container.appendChild(renderer.domElement);
 
         // Glowing tech object (Icosahedron wireframe + solid core)
-        const geometry = new THREE.IcosahedronGeometry(1.8, 1);
+        const geometry = new THREE.IcosahedronGeometry(isMobile ? 1.4 : 1.8, isMobile ? 0 : 1);
 
         const material = new THREE.MeshBasicMaterial({
             color: 0xd4af37, // Gold
@@ -53,11 +55,11 @@
 
         // Add particles
         const particlesGeometry = new THREE.BufferGeometry();
-        const particlesCount = 300;
+        const particlesCount = isMobile ? 100 : 300;
         const posArray = new Float32Array(particlesCount * 3);
 
         for (let i = 0; i < particlesCount * 3; i++) {
-            posArray[i] = (Math.random() - 0.5) * 12; // spread
+            posArray[i] = (Math.random() - 0.5) * (isMobile ? 8 : 12); // spread
         }
 
         particlesGeometry.setAttribute(
