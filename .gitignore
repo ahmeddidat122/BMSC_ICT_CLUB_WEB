@@ -26,8 +26,25 @@ Thumbs.db
 *.swp
 *.swo
 
-
+# Generated files
 /src/generated/prisma
+graphify-out/
+
+# Prisma (migrated to Supabase)
+prisma/
+prisma.config.ts
+promote.js
+
+# Scripts and temporary files
+scripts/
+images/
+
+# Design system docs
+design-system/
+
+# Agent tools
+.agent/
+.agents/
 
 # SQLite
 *.db
@@ -35,6 +52,6 @@ Thumbs.db
 dev.db
 prisma/dev.db
 /prisma/dev.db
-.agent/
-graphify-out/
+
+# Logs
 *.log
