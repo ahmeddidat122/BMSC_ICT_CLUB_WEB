@@ -1,6 +1,13 @@
 export async function GET() {
     const robots = `User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /api
+Disallow: /auth
+Disallow: /login
+Crawl-delay: 1
+
 Sitemap: https://bmscictclub.com/sitemap.xml`;
 
     return new Response(robots, {
