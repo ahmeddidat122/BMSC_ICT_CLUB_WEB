@@ -130,6 +130,7 @@
 								href={member.socials.facebook}
 								target="_blank"
 								rel="noopener noreferrer"
+								aria-label="Facebook"
 								class="p-2.5 rounded-lg bg-white/5 hover:bg-blue-600/20 text-gray-400 hover:text-blue-400 transition-all"
 							>
 								<svg
@@ -147,6 +148,7 @@
 								href={member.socials.github}
 								target="_blank"
 								rel="noopener noreferrer"
+								aria-label="GitHub"
 								class="p-2.5 rounded-lg bg-white/5 hover:bg-gray-600/20 text-gray-400 hover:text-white transition-all"
 							>
 								<svg
@@ -164,6 +166,7 @@
 								href={member.socials.linkedin}
 								target="_blank"
 								rel="noopener noreferrer"
+								aria-label="LinkedIn"
 								class="p-2.5 rounded-lg bg-white/5 hover:bg-blue-700/20 text-gray-400 hover:text-blue-400 transition-all"
 							>
 								<svg

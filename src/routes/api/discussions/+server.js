@@ -1,6 +1,7 @@
 import { json } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma';
 import { checkAndAwardBadges } from '$lib/server/badgeChecker';
+import { sanitize } from '$lib/server/security.js';
 
 export async function GET() {
   const discussions = await prisma.discussion.findMany({
@@ -19,8 +20,8 @@ export async function POST({ request, locals: { safeGetSession } }) {
   const data = await request.json();
   const discussion = await prisma.discussion.create({
     data: {
-      title: data.title,
-      content: data.content,
+      title: sanitize(data.title),
+      content: sanitize(data.content),
       authorId: dbUser.id
     }
   });

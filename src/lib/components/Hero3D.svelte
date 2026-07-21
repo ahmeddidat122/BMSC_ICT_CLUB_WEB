@@ -21,7 +21,7 @@
         
         renderer = new THREE.WebGLRenderer({ antialias: !isMobile, alpha: true });
         renderer.setSize(container.clientWidth, container.clientHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1 : 2));
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1 : 1.5));
         container.appendChild(renderer.domElement);
 
         // Glowing tech object (Icosahedron wireframe + solid core)
@@ -89,22 +89,46 @@
         pointLight.position.set(5, 5, 5);
         scene.add(pointLight);
 
+        // Intersection Observer to prevent off-screen rendering
+        let isIntersecting = true;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                isIntersecting = entry.isIntersecting;
+            });
+        }, { threshold: 0.05 });
+        observer.observe(container);
+
+        // Throttling render loop
+        const clock = new THREE.Clock();
+        let deltaAccumulator = 0;
+        const interval = 1 / 60; // Max 60 FPS target
+
         const animate = () => {
             animationFrame = requestAnimationFrame(animate);
 
-            wireframe.rotation.x += 0.002;
-            wireframe.rotation.y += 0.003;
+            if (!isIntersecting) return;
 
-            core.rotation.x -= 0.005;
-            core.rotation.y -= 0.004;
+            const delta = clock.getDelta();
+            deltaAccumulator += delta;
 
-            particlesMesh.rotation.y += 0.001;
-            particlesMesh.rotation.x -= 0.0005;
+            if (deltaAccumulator >= interval) {
+                wireframe.rotation.x += 0.002;
+                wireframe.rotation.y += 0.003;
 
-            // Floating effect
-            sphereGroup.position.y = Math.sin(Date.now() * 0.001) * 0.2;
+                core.rotation.x -= 0.005;
+                core.rotation.y -= 0.004;
 
-            renderer.render(scene, camera);
+                particlesMesh.rotation.y += 0.001;
+                particlesMesh.rotation.x -= 0.0005;
+
+                // Floating effect
+                sphereGroup.position.y = Math.sin(Date.now() * 0.001) * 0.2;
+
+                renderer.render(scene, camera);
+
+                // Keep remainders for micro-frame delta sync
+                deltaAccumulator = deltaAccumulator % interval;
+            }
         };
 
         animate();
@@ -120,6 +144,7 @@
 
         return () => {
             window.removeEventListener("resize", handleResize);
+            observer.disconnect();
             if (animationFrame) cancelAnimationFrame(animationFrame);
             if (container && renderer.domElement) {
                 container.removeChild(renderer.domElement);

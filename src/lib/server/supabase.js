@@ -19,13 +19,16 @@ export const createSupabaseServerClient = (event) => {
             getAll: () => event.cookies.getAll(),
             /**
              * SvelteKit's cookies API requires `path` to be explicitly set in
-             * the cookie options. Setting `path` to `/` replicates previous/
-             * standard behavior.
+             * the cookie options. Safely wrapped to avoid errors after response generation.
              */
             setAll: (cookiesToSet) => {
-                cookiesToSet.forEach(({ name, value, options }) => {
-                    event.cookies.set(name, value, { ...options, path: '/' });
-                });
+                try {
+                    cookiesToSet.forEach(({ name, value, options }) => {
+                        event.cookies.set(name, value, { ...options, path: '/' });
+                    });
+                } catch {
+                    // Ignore cookie modification attempts after response headers sent
+                }
             }
         }
     });

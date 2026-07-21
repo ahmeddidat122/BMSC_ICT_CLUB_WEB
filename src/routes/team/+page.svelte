@@ -38,23 +38,6 @@
 	});
 </script>
 
-<svelte:head>
-	<title>Team — BMSC ICT Club</title>
-	<meta
-		name="description"
-		content="Meet the executive committee and team members of the BMSC ICT Club at BIAM Model School & College, Bogura."
-	/>
-	<meta property="og:title" content="Meet the Team — BMSC ICT Club" />
-	<meta
-		property="og:description"
-		content="The passionate individuals leading technology and innovation at BMSC ICT Club."
-	/>
-	<meta property="twitter:title" content="Meet the Team — BMSC ICT Club" />
-	<meta
-		property="twitter:description"
-		content="The passionate individuals leading technology and innovation at BMSC ICT Club."
-	/>
-</svelte:head>
 
 <!-- Hero -->
 <section class="relative py-24 lg:py-32 overflow-hidden">

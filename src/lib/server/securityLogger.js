@@ -48,12 +48,15 @@ const AUTO_BLOCK_DURATION_MS = 30 * 60 * 1000; // 30 minutes
  * @returns {string}
  */
 export function getClientIP(event) {
-    return (
-        event.request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-        event.request.headers.get('x-real-ip') ||
-        event.getClientAddress?.() ||
-        'unknown'
-    );
+    // Use SvelteKit's trusted platform-verified address first
+    // Do NOT trust user-supplied x-forwarded-for/x-real-ip headers
+    // unless the app is behind a known reverse proxy
+    try {
+        return event.getClientAddress() || 'unknown';
+    } catch {
+        // In some environments (e.g. Vercel edge), getClientAddress may throw
+        return event.request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+    }
 }
 
 /**

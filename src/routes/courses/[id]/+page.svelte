@@ -1,21 +1,17 @@
 <script>
-    import { page } from "$app/stores";
-    import { coursesStore, authStore, toastStore } from "$lib/stores";
+    import { authStore, toastStore } from "$lib/stores";
     import ScrollReveal from "$lib/components/ScrollReveal.svelte";
     import GlassCard from "$lib/components/GlassCard.svelte";
     import ParticleBackground from "$lib/components/ParticleBackground.svelte";
 
-    import { onMount, onDestroy } from "svelte";
+    import { onMount } from "svelte";
 
-    $: courseId = parseInt($page.params.id);
-    $: course = $coursesStore.find((c) => c.id === courseId);
+    let { data } = $props();
+    let course = $derived(data.course);
+    let courseId = $derived(course?.id);
 
-    let activeTopicIndex = 0;
-    let completedTopics = [];
-    let progressPercentage = 0;
-    $: activeVideoUrl = (course?.courseVideoUrl && activeTopicIndex === 0) 
-        ? course.courseVideoUrl 
-        : (course?.videoUrls && course.videoUrls[activeTopicIndex]) || course?.courseVideoUrl || "";
+    let activeTopicIndex = $state(0);
+    let completedTopics = $state([]);
 
     function getEmbedUrl(url) {
         if (!url) return "";
@@ -24,7 +20,6 @@
             if (url.includes('v=')) {
                 videoId = url.split('v=')[1].split('&')[0];
             } else {
-                // Handle youtu.be/ID?si=...
                 const lastPart = url.split('/').pop();
                 videoId = lastPart.split('?')[0];
             }
@@ -33,21 +28,27 @@
         return url;
     }
 
-    $: embedUrl = getEmbedUrl(activeVideoUrl);
+    let activeVideoUrl = $derived(
+        (course?.courseVideoUrl && activeTopicIndex === 0)
+            ? course.courseVideoUrl
+            : (course?.videoUrls && course.videoUrls[activeTopicIndex]) || course?.courseVideoUrl || ""
+    );
 
-    $: if (course && completedTopics) {
-        progressPercentage =
-            Math.round((completedTopics.length / course.topics.length) * 100) ||
-            0;
-    }
+    let embedUrl = $derived(getEmbedUrl(activeVideoUrl));
+
+    let progressPercentage = $derived(
+        (course && completedTopics)
+            ? Math.round((completedTopics.length / course.topics.length) * 100) || 0
+            : 0
+    );
 
     onMount(async () => {
-        if ($authStore.isAuthenticated) {
+        if ($authStore.isAuthenticated && courseId) {
             try {
                 const res = await fetch(`/api/courses/${courseId}/progress`);
-                const data = await res.json();
-                if (data.success) {
-                    completedTopics = data.completedTopics;
+                const result = await res.json();
+                if (result.success) {
+                    completedTopics = result.completedTopics;
                 }
             } catch (e) {
                 console.error("Failed to fetch progress", e);
@@ -75,8 +76,8 @@
                 if (res.ok) {
                     toastStore.success('Progress saved!');
                 } else {
-                    const data = await res.json().catch(()=>({}));
-                    toastStore.error(data.message || 'Failed to save progress');
+                    const result = await res.json().catch(()=>({}));
+                    toastStore.error(result.message || 'Failed to save progress');
                     completedTopics = oldProgress;
                 }
             } catch (e) {
@@ -187,7 +188,7 @@
                                 </p>
                             </div>
                             <button
-                                on:click={handleMarkComplete}
+                                onclick={handleMarkComplete}
                                 disabled={completedTopics.includes(
                                     activeTopicIndex,
                                 )}
@@ -355,7 +356,7 @@
                                             idx
                                                 ? 'bg-primary-500/10 border-primary-500/30'
                                                 : 'bg-transparent border-transparent hover:bg-white/5'}"
-                                            on:click={() =>
+                                            onclick={() =>
                                                 (activeTopicIndex = idx)}
                                         >
                                             <!-- Play/Check Icon -->

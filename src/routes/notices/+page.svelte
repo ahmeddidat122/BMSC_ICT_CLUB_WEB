@@ -57,23 +57,6 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Notices — BMSC ICT Club</title>
-	<meta
-		name="description"
-		content="Stay updated with the latest announcements, events, and news from BMSC ICT Club."
-	/>
-	<meta property="og:title" content="Latest Notices — BMSC ICT Club" />
-	<meta
-		property="og:description"
-		content="Stay informed about upcoming events, hackathons, and announcements at BMSC ICT Club."
-	/>
-	<meta property="twitter:title" content="Latest Notices — BMSC ICT Club" />
-	<meta
-		property="twitter:description"
-		content="Stay informed about upcoming events, hackathons, and announcements at BMSC ICT Club."
-	/>
-</svelte:head>
 
 <!-- Hero -->
 <section class="relative py-24 lg:py-32 overflow-hidden">

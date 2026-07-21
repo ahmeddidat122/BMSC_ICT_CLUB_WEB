@@ -96,7 +96,7 @@
 	<Toast />
 	<Navbar />
 
-	<main id="main-content" class="flex-1 flex flex-col relative w-full" role="main">
+	<main id="main-content" class="flex-1 flex flex-col relative w-full">
 		{@render children?.()}
 	</main>
 

@@ -5,8 +5,12 @@
    */
   let { assertive = false, message = '' } = $props();
   
-  let currentMessage = $state(message);
-  let mode = $state(assertive ? 'assertive' : 'polite');
+  let currentMessage = $state('');
+  let mode = $derived(assertive ? 'assertive' : 'polite');
+
+  $effect(() => {
+    currentMessage = message;
+  });
 
   /**
    * Announce a message to screen readers

@@ -54,23 +54,6 @@
     });
 </script>
 
-<svelte:head>
-    <title>Projects — BMSC ICT Club</title>
-    <meta
-        name="description"
-        content="Explore projects built by BMSC ICT Club members — from websites to IoT devices and mobile apps."
-    />
-    <meta property="og:title" content="Our Projects — BMSC ICT Club" />
-    <meta
-        property="og:description"
-        content="Real-world innovation from the students of BMSC ICT Club. Explore our portfolio."
-    />
-    <meta property="twitter:title" content="Our Projects — BMSC ICT Club" />
-    <meta
-        property="twitter:description"
-        content="Real-world innovation from the students of BMSC ICT Club. Explore our portfolio."
-    />
-</svelte:head>
 
 <!-- Hero -->
 <section class="relative py-24 lg:py-32 overflow-hidden">
@@ -331,6 +314,7 @@
                 <button
                     class="p-2 text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition-colors"
                     on:click={closeModal}
+                    aria-label="Close"
                 >
                     <svg
                         class="w-5 h-5"

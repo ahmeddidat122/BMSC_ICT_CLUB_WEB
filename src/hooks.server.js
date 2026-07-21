@@ -1,18 +1,23 @@
 import 'dotenv/config';
+import { dev } from '$app/environment';
 import { createSupabaseServerClient } from './lib/server/supabase.js';
 import { prisma } from './lib/server/prisma.js';
 import { json } from '@sveltejs/kit';
 import { getClientIP, isIPBlocked, logSecurityEvent } from './lib/server/securityLogger.js';
 
 // ─── Allowed origins for CSRF validation ───
-const TRUSTED_ORIGINS = [
+const DEV = dev;
+const PROD_ORIGINS = [
     'https://bmsc-ict-club.vercel.app',
-    'https://bmscictclub.com',
+    'https://bmscictclub.com'
+];
+const DEV_ORIGINS = [
     'http://localhost:5173',
     'http://localhost:4173',
     'http://localhost:3000',
     'http://127.0.0.1:5173'
 ];
+const TRUSTED_ORIGINS = DEV ? [...PROD_ORIGINS, ...DEV_ORIGINS] : PROD_ORIGINS;
 
 // ─── Public API routes that don't require authentication ───
 const PUBLIC_API_ROUTES = [
@@ -60,7 +65,7 @@ export async function handle({ event, resolve }) {
         // In production, origin MUST match a trusted domain.
         // In development, SvelteKit sends the origin header automatically.
         if (origin) {
-            const isTrusted = TRUSTED_ORIGINS.some(trusted => origin.startsWith(trusted));
+            const isTrusted = TRUSTED_ORIGINS.some(trusted => origin === trusted);
             if (!isTrusted) {
                 logSecurityEvent({
                     type: 'CSRF_BLOCK',
@@ -77,7 +82,7 @@ export async function handle({ event, resolve }) {
         // If no origin header at all (non-browser client like curl without -H), 
         // check referer as a fallback signal
         else if (referer) {
-            const isTrustedReferer = TRUSTED_ORIGINS.some(trusted => referer.startsWith(trusted));
+            const isTrustedReferer = TRUSTED_ORIGINS.some(trusted => referer.startsWith(trusted + '/'));
             if (!isTrustedReferer) {
                 logSecurityEvent({
                     type: 'ORIGIN_MISMATCH',
@@ -91,8 +96,19 @@ export async function handle({ event, resolve }) {
                 );
             }
         }
-        // No origin AND no referer on a mutating API call — suspicious in production
-        // but allowed because some valid SvelteKit server-side form actions may lack it
+        // No origin AND no referer on a mutating API call — block in production
+        else if (!DEV) {
+            logSecurityEvent({
+                type: 'CSRF_BLOCK',
+                message: `Mutating request blocked — no origin or referer header`,
+                ip, path, method,
+                metadata: {}
+            });
+            return json(
+                { success: false, message: 'Forbidden: Missing origin.' },
+                { status: 403 }
+            );
+        }
     }
 
     // ═══════════════════════════════════════════
@@ -183,7 +199,7 @@ export async function handle({ event, resolve }) {
     // ═══════════════════════════════════════════
     const response = await resolve(event, {
         filterSerializedResponseHeaders(name) {
-            return name === 'content-range' || name === 'x-supabase-api-version';
+            return name === 'content-range';
         }
     });
 

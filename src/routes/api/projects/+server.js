@@ -3,6 +3,7 @@ import { json } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma.js';
 import { requireAdmin } from '$lib/server/auth.js';
 import { safeJsonParse } from '$lib/utils.js';
+import { deepSanitize } from '$lib/server/security.js';
 
 // GET all projects
 export async function GET() {
@@ -30,7 +31,7 @@ export async function POST(event) {
     if (adminResult instanceof Response) return adminResult;
 
     try {
-        const { title, description, image, tags, contributors, status } = await event.request.json();
+        const { title, description, image, tags, contributors, status } = deepSanitize(await event.request.json());
 
         const project = await prisma.project.create({
             data: {
@@ -78,7 +79,7 @@ export async function PUT(event) {
     if (adminResult instanceof Response) return adminResult;
 
     try {
-        const body = await event.request.json();
+        const body = deepSanitize(await event.request.json());
         const id = parseInt(body.id);
         if (isNaN(id)) return json({ success: false, message: 'Invalid project ID' }, { status: 400 });
         const { title, description, image, tags, contributors, status } = body;

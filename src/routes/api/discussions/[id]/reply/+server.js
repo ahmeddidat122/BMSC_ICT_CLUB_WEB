@@ -1,6 +1,7 @@
 import { json } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma';
 import { checkAndAwardBadges } from '$lib/server/badgeChecker';
+import { sanitize } from '$lib/server/security.js';
 
 export async function POST({ request, params, locals: { safeGetSession } }) {
   const { dbUser } = await safeGetSession();
@@ -11,7 +12,7 @@ export async function POST({ request, params, locals: { safeGetSession } }) {
 
   const reply = await prisma.discussionReply.create({
     data: {
-      content: data.content,
+      content: sanitize(data.content),
       authorId: dbUser.id,
       discussionId: discussionId
     }

@@ -16,7 +16,7 @@ export default {
           '800': '#08080C',
           '900': '#06060A',
           '950': '#040406',
-          DEFAULT: '#0A0A10',
+          DEFAULT: 'var(--color-dark)',
         },
         'primary': {
           '50': '#faf7f2',
@@ -29,7 +29,7 @@ export default {
           '700': '#8b5331',
           '800': '#72432d',
           '900': '#5d3727',
-          DEFAULT: '#ceb28d',
+          DEFAULT: 'var(--color-primary)',
         },
         'secondary': {
           '50': '#fffcf2',
@@ -42,7 +42,7 @@ export default {
           '700': '#b55e0d',
           '800': '#944911',
           '900': '#793c11',
-          DEFAULT: '#d4af37',
+          DEFAULT: 'var(--color-secondary)',
         },
       },
       fontFamily: {

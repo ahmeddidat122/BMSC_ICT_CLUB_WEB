@@ -436,12 +436,13 @@
 							Follow Us
 						</h3>
 						<div class="flex gap-3">
-							<a
-								href="https://facebook.com/bmscictclub.bogura"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="p-3 rounded-xl bg-white/5 hover:bg-blue-600/20 text-gray-400 hover:text-blue-400 transition-all duration-300 hover:-translate-y-1"
-							>
+						<a
+							href="https://facebook.com/bmscictclub.bogura"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="Facebook"
+							class="p-3 rounded-xl bg-white/5 hover:bg-blue-600/20 text-gray-400 hover:text-blue-400 transition-all duration-300 hover:-translate-y-1"
+						>
 								<svg
 									class="w-5 h-5"
 									fill="currentColor"
@@ -451,12 +452,13 @@
 									/></svg
 								>
 							</a>
-							<a
-								href="https://instagram.com/bmscictclub"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="p-3 rounded-xl bg-white/5 hover:bg-pink-600/20 text-gray-400 hover:text-pink-400 transition-all duration-300 hover:-translate-y-1"
-							>
+						<a
+							href="https://instagram.com/bmscictclub"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="Instagram"
+							class="p-3 rounded-xl bg-white/5 hover:bg-pink-600/20 text-gray-400 hover:text-pink-400 transition-all duration-300 hover:-translate-y-1"
+						>
 								<svg
 									class="w-5 h-5"
 									fill="currentColor"
@@ -466,12 +468,13 @@
 									/></svg
 								>
 							</a>
-							<a
-								href="https://github.com/bmscictclub"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="p-3 rounded-xl bg-white/5 hover:bg-gray-600/20 text-gray-400 hover:text-white transition-all duration-300 hover:-translate-y-1"
-							>
+						<a
+							href="https://github.com/bmscictclub"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="GitHub"
+							class="p-3 rounded-xl bg-white/5 hover:bg-gray-600/20 text-gray-400 hover:text-white transition-all duration-300 hover:-translate-y-1"
+						>
 								<svg
 									class="w-5 h-5"
 									fill="currentColor"

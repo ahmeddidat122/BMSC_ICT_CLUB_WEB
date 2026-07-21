@@ -101,12 +101,7 @@ export function deepSanitize(obj) {
     if (obj !== null && typeof obj === 'object') {
         const result = {};
         for (const [key, value] of Object.entries(obj)) {
-            // Don't sanitize keys that are expected to contain safe data
-            if (['password', 'hash', 'token', 'secret'].includes(key.toLowerCase())) {
-                result[key] = value;
-            } else {
-                result[key] = deepSanitize(value);
-            }
+            result[key] = deepSanitize(value);
         }
         return result;
     }

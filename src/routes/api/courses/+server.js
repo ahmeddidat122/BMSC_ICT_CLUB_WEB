@@ -84,8 +84,8 @@ export async function PUT(event) {
         const course = await prisma.course.update({
             where: { id },
             data: {
-                title,
-                description,
+                title: sanitize(title),
+                description: sanitize(description),
                 level,
                 duration,
                 icon,

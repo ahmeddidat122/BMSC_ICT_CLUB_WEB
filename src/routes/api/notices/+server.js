@@ -88,7 +88,7 @@ export async function PUT(event) {
 
         const notice = await prisma.notice.update({
             where: { id },
-            data: { title, description, date, type, pinned }
+            data: { title: sanitize(title), description: sanitize(description), date, type: sanitize(type), pinned }
         });
 
         // Extract mentions safely (@username) -> find new mentions

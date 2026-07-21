@@ -1,5 +1,6 @@
 import { json } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma';
+import { deepSanitize } from '$lib/server/security.js';
 
 export async function GET() {
   const badges = await prisma.badge.findMany({ orderBy: { id: 'asc' } });
@@ -12,7 +13,7 @@ export async function POST({ request, locals: { safeGetSession } }) {
     return json({ success: false, message: 'Admin only' }, { status: 403 });
   }
   
-  const data = await request.json();
+  const data = deepSanitize(await request.json());
   const badge = await prisma.badge.create({
     data: {
       name: data.name,
@@ -30,7 +31,7 @@ export async function PUT({ request, locals: { safeGetSession } }) {
     return json({ success: false, message: 'Admin only' }, { status: 403 });
   }
 
-  const data = await request.json();
+  const data = deepSanitize(await request.json());
   const badge = await prisma.badge.update({
     where: { id: data.id },
     data: {

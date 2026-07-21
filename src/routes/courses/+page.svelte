@@ -49,23 +49,6 @@
 	});
 </script>
 
-<svelte:head>
-	<title>Courses — BMSC ICT Club</title>
-	<meta
-		name="description"
-		content="Explore our range of technology courses including Web Development, Python, Graphic Design, Robotics, Cybersecurity, and App Development."
-	/>
-	<meta property="og:title" content="Our Courses — BMSC ICT Club" />
-	<meta
-		property="og:description"
-		content="Master coding, robotics, and design with hands-on courses designed by BMSC ICT Club."
-	/>
-	<meta property="twitter:title" content="Our Courses — BMSC ICT Club" />
-	<meta
-		property="twitter:description"
-		content="Master coding, robotics, and design with hands-on courses designed by BMSC ICT Club."
-	/>
-</svelte:head>
 
 <!-- Hero -->
 <section class="relative py-24 lg:py-32 overflow-hidden">
